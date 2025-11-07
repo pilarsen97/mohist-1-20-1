@@ -1,0 +1,26 @@
+limitcrafting:
+  # if you want to disable plugin, set to false
+  enabled: true
+  config-reloaded: "&eConfiguration reloaded! &cIf you're enjoying LimitCrafting, leave a review on Spigot as it helps the author of this plugin. :)"
+  # use %command% to get command syntax
+  incorrect-syntax: "&cIncorrect syntax: %command%"
+  # message that is sent to the player after trying to craft a disallowed item
+  # use %item% to get item name
+  message: '&eYou aren''t permitted to craft item %item%'
+  # set to true if you want to block ALL items in the game from crafting
+  block-all-items: false
+  # list of materials you would like to block from crafting if block-all-items is set to false
+  # note: items listed in default-block-list will still be blocked even if you're using groups
+  # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  default-block-list:
+    - 'LADDER'
+    - 'TORCH'
+    - 'GOLDEN_APPLE'
+  # disallow specific crafting of recipes for specific players using group permissions, works in addition with default-block-list
+  # simply use 'limitcrafting.groups.<group-name>' in player permissions, to block recipes for specific groups of players
+  enable-groups: true
+  groups:
+    silver:
+      - 'OAK_PLANKS'
+    bronze:
+      - 'BUCKET'

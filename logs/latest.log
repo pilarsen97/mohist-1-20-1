@@ -1,0 +1,341 @@
+[15:50:21] [main/INFO] [cpw.mods.modlauncher.Launcher]: ModLauncher running: args [--launchTarget, forgeserver, --fml.forgeVersion, 47.4.9, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412]
+[15:50:21] [main/INFO] [cpw.mods.modlauncher.Launcher]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 21.0.7 by Oracle Corporation; OS Windows 11 arch amd64 version 10.0
+[15:50:21] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler]: ImmediateWindowProvider not loading because launch target is forgeserver
+[15:50:21] [main/INFO] [mixin]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/mohist-1-20-1/libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar%23104!/ Service=ModLauncher Env=SERVER
+[15:50:21] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator]: No dependencies to load found. Skipping!
+[15:50:23] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler]: Launching target 'forgeserver' with arguments []
+[15:50:24] [main/WARN] [oshi.driver.windows.perfmon.PerfmonDisabled]: Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
+[15:50:31] [modloading-worker-0/INFO] [com.mohistmc.MohistMC]: Mohist mod loading.....
+[15:50:31] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod]: Forge mod loading, version 47.4.9, for MC 1.20.1 with MCP 20230612.114412
+[15:50:31] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge]: MinecraftForge v47.4.9 Initialized
+[15:50:31] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge]: NeoForge v47.1.106 Initialized
+[15:50:31] [modloading-worker-0/INFO] [com.mohistmc.MohistMC]: EventDispatcherRegistry initialized
+[15:50:33] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[15:50:35] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager]: Loaded 7 recipes
+[15:50:36] [main/INFO] [net.minecraft.advancements.AdvancementList]: Loaded 1271 advancements
+[15:50:36] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer]: Starting minecraft server version 1.20.1
+[15:50:36] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer]: Loading properties
+[15:50:36] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer]: Default game type: SURVIVAL
+[15:50:36] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Generating keypair
+[15:50:36] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer]: Starting Minecraft server on 192.168.2.96:25565
+[15:50:36] [Server thread/INFO] [net.minecraft.server.network.ServerConnectionListener]: Using default channel type
+[15:50:36] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[15:50:36] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer]: The server will make no attempt to authenticate usernames. Beware.
+[15:50:36] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[15:50:36] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer]: To change this, set "online-mode" to "true" in the server.properties file.
+[15:50:36] [Server thread/INFO] [Minecraft]: This server is running Mohist version 1.20.1-2eb79df3 (MC: 1.20.1) (Implementing API version 1.20.1-R0.1-SNAPSHOT, Forge version 47.4.9, NeoForge version 47.1.106)
+[15:50:37] [Server thread/INFO] [Minecraft]: Debug logging is enabled
+[15:50:37] [Server thread/INFO] []: Server Ping Player Sample Count: 20
+[15:50:37] [Server thread/INFO] [Minecraft]: Using 4 threads for Netty based IO
+[15:50:39] [Server thread/ERROR] [Minecraft]: Could not load ' plugins ' in folder ' plugins\LuckPerms-MVdWPlaceholderAPI-Hook.jar '
+org.bukkit.plugin.UnknownDependencyException: Unknown dependency MVdWPlaceholderAPI . Please download and install MVdWPlaceholderAPI to run this plugin.
+	at org.bukkit.plugin.SimplePluginManager.loadPlugins(SimplePluginManager.java:274) ~[forge-1.20.1-47.4.9-universal.jar%23185!/:?]
+	at org.bukkit.craftbukkit.v1_20_R1.CraftServer.loadPlugins(CraftServer.java:440) ~[forge-1.20.1-47.4.9-universal.jar%23185!/:997de31d-ddc9a2dad-d2eba2c8-47.1.106]
+	at net.minecraft.server.dedicated.DedicatedServer.m_7038_(DedicatedServer.java:227) ~[server-1.20.1-20230612.114412-srg.jar%23180!/:?]
+	at net.minecraft.server.MinecraftServer.m_130011_(MinecraftServer.java:808) ~[server-1.20.1-20230612.114412-srg.jar%23180!/:?]
+	at net.minecraft.server.MinecraftServer.m_206580_(MinecraftServer.java:285) ~[server-1.20.1-20230612.114412-srg.jar%23180!/:?]
+	at java.lang.Thread.run(Thread.java:1583) [?:?]
+[15:50:39] [Server thread/INFO] [me.minebuilders.clearlag.Clearlag]: [ClearLag] Loading ClearLag v3.2.2
+[15:50:39] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Loading LuckPerms v5.4.128
+[15:50:41] [Server thread/INFO] [me.tezk.limitcrafting.LimitCrafting]: [LimitCrafting] Loading LimitCrafting v5.2
+[15:50:41] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Loading PlaceholderAPI v2.11.6
+[15:50:41] [Server thread/INFO] [net.skinsrestorer.bukkit.SRBukkitBootstrap]: [SkinsRestorer] Loading SkinsRestorer v15.0.13
+[15:50:41] [Server thread/INFO] [me.neznamy.tab.platforms.bukkit.BukkitTAB]: [TAB] Loading TAB v4.1.4
+[15:50:41] [Server thread/INFO] [me.SuperRonanCraft.BetterRTP.BetterRTP]: [BetterRTP] Loading BetterRTP v3.6.13
+[15:50:41] [Server thread/INFO] [net.flectone.chat.FlectoneChat]: [FlectoneChat] Loading FlectoneChat v4.5.1
+[15:50:41] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling LuckPerms v5.4.128
+[15:50:42] [Server thread/INFO] [Console]:         __    
+[15:50:42] [Server thread/INFO] [Console]:   |    |__)   LuckPerms v5.4.128
+[15:50:42] [Server thread/INFO] [Console]:   |___ |      Running on Bukkit - Mohist
+[15:50:42] [Server thread/INFO] [Console]: 
+[15:50:42] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Loading configuration...
+[15:50:43] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Loading storage provider... [H2]
+[15:50:45] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Loading internal permission managers...
+[15:50:46] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Performing initial data load...
+[15:50:46] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Successfully enabled. (took 5271ms)
+[15:50:46] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling SkinsRestorer v15.0.13
+[15:50:48] [Server thread/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1mRunning on Minecraft [33;1m1.20.1[32;1m.[0;39m
+[15:50:48] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Successfully registered internal expansion: skinsrestorer [15.0.13]
+[15:50:48] [Server thread/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39mPlaceholderAPI expansion registered![0;39m
+[15:50:49] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer]: Preparing level "world"
+[15:50:50] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Preparing start region for dimension minecraft:overworld
+[15:50:54] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener]: Preparing spawn area: 5%
+[15:50:55] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener]: Preparing spawn area: 53%
+[15:50:55] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener]: Time elapsed: 4775 ms
+[15:50:55] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Preparing start region for dimension minecraft:the_end
+[15:50:57] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener]: Preparing spawn area: 79%
+[15:50:57] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener]: Time elapsed: 2603 ms
+[15:50:57] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Preparing start region for dimension minecraft:the_nether
+[15:51:00] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener]: Preparing spawn area: 35%
+[15:51:00] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener]: Time elapsed: 2759 ms
+[15:51:00] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling ClearLag v3.2.2
+[15:51:00] [Server thread/INFO] [Minecraft]: [ClearLag] Using version-adapter: LatestVersionAdapter
+[15:51:00] [Server thread/INFO] [Minecraft]: [ClearLag] Loading modules...
+[15:51:00] [Server thread/WARN] [Minecraft]: [ClearLag] Clearlag failed to use the internal TPS tracker during initialization. Reverted to estimation... (net.minecraft.server.v1_20_R1.MinecraftServer)
+[15:51:00] [Server thread/INFO] [Minecraft]: [ClearLag] Modules enabed, loading config values
+[15:51:01] [Server thread/INFO] [Minecraft]: [ClearLag] Modules have been loaded!
+[15:51:01] [Server thread/INFO] [Minecraft]: [ClearLag] Clearlag is now enabled!
+[15:51:01] [Thread-11/INFO] [Minecraft]: [ClearLag] Checking for updates compatible with your bukkit version [1.20]...
+[15:51:01] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling LimitCrafting v5.2
+[15:51:01] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling PlaceholderAPI v2.11.6
+[15:51:01] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Fetching available expansion information...
+[15:51:01] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Successfully registered internal expansion: mohist [1.20.1]
+[15:51:01] [Server thread/INFO] [com.mohistmc.MohistMC]: Hook PlaceholderAPI!
+[15:51:01] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling TAB v4.1.4
+[15:51:01] [Server thread/INFO] [Console]: [TAB] Loaded NMS hook in 164ms
+[15:51:01] [Thread-11/INFO] [Minecraft]: [ClearLag] No updates found!
+[15:51:02] [Server thread/INFO] [Console]: [TAB] Enabled in 407ms
+[15:51:02] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling BetterRTP v3.6.13
+[15:51:03] [Server thread/INFO] [me.SuperRonanCraft.BetterRTP.BetterRTP]: [BetterRTP] Cooldown = 600
+[15:51:03] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Successfully registered internal expansion: betterrtp [3.6.13]
+[15:51:03] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling FlectoneChat v4.5.1
+[15:51:03] [Server thread/INFO] [net.flectone.chat.FlectoneChat]: [FlectoneChat] SQLite DB Connected successfully
+[15:51:03] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Successfully registered internal expansion: FlectoneChat [4.5.1]
+[15:51:03] [Server thread/INFO] [net.flectone.chat.FlectoneChat]: [FlectoneChat] PlaceholderAPI detected and hooked
+[15:51:03] [Server thread/INFO] [net.flectone.chat.FlectoneChat]: [FlectoneChat] LuckPerms detected and hooked
+[15:51:03] [Server thread/INFO] [net.flectone.chat.FlectoneChat]: [FlectoneChat] SkinsRestorer detected and hooked
+[15:51:03] [Server thread/INFO] [com.mohistmc.MohistMC]: Enabling Mohist v1.20.1
+[15:51:03] [Server thread/INFO] [Minecraft]: Server permissions file permissions.yml is empty, ignoring it
+[15:51:03] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Placeholder expansion registration initializing...
+[15:51:03] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer]: Done (14.894s)! For help, type "help"
+[15:51:03] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer]: Starting remote control listener
+[15:51:03] [Server thread/INFO] [net.minecraft.server.rcon.thread.GenericThread]: Thread RCON Listener started
+[15:51:03] [Server thread/INFO] [net.minecraft.server.rcon.thread.RconThread]: RCON running on 192.168.2.96:25575
+[15:51:04] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI]: Successfully initialized permission handler forge:default_handler
+[15:51:04] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI]: Forwarding forge permission[forge:default_handler] to bukkit[mohist:permission]
+[15:51:04] [Server thread/WARN] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Loaded class net.luckperms.api.LuckPerms from LuckPerms v5.4.128 which is not a depend or softdepend of this plugin.
+[15:51:04] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Successfully registered external expansion: luckperms [5.4-R2]
+[15:51:04] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Successfully registered external expansion: server [2.7.2]
+[15:51:04] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Successfully registered external expansion: statistic [2.0.1]
+[15:51:04] [Server thread/WARN] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Cannot load expansion vault due to a missing plugin: Vault
+[15:51:04] [Server thread/INFO] [Console]: 3 placeholder hook(s) registered!
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m----------------------------------------------[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m    +==================+[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m    |   SkinsRestorer  |[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m    |------------------|[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m    |  [34;1m[4m[21mStandalone Mode[0;39m[32;1m |[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m    +==================+[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m----------------------------------------------[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[36;1m    Version: [31;1m15.0.13[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[36;1m    Commit: [31;1m8e4c6e2[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[36;1m    A new version ([32;1m15.8.2[36;1m) is available! Downloading update...[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[32;1m----------------------------------------------[0;39m
+[15:51:04] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[GitHubUpdate] Downloading update...[0;39m
+[15:51:05] [Craft Scheduler Thread - 1/WARN] [Minecraft]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[GitHubUpdate] MD5 header not found, cannot verify integrity[0;39m
+[15:51:05] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[GitHubUpdate] Downloaded update in 1202ms[0;39m
+[15:51:05] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[GitHubUpdate] Update saved as SkinsRestorer.jar[0;39m
+[15:51:05] [Craft Scheduler Thread - 1/INFO] [Console]: [33;1m[[32;22mSkinsRestorer[33;1m] [0;39m[GitHubUpdate] The update will be loaded on the next server restart[0;39m
+[15:52:06] [Netty Server IO #1/WARN] [net.flectone.chat.FlectoneChat]: [FlectoneChat] Unable to load and install server-icon-1.png image
+[15:52:06] [Netty Server IO #1/WARN] []: java.lang.NullPointerException: Cannot invoke "java.awt.image.BufferedImage.getWidth()" because "bufferedImage" is null
+[15:52:06] [Netty Server IO #1/WARN] []: 	at net.flectone.chat.module.server.status.StatusListener.setIcon(StatusListener.java:82)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at net.flectone.chat.module.server.status.StatusListener.statusEvent(StatusListener.java:56)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at net.flectone.chat.module.FListener.lambda$registerEvents$0(FListener.java:69)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:604)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:588)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.server.network.ServerStatusPacketListenerImpl.m_6733_(ServerStatusPacketListenerImpl.java:51)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.protocol.status.ServerboundStatusRequestPacket.m_5797_(ServerboundStatusRequestPacket.java:19)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.protocol.status.ServerboundStatusRequestPacket.m_5797_(ServerboundStatusRequestPacket.java:6)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.m_129517_(Connection.java:183)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.channelRead0(Connection.java:168)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.channelRead0(Connection.java:50)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:103)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:336)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:308)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:336)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:308)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.server.network.LegacyQueryHandler.channelRead(LegacyQueryHandler.java:85)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.handler@4.1.82.Final/io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.common@4.1.82.Final/io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at MC-BOOTSTRAP/io.netty.common@4.1.82.Final/io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+[15:52:06] [Netty Server IO #1/WARN] []: 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[15:52:12] [SQLite Thread/INFO] [Console]: [38;2;78;255;82m→ [38;2;188;232;247m[38;2;188;232;247m[38;2;188;232;247mGolub4ik
+[15:52:12] [Server thread/INFO] [net.minecraft.server.players.PlayerList]: Golub4ik[/192.168.2.96:57168] logged in with entity id 254 at ([world]-44.954224980391345, 81.78996003702791, -707.1302156623774)
+[15:52:13] [Craft Scheduler Thread - 12/WARN] [net.flectone.chat.FlectoneChat]: [FlectoneChat] Plugin FlectoneChat v4.5.1 generated an exception while executing task 154
+java.lang.NullPointerException: Cannot invoke "String.substring(int)" because the return value of "net.flectone.chat.component.FImageComponent.getConvertedImage()" is null
+	at net.flectone.chat.module.serverMessage.greeting.GreetingModule.send(GreetingModule.java:42) ~[?:?]
+	at net.flectone.chat.module.serverMessage.greeting.GreetingListener.lambda$playerJoinEvent$0(GreetingListener.java:30) ~[?:?]
+	at org.bukkit.craftbukkit.v1_20_R1.scheduler.CraftTask.run(CraftTask.java:78) ~[forge-1.20.1-47.4.9-universal.jar%23185!/:?]
+	at org.bukkit.craftbukkit.v1_20_R1.scheduler.CraftAsyncTask.run(CraftAsyncTask.java:55) ~[forge-1.20.1-47.4.9-universal.jar%23185!/:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1583) [?:?]
+[15:52:18] [Server thread/INFO] [Console]: [38;2;131;78;255m🌠 [38;2;188;232;247m[38;2;188;232;247m[38;2;188;232;247mGolub4ik[38;2;188;232;247m [38;2;104;208;242mзавершил испытание [38;2;131;78;255m[[38;2;131;78;255mAdventuring Time[38;2;131;78;255m]
+[15:52:19] [Server thread/INFO] [Console]: [ClearLag] Сервер перегружен, принимаются меры по устранению!
+[15:52:19] [Server thread/INFO] [Console]: [ClearLag] 227 мобов было удалено!
+[15:52:19] [Server thread/INFO] [Console]: [ClearLag] Вы только что удалили 9 сущностей!
+[15:52:19] [Server thread/INFO] [Console]: [ClearLag] Активность сервера была остановлена!
+[15:52:31] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl]: Golub4ik issued server command: /rtp
+[15:52:32] [Server thread/INFO] [Console]: [38;2;131;78;255m🌠 [38;2;188;232;247m[38;2;188;232;247m[38;2;188;232;247mGolub4ik[38;2;188;232;247m [38;2;104;208;242mзавершил испытание [38;2;131;78;255m[[38;2;131;78;255mAdventuring Time[38;2;131;78;255m]
+[15:52:34] [Server thread/INFO] [Console]: [38;2;131;78;255m🌠 [38;2;188;232;247m[38;2;188;232;247m[38;2;188;232;247mGolub4ik[38;2;188;232;247m [38;2;104;208;242mзавершил испытание [38;2;131;78;255m[[38;2;131;78;255mAdventuring Time[38;2;131;78;255m]
+[15:52:43] [Server thread/WARN] [net.minecraft.server.network.ServerGamePacketListenerImpl]: Golub4ik moved too quickly! -9.47740847423097,7.119331924324854,7.531702650370789
+[15:52:55] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl]: Golub4ik issued server command: /lp
+[15:53:22] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl]: Golub4ik issued server command: /rtp
+[15:53:23] [Server thread/INFO] [Console]: [38;2;131;78;255m🌠 [38;2;188;232;247m[38;2;188;232;247m[38;2;188;232;247mGolub4ik[38;2;188;232;247m [38;2;104;208;242mзавершил испытание [38;2;131;78;255m[[38;2;131;78;255mAdventuring Time[38;2;131;78;255m]
+[15:54:09] [Server thread/INFO] [Console]: [ClearLag] Сервер больше не перегружен!
+[15:54:09] [Server thread/INFO] [Console]: [ClearLag] Активность сервера больше не остановлена!
+[15:56:48] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl]: Golub4ik lost connection: Disconnected
+[15:56:48] [Server thread/INFO] [Console]: [38;2;255;78;78m← [38;2;188;232;247m[38;2;188;232;247m[38;2;188;232;247mGolub4ik
+[15:56:49] [Netty Server IO #3/WARN] [net.flectone.chat.FlectoneChat]: [FlectoneChat] Unable to load and install server-icon-2.png image
+[15:56:49] [Netty Server IO #3/WARN] []: java.lang.NullPointerException: Cannot invoke "java.awt.image.BufferedImage.getWidth()" because "bufferedImage" is null
+[15:56:49] [Netty Server IO #3/WARN] []: 	at net.flectone.chat.module.server.status.StatusListener.setIcon(StatusListener.java:82)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at net.flectone.chat.module.server.status.StatusListener.statusEvent(StatusListener.java:56)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at net.flectone.chat.module.FListener.lambda$registerEvents$0(FListener.java:69)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:604)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:588)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.server.network.ServerStatusPacketListenerImpl.m_6733_(ServerStatusPacketListenerImpl.java:51)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.protocol.status.ServerboundStatusRequestPacket.m_5797_(ServerboundStatusRequestPacket.java:19)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.protocol.status.ServerboundStatusRequestPacket.m_5797_(ServerboundStatusRequestPacket.java:6)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.m_129517_(Connection.java:183)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.channelRead0(Connection.java:168)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.channelRead0(Connection.java:50)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:103)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:336)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:308)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:336)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:308)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.server.network.LegacyQueryHandler.channelRead(LegacyQueryHandler.java:85)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.handler@4.1.82.Final/io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.common@4.1.82.Final/io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at MC-BOOTSTRAP/io.netty.common@4.1.82.Final/io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+[15:56:49] [Netty Server IO #3/WARN] []: 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[15:56:58] [Netty Server IO #4/WARN] [net.flectone.chat.FlectoneChat]: [FlectoneChat] Unable to load and install server-icon-2.png image
+[15:56:58] [Netty Server IO #4/WARN] []: java.lang.NullPointerException: Cannot invoke "java.awt.image.BufferedImage.getWidth()" because "bufferedImage" is null
+[15:56:58] [Netty Server IO #4/WARN] []: 	at net.flectone.chat.module.server.status.StatusListener.setIcon(StatusListener.java:82)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at net.flectone.chat.module.server.status.StatusListener.statusEvent(StatusListener.java:56)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at net.flectone.chat.module.FListener.lambda$registerEvents$0(FListener.java:69)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:604)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/forge@47.4.9/org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:588)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.server.network.ServerStatusPacketListenerImpl.m_6733_(ServerStatusPacketListenerImpl.java:51)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.protocol.status.ServerboundStatusRequestPacket.m_5797_(ServerboundStatusRequestPacket.java:19)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.protocol.status.ServerboundStatusRequestPacket.m_5797_(ServerboundStatusRequestPacket.java:6)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.m_129517_(Connection.java:183)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.channelRead0(Connection.java:168)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.network.Connection.channelRead0(Connection.java:50)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:103)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:336)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:308)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:336)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.codec@4.1.82.Final/io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:308)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at TRANSFORMER/minecraft@1.20.1/net.minecraft.server.network.LegacyQueryHandler.channelRead(LegacyQueryHandler.java:85)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.handler@4.1.82.Final/io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.transport@4.1.82.Final/io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.common@4.1.82.Final/io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at MC-BOOTSTRAP/io.netty.common@4.1.82.Final/io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+[15:56:58] [Netty Server IO #4/WARN] []: 	at java.base/java.lang.Thread.run(Thread.java:1583)
+[15:59:55] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Stopping the server
+[15:59:55] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Stopping server
+[15:59:55] [Server thread/INFO] [com.mohistmc.plugins.Main]: [Mohist] Disabling Mohist v1.20.1
+[15:59:55] [Server thread/INFO] [net.flectone.chat.FlectoneChat]: [FlectoneChat] Disabling FlectoneChat v4.5.1
+[15:59:55] [Server thread/INFO] [me.neznamy.tab.platforms.bukkit.BukkitTAB]: [TAB] Disabling TAB v4.1.4
+[15:59:55] [Server thread/INFO] [Console]: [TAB] Disabled in 0ms
+[15:59:55] [Server thread/INFO] [net.skinsrestorer.bukkit.SRBukkitBootstrap]: [SkinsRestorer] Disabling SkinsRestorer v15.0.13
+[15:59:55] [Server thread/INFO] [me.clip.placeholderapi.PlaceholderAPIPlugin]: [PlaceholderAPI] Disabling PlaceholderAPI v2.11.6
+[15:59:55] [Server thread/INFO] [me.tezk.limitcrafting.LimitCrafting]: [LimitCrafting] Disabling LimitCrafting v5.2
+[15:59:55] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Disabling LuckPerms v5.4.128
+[15:59:55] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Starting shutdown process...
+[15:59:55] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Closing storage...
+[15:59:55] [Server thread/INFO] [me.lucko.luckperms.bukkit.loader.BukkitLoaderPlugin]: [LuckPerms] Goodbye!
+[15:59:55] [Server thread/INFO] [me.minebuilders.clearlag.Clearlag]: [ClearLag] Disabling ClearLag v3.2.2
+[15:59:55] [Server thread/INFO] [Minecraft]: [ClearLag] Clearlag is now disabled!
+[15:59:55] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving players
+[15:59:55] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving worlds
+[15:59:57] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[15:59:58] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving chunks for level 'ServerLevel[world/DIM1]'/minecraft:the_end
+[15:59:58] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving chunks for level 'ServerLevel[world/DIM-1]'/minecraft:the_nether
+[15:59:59] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[15:59:59] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[15:59:59] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[15:59:59] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[15:59:59] [Server thread/INFO] [net.minecraft.server.rcon.thread.GenericThread]: Thread RCON Listener stopped
