@@ -80,7 +80,7 @@ default:
 
     status:
       icon:
-        enable: true
+        enable: false
 
         mode: random
 
@@ -109,14 +109,14 @@ default:
           enable: true
 
     advancement:
-      enable: true
+      enable: false
 
       task:
-        visible: true
+        visible: false
       goal:
-        visible: true
+        visible: false
       challenge:
-        visible: true
+        visible: false
 
     join:
       enable: true
