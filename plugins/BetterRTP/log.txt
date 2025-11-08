@@ -1,39 +1,20 @@
-2025-10-26 15:51:03 [INFO]: [BetterRTP] Loading Overrides...
-2025-10-26 15:51:03 [INFO]: [BetterRTP] Loading World Types...
-2025-10-26 15:51:03 [INFO]: [BetterRTP] - World Type for 'world' set to 'NORMAL'
-2025-10-26 15:51:03 [INFO]: [BetterRTP] - World Type for 'world_nether' set to 'NETHER'
-2025-10-26 15:51:03 [INFO]: [BetterRTP] - World Type for 'world_the_end' set to 'NORMAL'
-2025-10-26 15:51:03 [INFO]: [BetterRTP] Loading Defaults...
-2025-10-26 15:51:03 [INFO]: [BetterRTP] Loading Custom Worlds...
-2025-10-26 15:51:03 [INFO]: [BetterRTP] [WARN] - Custom World 'custom_world_1' was not registered because world does NOT exist
-2025-10-26 15:51:03 [INFO]: [BetterRTP] [WARN] - Custom World 'other_custom_world' was not registered because world does NOT exist
-2025-10-26 15:51:04 [INFO]: [BetterRTP] Database COOLDOWN:world configured and loaded!
-2025-10-26 15:51:04 [INFO]: [BetterRTP] Database PLAYERS:Players configured and loaded!
-2025-10-26 15:51:04 [INFO]: [BetterRTP] Database COOLDOWN:DIM1 configured and loaded!
-2025-10-26 15:51:04 [INFO]: [BetterRTP] Database COOLDOWN:DIM-1 configured and loaded!
-2025-10-26 15:51:04 [INFO]: [BetterRTP] Database CHUNK_DATA:ChunkData configured and loaded!
-2025-10-26 15:51:04 [INFO]: [BetterRTP] Database QUEUE:Queue configured and loaded!
-2025-10-26 15:51:04 [INFO]: [BetterRTP] Attempting to queue up some more safe locations...
-2025-10-26 15:51:24 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 1, location= x: 79, y: 69, z: -779, world: world
-2025-10-26 15:51:28 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 2, location= x: -622, y: 66, z: 378, world: world
-2025-10-26 15:51:35 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 3, location= x: -571, y: 79, z: -369, world: world
-2025-10-26 15:51:41 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 4, location= x: -576, y: 139, z: -867, world: world
-2025-10-26 15:51:44 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 5, location= x: -879, y: 65, z: 557, world: world
-2025-10-26 15:51:53 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 6, location= x: -843, y: 77, z: -896, world: world
-2025-10-26 15:51:57 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 7, location= x: -812, y: 77, z: -880, world: world
-2025-10-26 15:52:03 [INFO]: [BetterRTP] Queue position generated: id= default_world, database_ID= 8, location= x: 999, y: 111, z: -788, world: world
-2025-10-26 15:52:06 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_world (amount: 8)
-2025-10-26 15:52:08 [WARNING]: [BetterRTP] Seems like the world `DIM1` does not have a `WorldType` declared. Please add/fix this in the config.yml file! This world will be treated as an overworld! If this world is a nether world, configure it to NETHER (example: `- DIM1: NETHER`
-2025-10-26 15:52:08 [INFO]: [BetterRTP] Queue position generated: id= default_DIM1, database_ID= 9, location= x: -355, y: 59, z: -947, world: DIM1
-2025-10-26 15:52:12 [INFO]: [BetterRTP] Queue position generated: id= default_DIM1, database_ID= 10, location= x: 941, y: 59, z: 678, world: DIM1
-2025-10-26 15:52:25 [INFO]: [BetterRTP] Queue position generated: id= default_DIM1, database_ID= 11, location= x: 940, y: 57, z: -701, world: DIM1
-2025-10-26 15:52:31 [INFO]: [BetterRTP] -Removed a queue Location{world=CraftWorld{name=world},x=-842.5,y=77.0,z=-895.5,pitch=11.550028,yaw=-117.83469}
-2025-10-26 15:52:39 [INFO]: [BetterRTP] Queue position generated: id= default_DIM1, database_ID= 12, location= x: -609, y: 63, z: -878, world: DIM1
-2025-10-26 15:52:52 [INFO]: [BetterRTP] Queue position generated: id= default_DIM1, database_ID= 13, location= x: 253, y: 60, z: 992, world: DIM1
-2025-10-26 15:52:58 [INFO]: [BetterRTP] Queue position generated: id= default_DIM1, database_ID= 14, location= x: 529, y: 58, z: -895, world: DIM1
-2025-10-26 15:53:06 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_DIM1 (amount: 6)
-2025-10-26 15:53:07 [WARNING]: [BetterRTP] Seems like the world `DIM-1` does not have a `WorldType` declared. Please add/fix this in the config.yml file! This world will be treated as an overworld! If this world is a nether world, configure it to NETHER (example: `- DIM-1: NETHER`
-2025-10-26 15:53:22 [INFO]: [BetterRTP] -Removed a queue Location{world=CraftWorld{name=world},x=-621.5,y=66.0,z=378.5,pitch=35.70007,yaw=31.265045}
-2025-10-26 15:54:04 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_DIM-1 (amount: 0)
-2025-10-26 15:54:04 [INFO]: [BetterRTP] Queueing paused, max queue limit reached!
-2025-10-26 15:59:55 [INFO]: [BetterRTP] Disabling BetterRTP v3.6.13
+2025-11-08 12:58:42 [INFO]: [BetterRTP] Loading Overrides...
+2025-11-08 12:58:42 [INFO]: [BetterRTP] Loading World Types...
+2025-11-08 12:58:42 [INFO]: [BetterRTP] - World Type for 'world' set to 'NORMAL'
+2025-11-08 12:58:42 [INFO]: [BetterRTP] - World Type for 'world_nether' set to 'NETHER'
+2025-11-08 12:58:42 [INFO]: [BetterRTP] - World Type for 'world_the_end' set to 'NORMAL'
+2025-11-08 12:58:42 [INFO]: [BetterRTP] Loading Defaults...
+2025-11-08 12:58:42 [INFO]: [BetterRTP] Loading Custom Worlds...
+2025-11-08 12:58:42 [INFO]: [BetterRTP] [WARN] - Custom World 'custom_world_1' was not registered because world does NOT exist
+2025-11-08 12:58:42 [INFO]: [BetterRTP] [WARN] - Custom World 'other_custom_world' was not registered because world does NOT exist
+2025-11-08 12:58:47 [INFO]: [BetterRTP] Database PLAYERS:Players configured and loaded!
+2025-11-08 12:58:47 [INFO]: [BetterRTP] Database CHUNK_DATA:ChunkData configured and loaded!
+2025-11-08 12:58:47 [INFO]: [BetterRTP] Database COOLDOWN:world configured and loaded!
+2025-11-08 12:58:47 [INFO]: [BetterRTP] Database COOLDOWN:DIM1 configured and loaded!
+2025-11-08 12:58:47 [INFO]: [BetterRTP] Database COOLDOWN:DIM-1 configured and loaded!
+2025-11-08 12:58:47 [INFO]: [BetterRTP] Database QUEUE:Queue configured and loaded!
+2025-11-08 12:58:47 [INFO]: [BetterRTP] Attempting to queue up some more safe locations...
+2025-11-08 12:58:50 [WARNING]: [BetterRTP] Seems like the world `DIM-1` does not have a `WorldType` declared. Please add/fix this in the config.yml file! This world will be treated as an overworld! If this world is a nether world, configure it to NETHER (example: `- DIM-1: NETHER`
+2025-11-08 13:00:00 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_DIM-1 (amount: 0)
+2025-11-08 13:00:00 [INFO]: [BetterRTP] Queueing paused, max queue limit reached!
+2025-11-08 13:07:50 [INFO]: [BetterRTP] Disabling BetterRTP v3.6.13
