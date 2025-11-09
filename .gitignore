@@ -1,5 +1,5 @@
 /crash-reports
 /logs
 /world
-server.properties
-usercache.json
+/server.properties
+/usercache.json
