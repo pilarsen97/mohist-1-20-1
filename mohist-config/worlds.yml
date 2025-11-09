@@ -16,3 +16,9 @@ worlds:
     difficulty: EASY
   world/DIM-1:
     difficulty: EASY
+  twilight_forest:
+    worldborder: 5.9999968E7
+    ismods: true
+    modName: twilightforest
+  world/twilightforest/twilight_forest:
+    difficulty: EASY
