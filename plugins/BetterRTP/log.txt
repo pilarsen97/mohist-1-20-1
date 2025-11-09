@@ -1,34 +1,32 @@
-2025-11-09 14:28:35 [INFO]: [BetterRTP] Loading Overrides...
-2025-11-09 14:28:35 [INFO]: [BetterRTP] Loading World Types...
-2025-11-09 14:28:35 [INFO]: [BetterRTP] - World Type for 'world' set to 'NORMAL'
-2025-11-09 14:28:35 [INFO]: [BetterRTP] - World Type for 'world_nether' set to 'NETHER'
-2025-11-09 14:28:35 [INFO]: [BetterRTP] - World Type for 'world_the_end' set to 'NORMAL'
-2025-11-09 14:28:35 [INFO]: [BetterRTP] Loading Defaults...
-2025-11-09 14:28:35 [INFO]: [BetterRTP] Loading Custom Worlds...
-2025-11-09 14:28:35 [INFO]: [BetterRTP] [WARN] - Custom World 'custom_world_1' was not registered because world does NOT exist
-2025-11-09 14:28:35 [INFO]: [BetterRTP] [WARN] - Custom World 'other_custom_world' was not registered because world does NOT exist
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database COOLDOWN:world configured and loaded!
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database QUEUE:Queue configured and loaded!
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database CHUNK_DATA:ChunkData configured and loaded!
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database PLAYERS:Players configured and loaded!
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database COOLDOWN:twilight_forest configured and loaded!
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database COOLDOWN:DIM1 configured and loaded!
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database COOLDOWN:DIM-1 configured and loaded!
-2025-11-09 14:28:37 [INFO]: [BetterRTP] Database COOLDOWN:spatial_storage configured and loaded!
-2025-11-09 14:28:40 [INFO]: [BetterRTP] Attempting to queue up some more safe locations...
-2025-11-09 14:28:43 [WARNING]: [BetterRTP] Seems like the world `DIM-1` does not have a `WorldType` declared. Please add/fix this in the config.yml file! This world will be treated as an overworld! If this world is a nether world, configure it to NETHER (example: `- DIM-1: NETHER`
-2025-11-09 14:28:50 [INFO]: [BetterRTP] New world `spatial_storage` detected! Reloaded Databases!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database QUEUE:Queue configured and loaded!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database CHUNK_DATA:ChunkData configured and loaded!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database PLAYERS:Players configured and loaded!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database COOLDOWN:world configured and loaded!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database COOLDOWN:twilight_forest configured and loaded!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database COOLDOWN:DIM1 configured and loaded!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database COOLDOWN:DIM-1 configured and loaded!
-2025-11-09 14:28:50 [INFO]: [BetterRTP] Database COOLDOWN:spatial_storage configured and loaded!
-2025-11-09 14:29:48 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_DIM-1 (amount: 0)
-2025-11-09 14:29:50 [WARNING]: [BetterRTP] Seems like the world `spatial_storage` does not have a `WorldType` declared. Please add/fix this in the config.yml file! This world will be treated as an overworld! If this world is a nether world, configure it to NETHER (example: `- spatial_storage: NETHER`
-2025-11-09 14:29:50 [INFO]: [BetterRTP] Queue position generated: id= default_spatial_storage, database_ID= 15, location= x: -240, y: 255, z: 425, world: spatial_storage
-2025-11-09 14:30:43 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_DIM-1 (amount: 0)
-2025-11-09 14:30:45 [INFO]: [BetterRTP] Queue position generated: id= default_spatial_storage, database_ID= 16, location= x: -774, y: 255, z: 429, world: spatial_storage
-2025-11-09 14:31:38 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_DIM-1 (amount: 0)
+2025-11-09 14:38:23 [INFO]: [BetterRTP] Loading Overrides...
+2025-11-09 14:38:23 [INFO]: [BetterRTP] Loading World Types...
+2025-11-09 14:38:23 [INFO]: [BetterRTP] - World Type for 'world' set to 'NORMAL'
+2025-11-09 14:38:23 [INFO]: [BetterRTP] - World Type for 'world_nether' set to 'NETHER'
+2025-11-09 14:38:23 [INFO]: [BetterRTP] - World Type for 'world_the_end' set to 'NORMAL'
+2025-11-09 14:38:23 [INFO]: [BetterRTP] Loading Defaults...
+2025-11-09 14:38:23 [INFO]: [BetterRTP] Loading Custom Worlds...
+2025-11-09 14:38:23 [INFO]: [BetterRTP] [WARN] - Custom World 'custom_world_1' was not registered because world does NOT exist
+2025-11-09 14:38:23 [INFO]: [BetterRTP] [WARN] - Custom World 'other_custom_world' was not registered because world does NOT exist
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database PLAYERS:Players configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database QUEUE:Queue configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database COOLDOWN:world configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database CHUNK_DATA:ChunkData configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database COOLDOWN:DIM-1 configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database COOLDOWN:twilight_forest configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database COOLDOWN:DIM1 configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Database COOLDOWN:spatial_storage configured and loaded!
+2025-11-09 14:38:25 [INFO]: [BetterRTP] Attempting to queue up some more safe locations...
+2025-11-09 14:38:28 [WARNING]: [BetterRTP] Seems like the world `DIM-1` does not have a `WorldType` declared. Please add/fix this in the config.yml file! This world will be treated as an overworld! If this world is a nether world, configure it to NETHER (example: `- DIM-1: NETHER`
+2025-11-09 14:38:32 [INFO]: [BetterRTP] New world `spatial_storage` detected! Reloaded Databases!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database PLAYERS:Players configured and loaded!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database CHUNK_DATA:ChunkData configured and loaded!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database QUEUE:Queue configured and loaded!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database COOLDOWN:world configured and loaded!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database COOLDOWN:DIM-1 configured and loaded!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database COOLDOWN:twilight_forest configured and loaded!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database COOLDOWN:DIM1 configured and loaded!
+2025-11-09 14:38:32 [INFO]: [BetterRTP] Database COOLDOWN:spatial_storage configured and loaded!
+2025-11-09 14:39:23 [INFO]: [BetterRTP] Max attempts to create a Queue reached for default_DIM-1 (amount: 0)
+2025-11-09 14:39:25 [WARNING]: [BetterRTP] Seems like the world `twilight_forest` does not have a `WorldType` declared. Please add/fix this in the config.yml file! This world will be treated as an overworld! If this world is a nether world, configure it to NETHER (example: `- twilight_forest: NETHER`
+2025-11-09 14:39:25 [INFO]: [BetterRTP] Queue position generated: id= default_twilight_forest, database_ID= 17, location= x: -474, y: 35, z: -860, world: twilight_forest
+2025-11-09 14:40:06 [INFO]: [BetterRTP] Disabling BetterRTP v3.6.13
