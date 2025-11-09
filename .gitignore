@@ -9,3 +9,6 @@
 /plugins/LuckPerms/luckperms-h2-v2.mv.db
 /plugins/FlectoneChat/database.db-wal
 /plugins/FlectoneChat/database.db-shm
+/plugins/SkinsRestorer/cache
+/mohist-config/worlds.yml
+/.mixin.out/class/com/github/alexthe666/alexsmobs/entity/EntitySkelewag.class
