@@ -3,3 +3,9 @@
 /world
 /server.properties
 /usercache.json
+/plugins/BetterRTP/log.txt
+/plugins/BetterRTP/log.txt.lck
+/plugins/BetterRTP/data/database.db
+/plugins/LuckPerms/luckperms-h2-v2.mv.db
+/plugins/FlectoneChat/database.db-wal
+/plugins/FlectoneChat/database.db-shm
