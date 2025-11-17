@@ -18,3 +18,4 @@ plugins/BetterRTP/log.txt
 plugins/AuthMe/authme.log
 plugins/LuckPerms/luckperms-h2-v2.mv.db
 plugins/AuthMe/authme.log
+usernamecache.json
