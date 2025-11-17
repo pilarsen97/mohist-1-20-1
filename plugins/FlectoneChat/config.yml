@@ -1,7 +1,7 @@
 #  █▀ █   ██▀ ▄▀▀ ▀█▀ ▄▀▄ █▄ █ ██▀ ▄▀▀ █▄█ ▄▀▄ ▀█▀
 #  █▀ █▄▄ █▄▄ ▀▄▄  █  ▀▄▀ █ ▀█ █▄▄ ▀▄▄ █ █ █▀█  █
 #
-# You are advised to check out our plugin documentation
+# Рекомендуем ознакомиться с документацией плагина
 # https://chat.flectone.net/docs
 
 plugin:
@@ -232,7 +232,7 @@ default:
         ':idk:': "¯\\_(ツ)_/¯"
         ':angry:': "(╯°□°)╯︵ ┻━┻"
         ':happy:': "＼(＾O＾)／"
-        #...
+        # ...
 
     formatting:
       enable: true
