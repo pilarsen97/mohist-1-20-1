@@ -1,0 +1,537 @@
+# Все пути в этом файле конфигурации относительны к папке данных Dynmap: minecraft_server/plugins/dynmap/
+
+# Все шаблоны карт определены в каталоге templates
+# Чтобы использовать шаблоны HDMap с очень низким разрешением (2 ppb) как мировые, установите значение vlowres
+#   Определения этих шаблонов находятся в normal-vlowres.txt, nether-vlowres.txt и the_end-vlowres.txt
+# Чтобы использовать шаблоны HDMap с низким разрешением (4 ppb) как мировые, установите значение lowres
+#   Определения этих шаблонов находятся в normal-lowres.txt, nether-lowres.txt и the_end-lowres.txt
+# Чтобы использовать шаблоны HDMap с высоким разрешением (16 ppb) (первоначальный полный рендер может занять ОЧЕНЬ много времени), установите значение hires
+#   Определения этих шаблонов находятся в normal-hires.txt, nether-hires.txt и the_end-hires.txt
+# Чтобы использовать шаблоны HDMap с низким разрешением (4 ppb) с возможностью выборочного повышения до высокого (16 ppb), установите значение low_boost_hi
+#   Определения этих шаблонов находятся в normal-low_boost_hi.txt, nether-low_boost_hi.txt и the_end-low_boost_hi.txt
+# Чтобы использовать шаблоны HDMap с высоким разрешением (16 ppb) с возможностью выборочного повышения до очень высокого (32 ppb), установите значение hi_boost_vhi
+#   Определения этих шаблонов находятся в normal-hi_boost_vhi.txt, nether-hi_boost_vhi.txt и the_end-hi_boost_vhi.txt
+# Чтобы использовать шаблоны HDMap с высоким разрешением (16 ppb) с возможностью выборочного повышения до экстра-высокого (64 ppb), установите значение hi_boost_xhi
+#   Определения этих шаблонов находятся в normal-hi_boost_xhi.txt, nether-hi_boost_xhi.txt и the_end-hi_boost_xhi.txt
+deftemplatesuffix: hires
+
+# Установите масштаб плитки по умолчанию (0 = 128px x 128px, 1 = 256px x 256px, 2 = 512px x 512px, 3 = 1024px x 1024px, 4 = 2048px x 2048px) - по умолчанию 0
+# Примечание: изменение этого значения потребует полного рендеринга всех карт, использующих значение по умолчанию
+#defaulttilescale: 0
+
+# Схема хранения карт: раскомментируйте только одно значение 'type'
+#  filetree: классическая и стандартная схема: дерево файлов со всеми данными карт в каталоге, указанном в настройке 'tilespath'
+#  sqlite: единый файл базы данных SQLite (может стать ОЧЕНЬ БОЛЬШИМ), расположенный по пути из настройки 'dbfile' (по умолчанию dynmap.db в каталоге данных)
+#  mysql: база данных MySQL по адресу hostname:port, доступ через userid с паролем
+#  mariadb: база данных MariaDB по адресу hostname:port, доступ через userid с паролем
+#  postgres: база данных PostgreSQL по адресу hostname:port, доступ через userid с паролем
+storage:
+  # Filetree storage (standard tree of image files for maps)
+  type: filetree
+  # SQLite db for map storage (uses dbfile as storage location)
+  #type: sqlite
+  #dbfile: dynmap.db
+  # MySQL DB for map storage (at 'hostname':'port' with flags "flags" in database 'database' using user 'userid' password 'password' and table prefix 'prefix')
+  #type: mysql
+  #hostname: localhost
+  #port: 3306
+  #database: dynmap
+  #userid: dynmap
+  #password: dynmap
+  #prefix: ""
+  #flags: "?allowReconnect=true&autoReconnect=true"
+  #
+  # Веб-сайт на AWS S3
+  #type: aws_s3
+  #bucketname: "dynmap-bucket-name"
+  #region: us-east-1
+  #aws_access_key_id: "<aws-access-key-id>"
+  #aws_secret_access_key: "<aws-secret-access-key>"
+  #override_endpoint: ""
+  
+components:
+  - class: org.dynmap.ClientConfigurationComponent
+  
+  # Не забудьте изменить следующий класс на org.dynmap.JsonFileClientUpdateComponent при использовании внешнего веб-сервера.
+  - class: org.dynmap.InternalClientUpdateComponent
+    sendhealth: true
+    sendposition: true
+    allowwebchat: true
+    webchat-interval: 5
+    hidewebchatip: false
+    trustclientname: false
+    includehiddenplayers: false
+    # (опционально) если true, используются цветовые коды в отображаемых именах игроков
+    use-name-colors: true
+    # (опционально) если true, для веб-чата будут использоваться логины игроков при совпадении их IP
+    use-player-login-ip: true
+    # (опционально) если use-player-login-ip true, установка этого параметра в true приведет к игнорированию сообщений чата от неизвестных IP игроков
+    require-player-login-ip: false
+    # (опционально) блокировать логины игроков, которым запрещено общение в чате
+    block-banned-player-chat: true
+    # Требовать авторизацию для веб-чата (требует login-enabled: true)
+    webchat-requires-login: false
+    # Если установлено в true, пользователи должны иметь разрешение dynmap.webchat для общения в чате
+    webchat-permissions: false
+    # Ограничение длины отдельных сообщений чата
+    chatlengthlimit: 256
+  #  # Опционально - скрывать игроков внутри/под землей/в тенях (#=уровень света: 0=полная тень,15=небо)
+  #  hideifshadow: 4
+  #  # Опционально - скрывать игроков под укрытием (#=уровень небесного света,0=под землей,15=открытое небо)
+  #  hideifundercover: 14
+  #  # (Опционально) если true, игроки в крадущейся позе будут скрыты
+    hideifsneaking: false
+    # опционально, если true, игроки в режиме наблюдателя будут скрыты
+    hideifspectator: true
+    # Если true, позиции/статус игроков защищены (требуется авторизация с ID и разрешением dynmap.playermarkers.seeall для информации о других игроках)
+    protected-player-info: false
+    # Если true, скрывать игроков с активным эффектом зелья невидимости
+    hide-if-invisiblity-potion: true
+    # Если true, имена игроков не отображаются на карте, в чате, списке
+    hidenames: false
+  #- class: org.dynmap.JsonFileClientUpdateComponent
+  #  writeinterval: 1
+  #  sendhealth: true
+  #  sendposition: true
+  #  allowwebchat: true
+  #  webchat-interval: 5
+  #  hidewebchatip: false
+  #  includehiddenplayers: false
+  #  use-name-colors: false
+  #  use-player-login-ip: false
+  #  require-player-login-ip: false
+  #  block-banned-player-chat: true
+  #  hideifshadow: 0
+  #  hideifundercover: 0
+  #  hideifsneaking: false
+  #  # Require login for web-to-server chat (requires login-enabled: true)
+  #  webchat-requires-login: false
+  #  # If set to true, users must have dynmap.webchat permission in order to chat
+  #  webchat-permissions: false
+  #  # Limit length of single chat messages
+  #  chatlengthlimit: 256
+  #  hide-if-invisiblity-potion: true
+  #  hidenames: false
+   
+  - class: org.dynmap.SimpleWebChatComponent
+    allowchat: true
+    # Если true, пользователи веб-интерфейса могут указывать имя для чата через параметр URL 'playername'. Также требуется установить 'trustclientname' в true.
+    allowurlname: false
+  
+  # Примечание: этот компонент необходим для команд dmarker и для доступности Marker API другим плагинам
+  - class: org.dynmap.MarkersComponent
+    type: markers
+    showlabel: false
+    enablesigns: false
+    # Набор маркеров по умолчанию для маркеров знаков
+    default-sign-set: markers
+    # (опционально) добавить маркеры точки спавна в стандартный слой маркеров
+    showspawn: true
+    spawnicon: world
+    spawnlabel: "Спавн"
+    # (опционально) слой для отображения позиций оффлайн-игроков (в течение 'maxofflinetime' минут после выхода)
+    showofflineplayers: false
+    offlinelabel: "Offline"
+    offlineicon: offlineuser
+    offlinehidebydefault: true
+    offlineminzoom: 0
+    maxofflinetime: 30
+    # (опционально) слой для отображения кроватей-спаунов игроков
+    showspawnbeds: false
+    spawnbedlabel: "Spawn Beds"
+    spawnbedicon: bed
+    spawnbedhidebydefault: true
+    spawnbedminzoom: 0
+    spawnbedformat: "%name%'s bed"
+    spawnbedremoveonplayerleave: true
+    # (опционально) показать границы мира (ванилла 1.8+)
+    showworldborder: true
+    worldborderlabel: "Border"
+    
+  - class: org.dynmap.ClientComponent
+    type: chat
+    allowurlname: false
+  - class: org.dynmap.ClientComponent
+    type: chatballoon
+    focuschatballoons: false
+  - class: org.dynmap.ClientComponent
+    type: chatbox
+    showplayerfaces: true
+    messagettl: 5
+    # Опционально: установить количество строк в прокручиваемой истории сообщений: если установлено, messagettl не используется для устаревания сообщений
+    #scrollback: 100
+    # Опционально: установить максимальное количество видимых строк для чатбокса
+    #visiblelines: 10
+    # Опционально: кнопка отправки сообщения
+    sendbutton: false
+  - class: org.dynmap.ClientComponent
+    type: playermarkers
+    showplayerfaces: true
+    showplayerhealth: true
+    # Если true, показывать тело игрока (только если showplayerfaces=true)
+    showplayerbody: false
+    # Опция уменьшения лиц игроков - не использовать с showplayerhealth или largeplayerfaces
+    smallplayerfaces: false
+    # Опция увеличения лиц игроков - не использовать с showplayerhealth или smallplayerfaces
+    largeplayerfaces: false
+    # Опционально - скрывать слой лиц игроков по умолчанию
+    hidebydefault: false
+    # Опционально - приоритет порядка в меню слоев (низкий идет перед высоким - по умолчанию 0)
+    layerprio: 0
+    # Опционально - метка для слоя маркеров игроков (по умолчанию 'Players')
+    label: "Игроки"
+    
+  #- class: org.dynmap.ClientComponent
+  #  type: digitalclock
+  - class: org.dynmap.ClientComponent
+    type: link
+    
+  - class: org.dynmap.ClientComponent
+    type: timeofdayclock
+    showdigitalclock: true
+    showweather: true
+  # Mouse pointer world coordinate display
+  - class: org.dynmap.ClientComponent
+    type: coord
+    label: "Координаты"
+    hidey: false
+    show-mcr: false
+    show-chunk: false
+    
+  # Примечание: можно определить несколько компонентов логотипа
+  #- class: org.dynmap.ClientComponent
+  #  type: logo
+  #  text: "Dynmap"
+  #  #logourl: "images/block_surface.png"
+  #  linkurl: "http://forums.bukkit.org/threads/dynmap.489/"
+  #  # Допустимые позиции: top-left, top-right, bottom-left, bottom-right
+  #  position: bottom-right
+
+  #- class: org.dynmap.ClientComponent
+  #  type: inactive
+  #  timeout: 1800 # in seconds (1800 seconds = 30 minutes)
+  #  redirecturl: inactive.html
+  #  #showmessage: 'You were inactive for too long.'
+  
+  #- class: org.dynmap.TestComponent
+  #  stuff: "This is some configuration-value"
+
+# Считать hiddenplayers.txt белым списком игроков для показа на карте? (По умолчанию false)
+display-whitelist: false
+
+# Как часто рендерится тайл (в секундах).
+renderinterval: 1
+
+# Количество тайлов в очереди обновления перед ускорением интервала рендеринга
+renderacceleratethreshold: 60
+
+# Как часто рендерить тайлы при превышении порога renderacceleratethreshold
+renderaccelerateinterval: 0.2
+
+# Сколько тайлов обновлять одновременно (если не определено, по умолчанию половина количества ядер)
+tiles-rendered-at-once: 2
+
+# Если true, использовать потоки с нормальным приоритетом для рендеринга (вместо низкого) - это может предотвратить голодание рендеринга
+# from starving on busy Windows boxes (Linux JVMs pretty much ignore thread priority), but may result
+# in more competition for CPU resources with other processes
+usenormalthreadpriority: true
+
+# Сохранять и восстанавливать ожидающие рендеры тайлов - предотвращает их потерю при остановке сервера или /reload
+saverestorepending: true
+
+# Период сохранения ожидающих заданий (в секундах): периодическое сохранение для восстановления после сбоев
+save-pending-period: 900
+
+# Период обновления уменьшенных тайлов - как часто сканировать и обрабатывать обновления тайлов в уменьшенные тайлы (в секундах)
+zoomoutperiod: 30
+
+# Контролировать проверку уменьшенных тайлов при запуске (может потребоваться при прерванной обработке, но может быть затратно для больших карт)
+initial-zoomout-validate: true
+
+# Стандартная задержка обработки обновленных тайлов в секундах. Может снизить затраты на повторный рендеринг
+# of frequently updated tiles (such as due to machines, pistons, quarries or other automation).  Values can
+# also be set on individual worlds and individual maps.
+tileupdatedelay: 30
+
+# Хеширование тайлов используется для минимизации обновлений файлов тайлов при отсутствии изменений - установите false для отключения
+enabletilehash: true
+
+# Опционально - скрывать руды: отображать как обычный камень (чтобы они не раскрывались на картах)
+#hideores: true
+
+# Опционально - включить рендеринг сторон травяных и снежных блоков в стиле BetterGrass
+#better-grass: true
+
+# Опционально - включить плавное освещение по умолчанию на всех поддерживающих его картах (может быть установлено для каждой карты как опция освещения)
+smooth-lighting: true
+
+# Опционально - использовать таблицу освещения мирового провайдера (полезно для пользовательских миров с нестандартными кривыми освещения, как Незер)
+#   false=classic Dynmap lighting curve
+use-brightness-table: true
+
+# Опционально - отображать определенные блоки с использованием текстур и моделей других блоков: может использоваться для скрытия/маскировки
+#  blocks (e.g. make ores look like stone, hide chests) or to provide simple support for rendering unsupported custom blocks
+block-alias:
+#    "minecraft:quartz_ore": "stone"
+#    "diamond_ore": "coal_ore"
+  
+# Формат изображения по умолчанию для HDMap (png, jpg, jpg-q75, jpg-q80, jpg-q85, jpg-q90, jpg-q95, jpg-q100, webp, webp-q75, webp-q80, webp-q85, webp-q90, webp-q95, webp-q100, webp-l),
+# Примечание: любой формат webp требует наличия 'webp command line tools' (cwebp, dwebp) (https://developers.google.com/speed/webp/download)
+#
+# Не влияет на карты с явными настройками формата
+image-format: jpg-q90
+
+# Если cwebp или dwebp не в PATH, используйте эти настройки для указания полного пути. Не используйте, если инструменты уже в PATH
+# Для Windows укажите .exe
+#
+#cwebpPath: /usr/bin/cwebp
+#dwebpPath: /usr/bin/dwebp
+
+#  use-generated-textures: если true, использовать генерируемые текстуры (как у клиента); false - статические текстуры воды/лавы
+#  correct-water-lighting: если true, использовать исправленное освещение воды (как у клиента); false - устаревшее (темнее)
+#  transparent-leaves: если true, листва прозрачна (в плане освещения); false требуется для некоторых версий Spout, ломающих освещение листвы
+use-generated-textures: true
+correct-water-lighting: true
+transparent-leaves: true
+
+# ctm-support: если true, поддерживается Connected Texture Mod (CTM) в текстурах (по умолчанию)
+ctm-support: true
+# custom-colors-support: если true, поддерживаются пользовательские цвета в текстурах (по умолчанию)
+custom-colors-support: true
+
+# Контролировать загрузку лиц игроков (если false, скины никогда не загружаются)
+#fetchskins: false
+
+# Контролировать обновление лиц игроков после загрузки (если лица управляются другими приложениями или вручную)
+#refreshskins: false
+
+# Настроить URL для загрузки скинов игроков (%player% - макрос имени, %uuid% - UUID)
+skin-url: "http://skins.minecraft.net/MinecraftSkins/%player%.png"
+
+# Использовать скины через плагин SkinsRestorer вместо внутренней устаревшей реализации (по умолчанию отключено)
+#skinsrestorer-integration: true
+
+render-triggers:
+  #- playermove
+  #- playerjoin
+  - blockplaced
+  - blockbreak
+  - leavesdecay
+  - blockburn
+  - chunkgenerated
+  - blockformed
+  - blockfaded
+  - blockspread
+  - pistonmoved
+  - explosion
+  #- blockfromto
+  #- blockphysics
+  - structuregrow
+  - blockgrow
+  #- blockredstone
+
+# Заголовок веб-страницы - если не указан, используется имя сервера (если оно не 'Unknown Server')
+#webpage-title: "My Awesome Server Map"
+
+# Путь для хранения файлов тайлов.
+tilespath: web/tiles
+
+# Путь к веб-файлам.
+webpath: web
+
+# Если false, отключает извлечение содержимого webpath (полезно при использовании пользовательского веб-интерфейса)
+# Примечание: веб-интерфейс не поддерживается в этой конфигурации - вы действуете на свой страх и риск
+update-webpath-files: true
+
+# Путь для экспорта ZIP-файлов OBJ командой /dynmapexp
+exportpath: export
+
+# Путь для импорта файлов командами /dmarker
+importpath: import
+
+# Сетевой интерфейс для веб-сервера (0.0.0.0 для всех интерфейсов, 127.0.0.1 только для локального доступа).
+# Если не установлено, используется настройка сервера из server.properties (или 0.0.0.0 если не указано)
+#webserver-bindaddress: 0.0.0.0
+
+# TCP-порт для веб-сервера.
+webserver-port: 8123
+
+# Максимальное количество одновременных сессий на внутреннем веб-сервере - ограничивает использование ресурсов сервера Bukkit
+max-sessions: 30
+
+# Отключает веб-серверную часть Dynmap (только для опытных пользователей)
+disable-webserver: false
+
+# Разрешить/запретить символические ссылки на веб-сервере (true=совместимость с существующим кодом, false=безопаснее (по умолчанию))
+allow-symlinks: true
+
+# Включить поддержку авторизации
+login-enabled: false
+# Требовать авторизацию для доступа к сайту (требует login-enabled: true)
+login-required: false
+
+# Интервал между рендерингом тайлов при полном рендере, в секундах (не ноль для распределения нагрузки на CPU)
+timesliceinterval: 0.0
+
+# Максимальное количество загрузок чанков за тик сервера (1/20 секунды) - уменьшение ниже 90 повлияет на производительность рендеринга, но снизит нагрузку на поток сервера
+maxchunkspertick: 200
+
+# Интервал отчетов о прогрессе полного/радиусного рендера в тайлах. Должно быть 100 или больше
+progressloginterval: 100
+
+# Параллельный полный рендер: если определено, количество одновременных потоков для полного/радиусного рендера
+#   Note: setting this will result in much more intensive CPU use, some additional memory use.  Caution should be used when
+#  setting this to equal or exceed the number of physical cores on the system.
+#parallelrendercnt: 4
+
+# Интервал опроса обновлений браузером.
+updaterate: 2000
+
+# Если не ноль, сервер приостановит полный/радиусный рендер при наличии 'fullrenderplayerlimit' или более игроков онлайн
+fullrenderplayerlimit: 0
+# Если не ноль, сервер приостановит обновление рендера при наличии 'updateplayerlimit' или более игроков онлайн
+updateplayerlimit: 0
+# Целевое ограничение использования потока сервера - мс за тик
+per-tick-time-limit: 50
+# Если TPS сервера ниже этого значения, обработка обновлений рендера приостанавливается
+update-min-tps: 18.0
+# Если TPS сервера ниже этого значения, обработка полного/радиусного рендера приостанавливается
+fullrender-min-tps: 18.0
+# Если TPS сервера ниже этого значения, обработка уменьшения тайлов приостанавливается
+zoomout-min-tps: 18.0
+
+showplayerfacesinmenu: true
+
+# Контролировать затемнение игроков, скрытых на текущей карте (true=да)
+grayplayerswhenhidden: true
+
+# Использовать разрешения игроков для упорядочивания списка: от первого к последнему, игроки упорядочиваются по первому имеющемуся разрешению из списка
+# That is, anyone with first listed permission goes before anyone with second, etc, with users with none of the nodes going last
+player-sort-permission-nodes:
+  - bukkit.command.op
+  
+# Установите sidebaropened: 'true' для постоянного открытия боковой панели, 'pinned' для открытия по умолчанию с возможностью закрытия
+#sidebaropened: true
+
+# Пользовательские HTTP-заголовки ответов - добавьте пары 'id: value' ко всем HTTP-заголовкам ответов (только для внутреннего веб-сервера)
+#http-response-headers:
+#    Access-Control-Allow-Origin: "my-domain.com"
+#    X-Custom-Header-Of-Mine: "MyHeaderValue"
+
+# Доверенные прокси для веб-сервера - адреса прокси, которым доверяют предоставлять корректные поля X-Forwarded-For
+#   This now supports both IP address, and subnet ranges (e.g. 192.168.1.0/24 or 202.24.0.0/14 )
+trusted-proxies:
+  - "127.0.0.1"
+  - "0:0:0:0:0:0:0:1"
+  
+# Формат сообщений о входе/выходе в веб-чате: установите "" для отключения уведомлений в веб-интерфейсе
+joinmessage: "%playername% joined"
+quitmessage: "%playername% quit"
+
+spammessage: "Вы можете отправлять сообщения только раз в %interval% секунд."
+# формат сообщений из веба: %playername% заменяется на ID отправителя (обычно IP), %message% содержит текст
+webmsgformat: "&color;2[WEB] %playername%: &color;f%message%"
+
+# Контролировать отображение управления слоями в интерфейсе (по умолчанию true)
+showlayercontrol: true
+
+# Включить проверку заблокированных IP через banned-ips.txt (только для внутреннего веб-сервера)
+check-banned-ips: true
+
+# Стандартный выбор при загрузке страницы карты
+defaultzoom: 0
+defaultworld: world
+defaultmap: flat
+# (опционально) Уровень зума и карта для перехода при отслеживании игрока, если возможно
+#followzoom: 3
+#followmap: surface
+
+# Если true, сохранять постоянные записи IP-адресов, используемых при авторизации игроков, для сопоставления веб-IP с игроками
+persist-ids-by-ip: true
+
+# Если true, отображать текст на карте кириллицей
+cyrillic-support: true
+
+# Если true, координаты будут округляться
+round-coordinates: true
+
+# Сообщения для настройки
+msg:
+    maptypes: "Тип карты"
+    players: "Игроки"
+    chatrequireslogin: "Чат требует авторизации"
+    chatnotallowed: "Вам не разрешается отправлять сообщения в чате"
+    hiddennamejoin: "Игрок просоединился"
+    hiddennamequit: "Игрок вышел"
+
+# URL для конфигурации клиента (требуется настройка только для прокси или нестандартных конфигураций)
+url:
+    # configuration URL
+    #configuration: "up/configuration"
+    # update URL
+    #update: "up/world/{world}/{timestamp}"
+    # sendmessage URL
+    #sendmessage: "up/sendmessage"
+    # login URL
+    #login: "up/login"
+    # register URL
+    #register: "up/register"
+    # tiles base URL
+    #tiles: "tiles/"
+    # markers base URL
+    #markers: "tiles/"
+
+# Пользовательские команды - позволяют запускать скрипты до/после определенных событий
+custom-commands:
+    image-updates:
+        # Команда, запускаемая перед записью или обновлением файла изображения: запускается с полным именем файла в качестве параметра
+        preupdatecommand: ""
+        # Команда, запускаемая после записи или обновления файла изображения: запускается с полным именем файла в качестве параметра
+        postupdatecommand: ""
+
+# Размер кэша снимков в чанках
+snapshotcachesize: 500
+# Кэш снимков использует мягкие ссылки (true), иначе слабые ссылки (false)
+soft-ref-cache: true
+
+# Player enter/exit title messages for map markers
+#
+# Период обработки - как часто проверять позиции игроков относительно маркеров - по умолчанию 1000мс (1 секунда)
+#enterexitperiod: 1000
+# Время появления заголовка в тиках (интервалы по 0.05 секунды) - по умолчанию 10 (0.5 секунды)
+#titleFadeIn: 10
+# Время отображения заголовка в тиках (интервалы по 0.05 секунды) - по умолчанию 70 (3.5 секунды)
+#titleStay: 70
+# Время исчезновения заголовка в тиках (интервалы по 0.05 секунды) - по умолчанию 20 (1 секунда)
+#titleFadeOut: 20
+# Сообщения о входе/выходе используют экранные заголовки (true - по умолчанию), если false - отправляются в чат
+#enterexitUseTitle: true
+# Установите true, если новые сообщения о входе должны заменять ожидающие сообщения о выходе (вместо очереди), по умолчанию false
+#enterReplacesExits: true
+
+# Публичный URL сервера Dynmap (позволяет игрокам использовать команду 'dynmap url' для получения URL доступа к серверу)
+# If not set, 'dynmap url' will not return anything.  URL should be fully qualified (e.g. https://mc.westeroscraft.com/)
+#publicURL: http://my.greatserver.com/dynmap
+
+# Отправлять это сообщение, если у игрока нет прав на использование команды
+noPermissionMsg: "You don't have permission to use this command!"
+
+# Установите true для подробных сообщений при запуске - может помочь в диагностике проблем конфигурации карты
+# Установите false для более тихого журнала запуска
+verbose: false
+
+# Включает отладку.
+#debuggers:
+#  - class: org.dynmap.debug.LogDebugger
+# Отладка: сохранять блоки без данных рендеринга
+dump-missing-blocks: false
+
+# Заставить dynmap мигрировать старые чанки в новый формат для текущей версии MC (особенно для миграции чанков до 1.13 в 1.13 или 1.14). Это необходимо
+# in order to render chunks on an upgraded server (due to various bugs/limitations in CB/spigot 1.13+).  This setting is NOT suggested to be enabled full time,
+# but only long enough to do a fullrender of a migrated world - it should be turned back off once worlds are migrated).  It is EXPERIMENTAL, so be sure to backup
+# your worlds before running with this setting enabled (set to true)
+#
+#migrate-chunks: true
+
+# Защита от Log4J: строка заменяется при попытках использования макросов в веб-чате
+hackAttemptBlurb: "(IaM5uchA1337Haxr-Ban Me!)"

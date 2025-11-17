@@ -1,8 +1,7 @@
 /crash-reports
 /logs
 /world
-/server.properties
-/usercache.json
+/plugins/dynmap/web
 /plugins/BetterRTP/log.txt
 /plugins/BetterRTP/log.txt.lck
 /plugins/BetterRTP/data/database.db
@@ -12,3 +11,6 @@
 /plugins/SkinsRestorer/cache
 /mohist-config/worlds.yml
 /.mixin.out/class/com/github/alexthe666/alexsmobs/entity/EntitySkelewag.class
+/plugins/SkinsRestorer/cache
+usercache.json
+server.properties
