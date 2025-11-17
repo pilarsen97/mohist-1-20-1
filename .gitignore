@@ -11,11 +11,9 @@
 /plugins/SkinsRestorer/cache
 /mohist-config/worlds.yml
 /.mixin.out/class/com/github/alexthe666/alexsmobs/entity/EntitySkelewag.class
-/plugins/SkinsRestorer/cache
 usercache.json
 server.properties
-plugins/BetterRTP/log.txt
-plugins/AuthMe/authme.log
-plugins/LuckPerms/luckperms-h2-v2.mv.db
 plugins/AuthMe/authme.log
 usernamecache.json
+plugins/SkinsRestorer/recommendations.json
+config/waila/waila_plugins.json5
