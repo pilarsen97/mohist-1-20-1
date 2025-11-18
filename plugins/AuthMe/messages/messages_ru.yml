@@ -1,0 +1,156 @@
+# Глобальные теги:
+# %nl% - Переход на новую строку
+# %username% - Имя игрока
+# %displayname% - Никнейм игрока (с цветами)
+
+# Регистрация
+registration:
+  register_request: '&3Пожалуйста, зарегистрируйтесь на сервере командой: /register <пароль> <подтверждение>'
+  command_usage: '&cИспользование: /register <пароль> <подтверждение>'
+  reg_only: '&4Только зарегистрированные пользователи могут присоединиться! Посетите http://example.com для регистрации!'
+  kicked_admin_registered: 'Администратор зарегистрировал вас; пожалуйста, войдите снова.'
+  success: '&2Успешная регистрация!'
+  disabled: '&cРегистрация в игре отключена!'
+  name_taken: '&cЭто имя пользователя уже зарегистрировано!'
+
+# Ошибки пароля при регистрации
+password:
+  match_error: '&cПароли не совпадают, проверьте еще раз!'
+  name_in_password: '&cНельзя использовать имя в качестве пароля!'
+  unsafe_password: '&cПароль недостаточно надежен!'
+  forbidden_characters: '&4Пароль содержит запрещенные символы. Разрешены: %valid_chars'
+  wrong_length: '&cНеправильная длина пароля!'
+
+# Авторизация
+login:
+  command_usage: '&cИспользование: /login <пароль>'
+  wrong_password: '&cНеверный пароль!'
+  success: '&2Успешный вход!'
+  login_request: '&cПожалуйста, войдите командой: /login <пароль>'
+  timeout_error: '&4Время на вход истекло, вы были кикнуты!'
+
+# Ошибки
+error:
+  unregistered_user: '&cПользователь не зарегистрирован!'
+  denied_command: '&cДля использования команды необходимо авторизоваться!'
+  denied_chat: '&cДля чата необходимо авторизоваться!'
+  not_logged_in: '&cВы не вошли в систему!'
+  tempban_max_logins: '&cВы временно забанены за слишком много попыток входа.'
+  max_registration: '&cПревышено максимальное число регистраций (%reg_count/%max_acc %reg_names)!'
+  no_permission: '&4Нет прав для этого действия!'
+  unexpected_error: '&4Произошла ошибка, обратитесь к администратору!'
+  kick_for_vip: '&3VIP-игрок присоединился при полном сервере!'
+  logged_in: '&cВы уже авторизованы!'
+  kick_unresolved_hostname: '&cОшибка: не удалось определить хост!'
+
+# Антибот
+antibot:
+  kick_antibot: 'Антибот активирован! Подождите несколько минут.'
+  auto_enabled: '&4[Антибот] Активирован из-за большого числа подключений!'
+  auto_disabled: '&2[Антибот] Деактивирован через %m минут!'
+
+unregister:
+  success: '&cУспешное удаление регистрации!'
+  command_usage: '&cИспользование: /unregister <пароль>'
+
+# Прочие сообщения
+misc:
+  accounts_owned_self: 'У вас %count аккаунтов:'
+  accounts_owned_other: 'У игрока %name %count аккаунтов:'
+  account_not_activated: '&cАккаунт не активирован, проверьте почту!'
+  password_changed: '&2Пароль успешно изменен!'
+  logout: '&2Успешный выход!'
+  reload: '&2Конфигурация перезагружена!'
+  usage_change_password: '&cИспользование: /changepassword <старый_пароль> <новый_пароль>'
+
+# Сессии
+session:
+  invalid_session: '&cВаш IP изменился, сессия прервана!'
+  valid_session: '&2Автовход по сессии!'
+
+# Проверки при входе
+on_join_validation:
+  name_length: '&4Недопустимая длина имени!'
+  characters_in_name: '&4Имя содержит запрещенные символы. Разрешены: %valid_chars'
+  country_banned: '&4Ваша страна заблокирована!'
+  not_owner_error: 'Вы не владелец аккаунта!'
+  kick_full_server: '&4Сервер заполнен!'
+  same_nick_online: '&4Игрок с таким именем уже онлайн!'
+  invalid_name_case: 'Используйте правильный регистр: %valid'
+  same_ip_online: 'Игрок с таким IP уже онлайн!'
+  quick_command: 'Слишком быстрое использование команды!'
+
+# Почта
+email:
+  usage_email_add: '&cИспользование: /email add <email> <подтверждение>'
+  usage_email_change: '&cИспользование: /email change <старый_email> <новый_email>'
+  new_email_invalid: '&cНовый email недействителен!'
+  old_email_invalid: '&cСтарый email недействителен!'
+  invalid: '&cНеверный email!'
+  added: '&2Email успешно добавлен!'
+  request_confirmation: '&cПодтвердите email!'
+  changed: '&2Email изменен!'
+  email_show: '&2Ваш email: &f%email'
+  incomplete_settings: 'Ошибка: не хватает настроек для отправки email.'
+  already_used: '&4Этот email уже используется!'
+  send_failure: 'Ошибка отправки email.'
+  no_email_for_account: '&2Нет email для этого аккаунта.'
+  add_email_request: '&3Добавьте email командой: /email add <ваш_email> <подтверждение>'
+  change_password_expired: 'Срок действия команды истек.'
+  email_cooldown_error: '&cПовторная отправка через %time сек.!'
+  add_not_allowed: '&cДобавление email запрещено!'
+  change_not_allowed: '&cИзменение email запрещено!'
+
+# Восстановление пароля
+recovery:
+  forgot_password_hint: '&3Забыли пароль? Используйте: /email recovery <email>'
+  command_usage: '&cИспользование: /email recovery <Email>'
+  email_sent: '&2Письмо отправлено! Проверьте почту!'
+  code:
+    code_sent: 'Код восстановления отправлен на email.'
+    incorrect: 'Неверный код! Осталось попыток: %count'
+    tries_exceeded: '&cПопытки исчерпаны! Используйте /email recovery повторно.'
+    correct: '&2Код верен!'
+    change_password: 'Используйте /email setpassword <новый_пароль>'
+
+# Капча
+captcha:
+  usage_captcha: '&3Решите капчу: /captcha %captcha_code'
+  wrong_captcha: '&cНеверная капча! Введите /captcha %captcha_code'
+  valid_captcha: '&2Капча решена!'
+  captcha_for_registration: 'Для регистрации решите капчу: /captcha %captcha_code'
+  register_captcha_valid: '&2Капча верна! Теперь /register'
+
+# Код верификации
+verification:
+  code_required: '&3Требуется верификация! Проверьте почту.'
+  command_usage: '&cИспользование: /verification <код>'
+  incorrect_code: '&cНеверный код!'
+  success: '&2Верификация успешна!'
+  already_verified: '&2Уже верифицированы!'
+  code_expired: '&3Код истек! Запросите новый.'
+  email_needed: '&3Требуется email для верификации!'
+
+# Двухфакторная аутентификация
+two_factor:
+  code_created: '&2Ваш код: %code. Сканируйте: %url'
+  confirmation_required: 'Подтвердите код: /2fa confirm <код>'
+  code_required: 'Введите код: /2fa code <код>'
+  already_enabled: '2FA уже активирована!'
+  enable_error_no_code: 'Нет ключа 2FA! Используйте /2fa add'
+  enable_success: '2FA активирована!'
+  enable_error_wrong_code: 'Неверный код!'
+  not_enabled_error: '2FA не активирована!'
+  removed_success: '2FA удалена!'
+  invalid_code: 'Неверный код!'
+
+# Единицы времени
+time:
+  second: 'секунда'
+  seconds: 'секунд'
+  minute: 'минута'
+  minutes: 'минут'
+  hour: 'час'
+  hours: 'часов'
+  day: 'день'
+  days: 'дней'
