@@ -1,47 +1,47 @@
 Sounds:
   Enabled: true
   ProtocolLibSound: false
-  # # More sounds at https://www.spigotmc.org/wiki/cc-sounds-list/
+  # # Список звуков: https://www.spigotmc.org/wiki/cc-sounds-list/
   Delay: entity_tnt_primed
   Success: entity_generic_explode
 Titles:
-  Enabled: true # Enable the titles effect feature
-  # # All support %player% %x% %y% and %z% placeholders
-  NoDelay: # Only triggers when there is no delay
-    Title: '&6Teleporting...'
-    Subtitle: '&8please wait'
+  Enabled: true # Включить эффект заголовков
+  # # Поддерживаются плейсхолдеры: %player% %x% %y% %z%
+  NoDelay: # Срабатывает только при отсутствии задержки
+    Title: '&6Телепортация...'
+    Subtitle: '&8пожалуйста, подождите'
     SendMessage: true
   Teleport:
-    Title: '&6Teleported!'
-    Subtitle: '&fx=%x% y=%y% z=%z%'
-    SendMessage: true # Allow the teleport success message in chat
+    Title: '&6Успешно!'
+    Subtitle: '&fКоординаты: x=%x% y=%y% z=%z%'
+    SendMessage: true # Показывать сообщение об успехе в чате
   Delay:
     Title: ''
-    Subtitle: '&fTeleporting in %time% seconds...'
-    SendMessage: true # Allow the teleport delay message in chat
+    Subtitle: '&fТелепортация через %time% секунд...'
+    SendMessage: true # Показывать сообщение о задержке в чате
   Cancelled:
-    Title: '&eYou moved...'
-    Subtitle: '&cRtp was cancelled!'
-    SendMessage: true # Allow the cancelled message in chat too
+    Title: '&eВы сдвинулись...'
+    Subtitle: '&cТелепортация отменена!'
+    SendMessage: true # Показывать сообщение об отмене в чате
   Loading:
     Title: ''
-    Subtitle: '&7loading chunks... please wait'
-    SendMessage: true # Allow the loading message in chat
+    Subtitle: '&7Загрузка чанков... пожалуйста, подождите'
+    SendMessage: true # Показывать сообщение о загрузке в чате
   Failed:
     Title: ''
-    Subtitle: '&cFailed! No safe spots located'
+    Subtitle: '&cОшибка! Безопасное место не найдено'
     SendMessage: true
-Particles: # Use `rtp info particles` for a list of particles
+Particles: # Список частиц: `/rtp info particles`
   Enabled: true
-  Type: # list of particle types at https://github.com/ByteZ1337/ParticleLib/blob/master/src/main/java/xyz/xenondevs/particle/ParticleEffect.java
+  Type: # Список частиц: https://github.com/ByteZ1337/ParticleLib/blob/master/src/main/java/xyz/xenondevs/particle/ParticleEffect.java
     - EXPLOSION_NORMAL
     - CRIT
-  Shape: EXPLODE # Types available are "Scan, Teleport and Explode", or use `/rtp info shapes` for a list of shapes
-Invincible: # Amount of time a player should not take damage for
+  Shape: EXPLODE # Доступные формы: "Scan, Teleport, Explode" или `/rtp info shapes`
+Invincible: # Время неуязвимости после телепортации
   Enabled: true
   Seconds: 5
-Potions: # Use `/rtp info potion_effects` for a list of effects
+Potions: # Список эффектов: `/rtp info potion_effects`
   Enabled: true
-  Types: # Format <potion_name>:[duration_ticks]:[amplifier] #Default duration=60, amplifier=1
-    - Blindness:60:1
-    - Invisibility:60:1
+  Types: # Формат: <эффект>:[длительность_в_тиках]:[уровень]
+    - Blindness:60:1 # Слепота
+    - Invisibility:60:1 # Невидимость
