@@ -1,6 +1,6 @@
 # Translated to Russian by Logan (https://t.me/icemine_ru)
 Messages:
-  Prefix: '&7[&6BetterRTP&7] '
+  Prefix: '&7[&6Рандомная телепортация&7] '
   Success:
     Paid: '&aВы были телепортированы по координатам &7X: %x%, Y: %y%, Z: %z%&a за
       &7%attempts%&a попыток и &7$%price%.'
