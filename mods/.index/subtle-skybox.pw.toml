@@ -1,0 +1,16 @@
+filename = 'subtleskybox-forge-0.1.1.jar'
+name = 'Subtle Skybox'
+side = 'client'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20.1' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = 'fb323002c23b1da1e6662b65da682f2753cf9b1898406785cfc1e86107ab64762356bf37d3d9b98081fd25ff3a6bd773b110b7fe8b03bbb184c8c0dc32a81eba'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/18yT8qGk/versions/cPqYzxjq/subtleskybox-forge-0.1.1.jar'
+
+[update.modrinth]
+mod-id = '18yT8qGk'
+version = 'cPqYzxjq'
