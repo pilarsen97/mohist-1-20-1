@@ -1,0 +1,16 @@
+filename = 'seamless-loading-screen-2.0.3+1.20.1-forge.jar'
+name = 'Seamless Loading Screen '
+side = 'client'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20.1' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = '58a7a8ce6bc2f9a5a1403200e46681705e256c4384ffd9043dfc9c5223c0e90b22c280163e913a69a7bf41c63830a4b9c11109b14c62d3e9fe87d32949676903'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/TyTPFOiF/versions/iguviUFl/seamless-loading-screen-2.0.3%2B1.20.1-forge.jar'
+
+[update.modrinth]
+mod-id = 'TyTPFOiF'
+version = 'iguviUFl'

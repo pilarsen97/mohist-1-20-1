@@ -1,0 +1,16 @@
+filename = 'simpleradio-forge-1.20.1-3.4.6.jar'
+name = 'Simple Radio'
+side = 'both'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20', '1.20.1' ]
+x-prismlauncher-release-type = 'beta'
+
+[download]
+hash = 'f2fa4e1d95cd81c8dfa63f0d949b565778906137cf658326341ee65d6785666f655b624a24e259cc3e6bc9a162d148e4b2562d1bc996d5e637aa3eefe494f8c0'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/S7b8mMXS/versions/YNYTaait/simpleradio-forge-1.20.1-3.4.6.jar'
+
+[update.modrinth]
+mod-id = 'S7b8mMXS'
+version = 'YNYTaait'

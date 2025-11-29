@@ -1,0 +1,16 @@
+filename = 'tia-1.20-1.1-forge.jar'
+name = 'Tiny Item Animations'
+side = 'client'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20', '1.20.1', '1.20.2' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = '02e2bea52de6dccf30968ce7d6a98b4bc910af3c44390535dbe31da7532f52be770fe452d4222c2011a329a8818e764924794c42e7f4f9f3f7908612a7ffa587'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/wMkevcSR/versions/kaDOLZqw/tia-1.20-1.1-forge.jar'
+
+[update.modrinth]
+mod-id = 'wMkevcSR'
+version = 'kaDOLZqw'
