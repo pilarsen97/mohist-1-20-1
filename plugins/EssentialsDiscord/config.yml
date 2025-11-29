@@ -20,34 +20,34 @@ guild: 1244684409307922473
 # The Discord invite URL that will be shown when a player when using the /discord command or in other areas.
 discord-url: "https://discord.gg/invite-code"
 
-# Defined text channels
+# Определенные текстовые каналы
 # =====================
 #
-# Channels defined here can be used for two different purposes:
+# Каналы, определенные здесь, могут быть использованы для двух разных целей:
 #
-# Firstly, channels defined here can be used to give players permission to see messages from said channel.
-# This can be done by give your players the permission node "essentials.discord.receive.<channel>".
-# For example, if you wanted to let a player see messages from the primary channel, you'd give them "essentials.discord.receive.primary".
+# Во-первых, каналы, определенные здесь, могут быть использованы чтобы дать игрокам разрешение видеть сообщения из указанного канала.
+# Это можно сделать, дав вашим игрокам узел разрешения "essentials.discord.receive.<channel>".
+# Например, если вы хотите позволить игроку видеть сообщения из первичного канала, вы дадите им "essentials.discord.receive.primary".
 #
-# Secondly, channels defined here can be used in the section below to specify which channel a message goes to.
-# If a defined channel ID is invalid, the primary channel will be used as a fallback.
-# If the primary channel is not defined or invalid, the default channel of the server will be used.
-# If your server doesn't have any text channels, the plugin will be disabled.
-# By default, two channels are defined:
-# - primary, which will send basic join/leave/death/chat messages
-# - staff, which will send kick/mute messages
-# (note: you will need to replace the zeros with the actual channel ID you want to use)
+# Во-вторых, каналы, определенные здесь, могут быть использованы в секции ниже чтобы указать в какой канал идет сообщение.
+# Если определенный ID канала недействителен, первичный канал будет использован как резерв.
+# Если первичный канал не определен или недействителен, будет использован канал по умолчанию сервера.
+# Если ваш сервер не имеет текстовых каналов, плагин будет отключен.
+# По умолчанию определены два канала:
+# - primary, который будет отправлять базовые сообщения входа/выхода/смерти/чата
+# - staff, который будет отправлять сообщения кика/глушения
+# (примечание: вам нужно заменить нули на настоящий ID канала, который вы хотите использовать)
 channels:
   primary: 1440309467576274995
   staff: 1245327775905087598
 
-# Should all players receive Discord messages from the primary channel, regardless of their permissions?
-# This is intended for use for people without permission plugins. If you have a permission plugin, please give your
-# players the essentials.discord.receive.primary permission.
+# Должны ли все игроки получать сообщения Discord из первичного канала, независимо от их разрешений?
+# Это предназначено для использования людьми без плагинов разрешений. Если у вас есть плагин разрешений, пожалуйста, дайте вашим
+# игрокам разрешение essentials.discord.receive.primary.
 always-receive-primary: false
 
-# Whether to use Essentials Chat events instead of normal chat event.
-# This allows you to filter chat by its type (local, question, shout).
+# Использовать ли события Essentials Chat вместо нормального события чата.
+# Это позволяет фильтровать чат по его типу (локальный, вопрос, крик).
 use-essentials-events: false
 
 # Chat relay settings
@@ -74,44 +74,44 @@ chat:
     #- primary
     #- chat
 
-# Console relay settings
-# The console relay sends every message shown in the console to a Discord channel.
+# Настройки ретрансляции консоли
+# Ретрансляция консоли отправляет каждое сообщение, показанное в консоли, в канал Discord.
 console:
-  # The channel ID (or webhook URL) to send the console output to.
-  # If the channel ID/webhook URL is invalid or set to 'none', the console relay will be disabled.
-  # Note: If you use a channel ID, the bot must have the "Manage Webhooks" permission in Discord or else the console relay will not work.
+  # ID канала (или URL вебхука) для отправки вывода консоли.
+  # Если ID канала/URL вебхука недействителен или установлен на 'none', ретрансляция консоли будет отключена.
+  # Примечание: Если вы используете ID канала, бот должен иметь разрешение "Manage Webhooks" в Discord, иначе ретрансляция консоли не будет работать.
   channel: 1440310477119950929
-  # The format of the console message. The following placeholders can be used:
-  # - {timestamp}: Timestamp in HH:mm:ss format
-  # - {level}: The console logging level
-  # - {message}: The actual message being logged
-  format: "[{timestamp} {level}] {message}"
-  # The name of the webhook that will be created, if a channel ID is provided.
+  # Формат сообщения консоли. Могут быть использованы следующие плейсхолдеры:
+  # - {timestamp}: Временная метка в формате HH:mm:ss
+  # - {level}: Уровень логирования консоли
+  # - {message}: Фактическое логируемое сообщение
+  format: "**[{timestamp} {level}]** {message}"
+  # Имя вебхука, который будет создан, если предоставлен ID канала.
   webhook-name: "EssentialsX Console Relay"
-  # Set to true if all messages in the console relay channel should be treated as commands.
-  # Note: Enabling this means everyone who can send messages in the console channel will be able to send commands as the
-  # console. It's recommended you stick to the /execute command which has role permission checks (see command configuration below).
-  # Note 2: This option requires a channel ID and is not supported if you specify a webhook URL above. You'll need to use /execute in Discord if you use a webhook URL.
+  # Установите на true, если все сообщения в канале ретрансляции консоли должны рассматриваться как команды.
+  # Примечание: Включение этого значит, что каждый, кто может отправлять сообщения в канале консоли, сможет отправлять команды как консоль.
+  # Рекомендуется придерживаться команды /execute, которая имеет проверки разрешений ролей (смотрите конфигурацию команд ниже).
+  # Примечание 2: Эта опция требует ID канала и не поддерживается, если вы указываете URL вебхука выше. Вам нужно использовать /execute в Discord, если вы используете URL вебхука.
   command-relay: false
-  # Set to true if bots/webhooks should be able to send commands through the command relay.
+  # Установите на true, если боты/вебхуки должны иметь возможность отправлять команды через ретрансляцию команд.
   bot-command-relay: false
-  # The maximum log level of messages to send to the console relay.
-  # The following is a list of available log levels in order of highest to lowest.
-  # Changing the log level will send all log levels above it to the console relay.
-  # For example, setting this to 'info' will display log messages with info, warn, error, and fatal levels.
-  # Log Levels:
+  # Максимальный уровень логов сообщений для отправки в ретрансляцию консоли.
+  # Ниже список доступных уровней логов в порядке от высшего к низшему.
+  # Изменение уровня лога будет отправлять все уровни логов выше него в ретрансляцию консоли.
+  # Например, установка этого на 'info' будет отображать сообщения логов с уровнями info, warn, error и fatal.
+  # Уровни логов:
   # - fatal
   # - error
   # - warn
   # - info
   # - debug
   # - trace
-  log-level: info
-  # Blocks any console message from sending to Discord if it matches this regex pattern.
-  # This is useful if you want to ignore certain messages from the console.
-  # Can also be a list of regex patterns in addition to a single regex pattern.
+  log-level: trace
+  # Блокирует любое сообщение консоли от отправки в Discord, если оно соответствует этому шаблону regex.
+  # Это полезно, если вы хотите игнорировать определенные сообщения из консоли.
+  # Также может быть списком шаблонов regex в дополнение к единому шаблону regex.
   console-filter: ""
-  # The amount of minutes of delay before console messages sent to Discord should be skipped.
+  # Количество минут задержки перед пропуском сообщений консоли, отправленных в Discord.
   skip-delay: 2
 
 # Configure which Discord channels different messages will be sent to.
@@ -188,7 +188,7 @@ commands:
     # List of user IDs or role names/IDs allowed to use this command (or * to allow anyone to access it).
     allowed-roles:
       - "Admins"
-      - "123456789012345678"
+      - "1245318016418447403"
   # The msg command allows for Discord users to message MC players from Discord.
   msg:
     # Set to false if you do not want this command to show up on the Discord command selector.
@@ -221,7 +221,7 @@ commands:
     # on Discord would be allowed to see vanished players (and therefore expose they are actually online).
     admin-roles:
       - "Admins"
-      - "123456789012345678"
+      - "1245317993412689921"
 
 # Whether or not links to attachments in Discord messages should be displayed in chat or not.
 # If this is set to false and a message from Discord only contains an image/file and not any text, nothing will be sent.
@@ -230,7 +230,7 @@ show-discord-attachments: true
 # A list of roles which should be ignored by the {color} and {role} placeholders.
 # for the Discord->MC chat format.
 discord-role-blacklist:
-  - "123456789012345678"
+  - "1245317908435963967"
   - "Members"
 
 # Role aliases allow you to replace the role names with something different in the Discord->MC chat relay format.
@@ -264,8 +264,8 @@ presence:
   # The activity status message.
   message: "Minecraft"
 
-# The following entries allow you to customize the formatting of messages sent by the plugin.
-# Each message has a description of how it is used along with placeholders that can be used.
+# Следующие записи позволяют вам настроить форматирование сообщений, отправляемых плагином.
+# Каждое сообщение имеет описание того, как оно используется, вместе с плейсхолдерами, которые могут быть использованы.
 messages:
   # This is the message that is used to show Discord chat to players in game.
   # Color/formatting codes and the following placeholders can be used here:
@@ -430,11 +430,11 @@ messages:
   server-start: ":white_check_mark: The server has started in {starttimeseconds} seconds!"
   # This is the message sent to Discord when the server stops.
   server-stop: ":octagonal_sign: The server has stopped!"
-  # This is the message sent to Discord when a player is kicked from the server.
-  # The following placeholders can be used here:
-  # - {username}: The name of the user who got kicked
-  # - {displayname}: The display name of the user who got kicked
-  # - {reason}: The reason the player was kicked
+  # Это сообщение, отправляемое в Discord, когда игрок выгоняется с сервера.
+  # Здесь могут быть использованы следующие плейсхолдеры:
+  # - {username}: Имя пользователя, который был выгнан
+  # - {displayname}: Отображаемое имя пользователя, который был выгнан
+  # - {reason}: Причина, по которой игрок был выгнан
   kick: "{displayname} was kicked with reason: {reason}"
   # This is the message that is used to relay minecraft private messages in Discord.
   # The following placeholders can be used here:

@@ -5,13 +5,13 @@ date: "Tue Jul 30 00:00:00 MSK 2024"
 build: "https://ci.athion.net/job/FastAsyncWorldEdit/0"
 commit: "https://github.com/IntellectualSites/FastAsyncWorldEdit/commit/f37d5467"
 platform: "Bukkit"
-# Set true to enable WorldEdit restrictions per region (e.g. PlotSquared or WorldGuard).
-# To be allowed to WorldEdit in a region, users need the appropriate
-# fawe.<plugin>  permission. See the Permissions page for supported region plugins.
+# Установите true чтобы включить ограничения WorldEdit по регионам (например, PlotSquared или WorldGuard).
+# Чтобы быть разрешенным к WorldEdit в регионе, пользователям нужен соответствующий
+# fawe.<plugin>  разрешение. Смотрите страницу разрешений для поддерживаемых плагинов регионов.
 region-restrictions: true
-# FAWE will cancel non admin edits when memory consumption exceeds this %
-#  - Bypass with `/wea` or `//fast` or `fawe.bypass`
-#  - Disable with 100 or -1.
+# FAWE будет отменять неадминские редактирования когда потребление памяти превысит этот %
+#  - Обойти с `/wea` или `//fast` или `fawe.bypass`
+#  - Отключить с 100 или -1.
 max-memory-percent: 95
 
 # Enable or disable core components
@@ -49,15 +49,15 @@ clipboard:
   lock-clipboard-file: false
 
 lighting:
-  # If packet sending should be delayed until relight is finished
+  # Должна ли отправка пакетов быть задержана пока переосвещение не закончено
   delay-packet-sending: true
   async: true
-  # The relighting mode to use:
-  #  - 0 = None (Do no relighting)
-  #  - 1 = Optimal (Relight changed light sources and changed blocks)
-  #  - 2 = All (Slowly relight every blocks)
+  # Режим переосвещения использовать:
+  #  - 0 = Нет (Не делать переосвещение)
+  #  - 1 = Оптимальный (Переосвещать измененные источники света и измененные блоки)
+  #  - 2 = Все (Медленно переосвещать каждый блок)
   mode: 1
-  # If existing lighting should be removed before relighting
+  # Должен ли существующее освещение быть удалено перед переосвещением
   remove-first: true
 
 # Generic tick limiter (not necessarily WorldEdit related, but useful to stop abuse)
