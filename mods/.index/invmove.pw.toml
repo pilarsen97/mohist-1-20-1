@@ -1,0 +1,16 @@
+filename = 'InvMove-0.9.1+1.20.1-Forge.jar'
+name = 'InvMove'
+side = 'client'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20', '1.20.1' ]
+x-prismlauncher-release-type = 'beta'
+
+[download]
+hash = '5d9ca6932e75f9133d7d25b1bc1d0f8e2b96f55ea06fd6106c68db8e0449b760cde968ad02fe95a37d2b963d776ddc51838869c13724538bad026645cdac47dc'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/REfW2AEX/versions/4ezsLW9u/InvMove-0.9.1%2B1.20.1-Forge.jar'
+
+[update.modrinth]
+mod-id = 'REfW2AEX'
+version = '4ezsLW9u'

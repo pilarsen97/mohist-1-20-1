@@ -1,0 +1,16 @@
+filename = 'InvMoveCompats-0.5.0+1.20.4-Forge.jar'
+name = 'InvMoveCompats'
+side = 'client'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20', '1.20.1', '1.20.2', '1.20.3', '1.20.4' ]
+x-prismlauncher-release-type = 'beta'
+
+[download]
+hash = 'acbee3c9f96cbc939f371e262b9aade7fde7d630333504b41d55ca7f7f0e396217a6ff8bebd637f7a56206d63915cbff524638a626c6133228c29b6a011da4b8'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/6IpcGP7T/versions/ZVXGk8vA/InvMoveCompats-0.5.0%2B1.20.4-Forge.jar'
+
+[update.modrinth]
+mod-id = '6IpcGP7T'
+version = 'ZVXGk8vA'

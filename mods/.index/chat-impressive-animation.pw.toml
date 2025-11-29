@@ -1,0 +1,16 @@
+filename = 'ChatImpressiveAnimation-forge-1.4.0+mc1.20.4.jar'
+name = 'Chat Impressive Animation'
+side = 'client'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20', '1.20.1', '1.20.2', '1.20.3', '1.20.4' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = '20c41f4ee84d5c26bd95e73dd09c01acfa4978dd7b2e64bee44cb2df899827ac35110a6600d4cf5c0b64624c3cd7c184696f299ddb3c0ed8f2cf6719c80cc6b7'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/DnL1AGAI/versions/aSiRovdV/ChatImpressiveAnimation-forge-1.4.0%2Bmc1.20.4.jar'
+
+[update.modrinth]
+mod-id = 'DnL1AGAI'
+version = 'aSiRovdV'
