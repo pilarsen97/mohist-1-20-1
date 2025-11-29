@@ -1,0 +1,16 @@
+filename = 'lexiconfig-forge-1.4.18-1.jar'
+name = 'Lexiconfig'
+side = 'both'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.18.2', '1.19.2', '1.20', '1.20.1', '1.20.2', '1.20.3', '1.20.4', '1.20.5', '1.20.6' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = '6050924134d594dd7031061bfe70b34429842516b388262335024206e50993794baa3697f08053bd001e728d3ce42875ee5215e819ed2c595a002cec46c40985'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/D157Rgyf/versions/iv3Hdpa6/lexiconfig-forge-1.4.18-1.jar'
+
+[update.modrinth]
+mod-id = 'D157Rgyf'
+version = 'iv3Hdpa6'
