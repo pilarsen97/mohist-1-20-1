@@ -176,7 +176,6 @@ sudo ./deploy/setup-ubuntu.sh
 - Configures firewall (UFW) rules
 - Sets up systemd services
 
-<<<<<<< HEAD
 #### `configure.sh` - Server Configuration Wizard
 Interactive configuration of server.properties:
 ```bash
@@ -187,8 +186,7 @@ Interactive configuration of server.properties:
 - Automatically syncs password to `deploy/config.env`
 - Creates `server.properties` from `.example` template if needed
 
-=======
->>>>>>> origin/main
+
 #### `health-check.sh` - Server Health Check
 Comprehensive health monitoring:
 ```bash
@@ -327,10 +325,7 @@ This ensures proper shutdown, backup, and validation.
 │   ├── backup.sh                 # World backup utility
 │   ├── graceful-shutdown.sh      # RCON shutdown helper
 │   ├── setup-ubuntu.sh           # Ubuntu production setup
-<<<<<<< HEAD
 │   ├── configure.sh              # Server configuration wizard
-=======
->>>>>>> origin/main
 │   ├── health-check.sh           # Server health check
 │   ├── install-service.sh        # Systemd service installer
 │   ├── config.env.example        # Configuration template
