@@ -16,6 +16,7 @@ deploy/.metrics
 /plugins/FlectoneChat/database.db-shm
 /plugins/SkinsRestorer/cache
 /mohist-config/worlds.yml
+/plugins/EssentialsDiscord/config.yml
 /.mixin.out/class/com/github/alexthe666/alexsmobs/entity/EntitySkelewag.class
 usercache.json
 server.properties

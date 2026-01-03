@@ -1,7 +1,12 @@
-
-
 #Minecraft server properties
-#Mon Nov 17 17:48:33 MSK 2025
+#Mon Jan 04 00:51:00 MSK 2026
+
+motd=KIBERmax server
+rcon.password=qwerty123
+server-ip=localhost
+
+# ----------------------------
+
 allow-flight=false
 allow-nether=true
 broadcast-console-to-ops=true
@@ -32,7 +37,6 @@ max-chained-neighbor-updates=1000000
 max-players=69
 max-tick-time=60000
 max-world-size=29999984
-motd=KIBERmax server
 network-compression-threshold=256
 online-mode=false
 op-permission-level=4
@@ -42,13 +46,11 @@ previews-chat=false
 pvp=true
 query.port=25565
 rate-limit=0
-rcon.password=CHANGE
 rcon.port=25575
 require-resource-pack=false
 resource-pack=
 resource-pack-prompt=
 resource-pack-sha1=
-server-ip=CHANGE
 server-port=25565
 simulation-distance=10
 spawn-animals=true
