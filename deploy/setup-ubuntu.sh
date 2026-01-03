@@ -108,7 +108,7 @@ print_ok "System updated"
 ((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing dependencies"
 
-echo "  Installing: curl wget git git-lfs screen htop iotop net-tools jq bc unzip ufw..."
+echo "  Installing: curl wget git git-lfs screen htop iotop net-tools jq bc unzip ufw build-essential..."
 apt-get install -y \
     curl \
     wget \
@@ -122,7 +122,8 @@ apt-get install -y \
     jq \
     bc \
     unzip \
-    ufw || { print_error "Failed to install dependencies"; exit 1; }
+    ufw \
+    build-essential || { print_error "Failed to install dependencies"; exit 1; }
 
 print_ok "Dependencies installed"
 
