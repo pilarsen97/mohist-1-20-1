@@ -166,6 +166,45 @@ Used internally by stop.sh for graceful shutdowns:
 - Notifies players of shutdown
 - Waits for save completion
 
+#### `setup-ubuntu.sh` - Ubuntu Production Setup
+Complete Ubuntu server setup automation:
+```bash
+sudo ./deploy/setup-ubuntu.sh
+```
+- Installs Java 17, mcrcon, and dependencies
+- Creates minecraft user and directories
+- Configures firewall (UFW) rules
+- Sets up systemd services
+
+#### `health-check.sh` - Server Health Check
+Comprehensive health monitoring:
+```bash
+./deploy/health-check.sh
+```
+- Checks server process status
+- Validates RCON connectivity
+- Reports memory usage and player count
+- Returns exit codes for monitoring systems
+
+#### `install-service.sh` - Systemd Service Installer
+Installs systemd service files:
+```bash
+sudo ./deploy/install-service.sh
+```
+- Copies service files to `/etc/systemd/system/`
+- Enables minecraft.service and minecraft-exporter.service
+- Configures automatic startup on boot
+
+### Configuration
+
+Scripts use centralized configuration from `deploy/config.env`:
+```bash
+cp deploy/config.env.example deploy/config.env
+# Edit config.env with your settings
+```
+
+Key settings: `SERVER_DIR`, `RCON_PASSWORD`, `MIN_RAM`, `MAX_RAM`
+
 ### RCON Configuration
 
 Scripts use RCON for safe server communication:
@@ -195,6 +234,24 @@ Backups stored in `/backups/` directory:
 - Naming format: `backup_YYYYMMDD_HHMMSS`
 - Retention: Last 7 backups kept automatically
 - Each backup includes metadata file with Git commit info
+
+### Monitoring Infrastructure
+
+Prometheus metrics exporter for server monitoring:
+
+**Components:**
+- `deploy/prometheus/minecraft-exporter.sh` - Exports server metrics on port 9225
+- `deploy/prometheus/prometheus-target.yml` - Prometheus scrape configuration
+- `deploy/systemd/minecraft-exporter.service` - Systemd service for exporter
+
+**Available Metrics:**
+- Player count and online status
+- Server TPS and memory usage
+- World statistics
+
+**Setup Guide:** See `docs/monitoring.md` for complete Prometheus + Grafana setup instructions.
+
+**Pre-configured Dashboard:** Import `docs/grafana-dashboard.json` into Grafana for ready-to-use visualization.
 
 ## Development & Maintenance Workflow
 
@@ -255,12 +312,26 @@ This ensures proper shutdown, backup, and validation.
 │   ├── start.sh                  # Server start
 │   ├── deploy.sh                 # Git deployment
 │   ├── backup.sh                 # World backup utility
-│   └── graceful-shutdown.sh      # RCON shutdown helper
+│   ├── graceful-shutdown.sh      # RCON shutdown helper
+│   ├── setup-ubuntu.sh           # Ubuntu production setup
+│   ├── health-check.sh           # Server health check
+│   ├── install-service.sh        # Systemd service installer
+│   ├── config.env.example        # Configuration template
+│   ├── lib/
+│   │   └── logging.sh            # Shared logging library
+│   ├── prometheus/
+│   │   ├── minecraft-exporter.sh     # Prometheus metrics exporter
+│   │   └── prometheus-target.yml     # Prometheus scrape config
+│   └── systemd/
+│       ├── minecraft.service         # Main server service
+│       └── minecraft-exporter.service # Exporter service
 ├── backups/                      # Automated backups (auto-created)
 ├── logs/                         # Server logs (gitignored)
 ├── crash-reports/                # Crash reports (gitignored)
 ├── docs/
-│   └── deployment.md             # Production systemd setup guide
+│   ├── deployment.md             # Production systemd setup guide
+│   ├── monitoring.md             # Prometheus + Grafana setup guide
+│   └── grafana-dashboard.json    # Pre-configured Grafana dashboard
 ├── mohist-config/
 │   └── mohist.yml                # Mohist-specific settings
 ├── mods/                         # Forge mods (.jar files)
