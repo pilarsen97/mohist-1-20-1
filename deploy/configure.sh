@@ -36,14 +36,15 @@ generate_password() {
 }
 
 # Prompt for RCON password with generation option
+# Note: All user-facing output goes to stderr so only the password is captured by command substitution
 prompt_password() {
     local generated
     generated=$(generate_password)
 
-    echo ""
-    echo -e "${C_CYAN}RCON Password Configuration${C_RESET}"
-    echo -e "  ${C_DIM}Generated suggestion:${C_RESET} ${C_GREEN}${generated}${C_RESET}"
-    echo ""
+    echo "" >&2
+    echo -e "${C_CYAN}RCON Password Configuration${C_RESET}" >&2
+    echo -e "  ${C_DIM}Generated suggestion:${C_RESET} ${C_GREEN}${generated}${C_RESET}" >&2
+    echo "" >&2
 
     local user_password
     read -r -p "  Enter password (or press Enter to use generated): " user_password
@@ -53,7 +54,7 @@ prompt_password() {
     else
         # Validate: minimum 8 characters
         if [[ ${#user_password} -lt 8 ]]; then
-            log_warn "Password must be at least 8 characters"
+            log_warn "Password must be at least 8 characters" >&2
             prompt_password
         else
             echo "$user_password"
