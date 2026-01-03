@@ -89,18 +89,70 @@ sudo -u minecraft git lfs pull
 
 ## 2. Конфигурация
 
-### Создание config.env
+### Вариант A: Интерактивный скрипт (рекомендуется)
+
+Запустите мастер конфигурации:
 
 ```bash
+./deploy/configure.sh
+```
+
+Скрипт автоматически:
+1. Создаст `server.properties` из шаблона (если нужно)
+2. Сгенерирует безопасный RCON пароль (или примет ваш)
+3. Запросит IP сервера и MOTD
+4. Синхронизирует пароль с `deploy/config.env`
+
+**Пример вывода:**
+```
+╔════════════════════════════════════════════════════════════════╗
+║  Minecraft Server Configuration - 2026-01-04 12:00:00          ║
+╚════════════════════════════════════════════════════════════════╝
+
+✓ Created server.properties from example
+
+RCON Password Configuration
+  Generated suggestion: Kj8mNp2xRt4wYz6Q
+
+  Enter password (or press Enter to use generated):
+  Server IP [localhost]: 82.202.140.197
+  Message of the Day [KIBERmax server]:
+
+✓ server.properties configured
+✓ deploy/config.env synchronized
+```
+
+### Вариант B: Ручная настройка
+
+#### Шаг 1: Копирование example-файлов
+
+```bash
+cp server.properties.example server.properties
 cp deploy/config.env.example deploy/config.env
+```
+
+#### Шаг 2: Редактирование server.properties
+
+```bash
+nano server.properties
+```
+
+Измените строки в начале файла:
+- `rcon.password=ВАШЕ_СИЛЬНОЕ_ПАРОЛЬ` (минимум 8 символов)
+- `server-ip=ВАШ_IP` (или `localhost` для локального)
+- `motd=Название сервера`
+
+#### Шаг 3: Редактирование config.env
+
+```bash
 nano deploy/config.env
 ```
 
 **Обязательные настройки:**
 
 ```bash
-# RCON пароль (взять из server.properties строка 43)
-RCON_PASSWORD="ваш_пароль_из_server.properties"
+# RCON пароль (должен совпадать с server.properties!)
+RCON_PASSWORD="ваш_пароль"
 
 # Путь к серверу
 SERVER_DIR="/home/minecraft/mohist-1-20-1"
@@ -110,13 +162,20 @@ MIN_RAM="2G"
 MAX_RAM="8G"
 ```
 
+#### Шаг 4: Защита файла конфигурации
+
+```bash
+chmod 600 deploy/config.env
+```
+
 ### Проверка RCON пароля
 
-RCON пароль должен совпадать с `server.properties`:
+RCON пароль должен совпадать в обоих файлах:
 
 ```bash
 grep "rcon.password" server.properties
-# Результат: rcon.password=cXUMt86t4  ← этот пароль в config.env
+grep "RCON_PASSWORD" deploy/config.env
+# Пароли должны быть одинаковые!
 ```
 
 ---
