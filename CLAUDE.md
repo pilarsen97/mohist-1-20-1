@@ -13,6 +13,18 @@ This is a Mohist 1.20.1 Minecraft server - a hybrid server software combining Fo
 - **Config Directory**: `/config/` - Forge mod configurations
 - **Mohist Config**: `/mohist-config/` - Mohist-specific server settings
 
+## Quick Reference
+
+### Systemd Commands (production)
+```bash
+sudo systemctl status minecraft      # Check status
+sudo systemctl start minecraft       # Start server
+sudo systemctl stop minecraft        # Stop server
+sudo systemctl restart minecraft     # Restart server
+sudo journalctl -u minecraft -f      # Live logs
+sudo journalctl -u minecraft -n 200  # Last 200 lines
+```
+
 ## Server Launch Commands
 
 ### Windows
@@ -225,6 +237,9 @@ This ensures proper shutdown, backup, and validation.
 - **Language**: Server is configured for Russian language (`lang: ru_RU` in mohist.yml)
 - **Permissions**: Mohist's Forge-Bukkit permission bridge is enabled for mod permission integration
 - **World Management**: Mohist world management enabled - allows better control over dimensions
+- **Service Name**: `minecraft.service` for systemd operations
+- **Logs**: `/logs/` directory contains server logs (gitignored)
+- **Crash Reports**: `/crash-reports/` directory contains crash reports (gitignored)
 
 ## File Structure
 ```
@@ -242,6 +257,8 @@ This ensures proper shutdown, backup, and validation.
 │   ├── backup.sh                 # World backup utility
 │   └── graceful-shutdown.sh      # RCON shutdown helper
 ├── backups/                      # Automated backups (auto-created)
+├── logs/                         # Server logs (gitignored)
+├── crash-reports/                # Crash reports (gitignored)
 ├── docs/
 │   └── deployment.md             # Production systemd setup guide
 ├── mohist-config/

@@ -1,0 +1,70 @@
+# =============================================================================
+# Prometheus Target Configuration for Minecraft Server
+# =============================================================================
+# Add this to your Prometheus scrape_configs section
+#
+# Example prometheus.yml:
+#   scrape_configs:
+#     - job_name: 'prometheus'
+#       static_configs:
+#         - targets: ['localhost:9090']
+#
+#     # Add the minecraft job below
+#     - job_name: 'minecraft'
+#       static_configs:
+#         - targets: ['minecraft-vm:9225']
+#       scrape_interval: 15s
+# =============================================================================
+
+# Copy this configuration to your prometheus.yml under scrape_configs:
+
+- job_name: 'minecraft'
+  static_configs:
+    - targets: ['localhost:9225']
+      labels:
+        server: 'mohist-1-20-1'
+        environment: 'production'
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  metrics_path: /metrics
+
+# =============================================================================
+# Available Metrics
+# =============================================================================
+#
+# minecraft_healthy                    - Server running (1=yes, 0=no)
+# minecraft_players_online             - Current player count
+# minecraft_players_max                - Maximum players allowed
+# minecraft_tps                        - Ticks per second (20 = optimal)
+# minecraft_uptime_seconds             - Server uptime
+# minecraft_memory_used_bytes          - Current memory usage
+# minecraft_memory_max_bytes           - Maximum memory
+# minecraft_disk_usage_percent         - Disk usage percentage
+# minecraft_disk_available_bytes       - Available disk space
+# minecraft_world_size_bytes           - Total world size
+# minecraft_backup_last_timestamp      - Last backup timestamp
+# minecraft_backup_size_bytes          - Last backup size
+#
+# =============================================================================
+# Example Grafana Queries
+# =============================================================================
+#
+# Player count over time:
+#   minecraft_players_online
+#
+# Server TPS (lower is worse):
+#   minecraft_tps
+#
+# Memory usage percentage:
+#   minecraft_memory_used_bytes / minecraft_memory_max_bytes * 100
+#
+# Disk usage trend:
+#   minecraft_disk_usage_percent
+#
+# Uptime in hours:
+#   minecraft_uptime_seconds / 3600
+#
+# Days since last backup:
+#   (time() - minecraft_backup_last_timestamp) / 86400
+#
+# =============================================================================

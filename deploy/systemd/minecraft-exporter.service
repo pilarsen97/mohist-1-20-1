@@ -1,0 +1,60 @@
+# =============================================================================
+# Minecraft Prometheus Metrics Exporter - Systemd Service File
+# =============================================================================
+# Exposes Minecraft server metrics on port 9225 for Prometheus scraping
+#
+# Installation:
+#   sudo cp deploy/systemd/minecraft-exporter.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable minecraft-exporter.service
+#   sudo systemctl start minecraft-exporter.service
+# =============================================================================
+
+[Unit]
+Description=Minecraft Prometheus Metrics Exporter
+Documentation=file:///home/minecraft/mohist-1-20-1/CLAUDE.md
+After=network.target
+After=minecraft.service
+BindsTo=minecraft.service
+
+# Start after minecraft service
+PartOf=minecraft.service
+
+[Service]
+Type=simple
+
+# Run as minecraft user
+User=minecraft
+Group=minecraft
+
+# Working directory
+WorkingDirectory=/home/minecraft/mohist-1-20-1
+
+# Environment file
+EnvironmentFile=-/home/minecraft/mohist-1-20-1/deploy/config.env
+
+# Main exporter process
+ExecStart=/bin/bash /home/minecraft/mohist-1-20-1/deploy/prometheus/minecraft-exporter.sh
+
+# Restart configuration
+Restart=always
+RestartSec=10
+
+# Resource limits (exporter is lightweight)
+MemoryMax=50M
+CPUQuota=10%
+
+# Security hardening
+ProtectSystem=strict
+ProtectHome=read-only
+ReadOnlyPaths=/home/minecraft/mohist-1-20-1
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=minecraft-exporter
+
+[Install]
+WantedBy=multi-user.target
