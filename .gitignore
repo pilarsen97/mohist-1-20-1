@@ -16,11 +16,18 @@ deploy/.metrics
 /plugins/FlectoneChat/database.db-shm
 /plugins/SkinsRestorer/cache
 /mohist-config/worlds.yml
+<<<<<<< HEAD
 /plugins/EssentialsDiscord/config.yml
+=======
+>>>>>>> origin/main
 /.mixin.out/class/com/github/alexthe666/alexsmobs/entity/EntitySkelewag.class
 usercache.json
 server.properties
 plugins/AuthMe/authme.log
 usernamecache.json
 plugins/SkinsRestorer/recommendations.json
+<<<<<<< HEAD
 config/waila/waila_plugins.json5
+=======
+config/waila/waila_plugins.json5
+>>>>>>> origin/main

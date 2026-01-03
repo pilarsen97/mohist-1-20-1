@@ -96,10 +96,15 @@ CURRENT_STEP=0
 ((CURRENT_STEP++))
 print_step $CURRENT_STEP $TOTAL_STEPS "Updating system packages"
 
+<<<<<<< HEAD
 echo "  Updating package lists..."
 apt-get update || { print_error "apt-get update failed"; exit 1; }
 echo "  Upgrading packages..."
 apt-get upgrade -y || { print_error "apt-get upgrade failed"; exit 1; }
+=======
+apt-get update -qq
+apt-get upgrade -y -qq
+>>>>>>> origin/main
 print_ok "System updated"
 
 # -----------------------------------------------------------------------------
@@ -108,8 +113,12 @@ print_ok "System updated"
 ((CURRENT_STEP++))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing dependencies"
 
+<<<<<<< HEAD
 echo "  Installing: curl wget git git-lfs screen htop iotop net-tools jq bc unzip ufw..."
 apt-get install -y \
+=======
+apt-get install -y -qq \
+>>>>>>> origin/main
     curl \
     wget \
     git \
@@ -122,7 +131,11 @@ apt-get install -y \
     jq \
     bc \
     unzip \
+<<<<<<< HEAD
     ufw || { print_error "Failed to install dependencies"; exit 1; }
+=======
+    ufw
+>>>>>>> origin/main
 
 print_ok "Dependencies installed"
 
@@ -132,8 +145,12 @@ print_ok "Dependencies installed"
 ((CURRENT_STEP++))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing OpenJDK ${JAVA_VERSION}"
 
+<<<<<<< HEAD
 echo "  Installing openjdk-${JAVA_VERSION}-jdk-headless..."
 apt-get install -y openjdk-${JAVA_VERSION}-jdk-headless || { print_error "Failed to install Java"; exit 1; }
+=======
+apt-get install -y -qq openjdk-${JAVA_VERSION}-jdk-headless
+>>>>>>> origin/main
 
 # Verify installation
 if java -version 2>&1 | grep -q "openjdk version \"${JAVA_VERSION}"; then
