@@ -1,0 +1,397 @@
+#  █▀ █   ██▀ ▄▀▀ ▀█▀ ▄▀▄ █▄ █ ██▀ ▄▀▀ █▄█ ▄▀▄ ▀█▀
+#  █▀ █▄▄ █▄▄ ▀▄▄  █  ▀▄▀ █ ▀█ █▄▄ ▀▄▄ █ █ █▀█  █
+#
+# Рекомендуем ознакомиться с документацией плагина
+# https://chat.flectone.net/docs
+
+plugin:
+  version: 4.5.1
+
+  language: ru
+
+  database:
+    name: "database"
+
+  scoreboard:
+    custom: false
+
+  bStats:
+    enable: true
+
+default:
+  extra:
+    enable: true
+
+    item-sign:
+      enable: true
+
+      format: "<dye>&o#<player>"
+      block: "ANVIL"
+
+      unsign:
+        enable: true
+        drop-dye: true
+        block: "GRINDSTONE"
+
+    mark:
+      enable: true
+
+      item: "WOODEN_SWORD"
+      range: 30
+
+    knocking:
+      enable: true
+
+      list:
+        - "glass"
+        - "door"
+
+    spit:
+      enable: true
+
+      item: "WHITE_DYE"
+
+  server:
+    enable: true
+
+    brand:
+      enable: true
+      update:
+        enable: true
+        rate: 20
+
+    tab:
+      enable: false
+
+      update:
+        enable: true
+        rate: 40
+
+      header:
+        enable: true
+      footer:
+        enable: true
+
+      player-list-name:
+        enable: true
+
+      player-list:
+        mode: ping
+
+    status:
+      icon:
+        enable: false
+
+        mode: random
+
+        names:
+          - "server-icon-1"
+          - "server-icon-2"
+      motd:
+        enable: true
+
+      player-count:
+        enable: true
+        number: 69
+
+  server-message:
+    enable: true
+
+    death:
+      enable: true
+
+      visible: true
+
+      mob-default: true
+
+      entity:
+        hover:
+          enable: true
+
+    advancement:
+      enable: false
+
+      task:
+        visible: false
+      goal:
+        visible: false
+      challenge:
+        visible: false
+
+    join:
+      enable: true
+
+      first-time:
+        enable: true
+
+    greeting:
+      enable: true
+
+    quit:
+      enable: true
+
+      first-time:
+        enable: true
+
+  player:
+    enable: true
+
+    name:
+      enable: true
+
+      display: "<player_prefix><player_name_real><player_suffix>"
+      tab: "<player_prefix>&f<player_name_real><player_suffix>"
+
+      prefix: "<world_prefix><vault_prefix><stream_prefix>"
+      real: "<GRADIENT:11b8f0><player></GRADIENT:87cee6>"
+      suffix: "<afk_suffix><vault_suffix>"
+
+      hide-invisible: true
+
+    name-tag:
+      enable: true
+
+      visible: false
+
+      suffix:
+        enable: true
+      prefix:
+        enable: true
+
+      sort:
+        enable: true
+
+    world:
+      enable: true
+
+      mode: "type"
+
+      normal: "#4eff52● &f"
+      nether: "#ff4e4e● &f"
+      the_end: "#834eff● &f"
+      custom: "#1abaf0● &f"
+
+      world: "#4eff52● &f"
+      world_nether: "#ff4e4e● &f"
+      world_the_end: "#834eff● &f"
+
+    afk-timeout:
+      enable: true
+
+      time: 3000
+
+      message:
+        enable: true
+
+      take-out-actions:
+        - /afk
+        - commands
+        - chat
+        - move
+
+    right-click:
+      enable: true
+      format: "&&1-⏴ &&2<player> &&1⏵-"
+
+    hover:
+      enable: true
+
+      command-type: "suggest"
+      command: "/msg <player> "
+
+    below-name:
+
+      mode: health
+
+  player-message:
+    enable: true
+
+    swear-protection:
+      enable: false
+      mode: list
+      symbol: "❤"
+
+    patterns:
+      enable: true
+
+      list:
+        ':)': "☺"
+        ':D': "☻"
+        ':(': "☹"
+        ':ok:': "🖒"
+        ':+1:': "🖒"
+        ':-1': "🖓"
+        ':cool:': "😎"
+        'B)':  "😎"
+        ':clown:': "🤡"
+        '<3': "❤"
+        'xd': "😆"
+        '%)': "😵"
+        '=D': "😃"
+        '>:(': "😡"
+        ':idk:': "¯\\_(ツ)_/¯"
+        ':angry:': "(╯°□°)╯︵ ┻━┻"
+        ':happy:': "＼(＾O＾)／"
+        # ...
+
+    formatting:
+      enable: true
+
+      list:
+        ping:
+          enable: true
+          trigger: "%ping%"
+
+          bad:
+            color: "#ff4e4e"
+            count: 200
+          medium:
+            color: "#fce303"
+            count: 100
+          good:
+            color: "#4eff52"
+
+        cords:
+          enable: true
+          trigger: "%cords%"
+
+        stats:
+          enable: true
+          trigger: "%stats%"
+
+        skin:
+          enable: true
+          trigger: "%skin%"
+          format: "&&1🎨<message>.png"
+
+        url:
+          enable: true
+          hover:
+            enable: true
+          clickable: true
+
+          markdown-support: true
+
+          image:
+            enable: true
+
+            format: "&&1🎨<image>"
+
+            whitelist-site:
+              - "cdn.discordapp.com"
+              - "i.imgur.com"
+
+          trigger: ((https?|ftp|gopher|telnet|file):((//)|(\\))+[\w:#@%/;$()~_?+-=\\.&]*)
+
+          format: "&&1<message>"
+
+        item:
+          enable: true
+          trigger: "%item%"
+          format: "&&1[<message>]"
+
+        mention:
+          enable: true
+          trigger: "@"
+          format: "&&1@<message>"
+
+        markdown-||:
+          enable: true
+          trigger: "||"
+          symbol: "&&1█"
+
+        markdown-**:
+          enable: true
+          trigger: "**"
+
+        markdown-##:
+          enable: true
+          trigger: "##"
+
+        markdown-__:
+          enable: true
+          trigger: "__"
+
+        markdown-??:
+          enable: true
+          trigger: "??"
+
+        markdown-~~:
+          enable: true
+          trigger: "~~"
+
+    anvil:
+      enable: true
+      features: [swear-protection, patterns, formatting]
+    book:
+      enable: true
+      features: [swear-protection, patterns, formatting]
+    sign:
+      enable: true
+      features: [swear-protection, patterns, formatting]
+
+    chat:
+      enable: true
+
+      list:
+        local:
+          enable: true
+          priority: 0
+          features: [swear-protection, patterns, formatting]
+          worlds: []
+          format: "<player_name_display>&&2: <message>"
+
+          range: 100
+
+          no-recipients:
+            enable: true
+
+          prefix:
+            cleared: true
+            trigger: ""
+
+          set-cancelled: true
+
+        global:
+          enable: true
+          priority: 5
+          features: [swear-protection, patterns, formatting, mention]
+          worlds: []
+          format: "<player_name_display>&&2 » <message>"
+
+          range: 0
+
+          no-recipients:
+            enable: true
+
+          prefix:
+            cleared: true
+            trigger: "!"
+
+          set-cancelled: false
+
+  sounds:
+    enable: true
+
+  chat-bubble:
+    enable: true
+    color: "#999999"
+    height: 1
+    max-per-line: 35
+    read-speed: 800
+
+  auto-message:
+    enable: true
+
+    features: [patterns, formatting]
+
+    random: false
+
+    period: 2600
+
+  color:
+    enable: true
+
+    list:
+      "&&1": "#68d0f2"
+      "&&2": "#bce8f7"
