@@ -93,7 +93,7 @@ CURRENT_STEP=0
 # -----------------------------------------------------------------------------
 # Step 1: System Update
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Updating system packages"
 
 echo "  Updating package lists..."
@@ -105,7 +105,7 @@ print_ok "System updated"
 # -----------------------------------------------------------------------------
 # Step 2: Install Dependencies
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing dependencies"
 
 echo "  Installing: curl wget git git-lfs screen htop iotop net-tools jq bc unzip ufw..."
@@ -129,7 +129,7 @@ print_ok "Dependencies installed"
 # -----------------------------------------------------------------------------
 # Step 3: Install OpenJDK 17
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing OpenJDK ${JAVA_VERSION}"
 
 echo "  Installing openjdk-${JAVA_VERSION}-jdk-headless..."
@@ -146,7 +146,7 @@ fi
 # -----------------------------------------------------------------------------
 # Step 4: Install mcrcon
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing mcrcon (RCON client)"
 
 if ! command -v mcrcon &> /dev/null; then
@@ -165,7 +165,7 @@ fi
 # -----------------------------------------------------------------------------
 # Step 5: Create Minecraft User
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Creating minecraft user"
 
 if id "${MINECRAFT_USER}" &>/dev/null; then
@@ -182,7 +182,7 @@ chmod 750 "${MINECRAFT_HOME}"
 # -----------------------------------------------------------------------------
 # Step 6: Configure Git LFS
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Configuring Git LFS"
 
 su - ${MINECRAFT_USER} -c "git lfs install" 2>/dev/null || git lfs install
@@ -191,7 +191,7 @@ print_ok "Git LFS configured"
 # -----------------------------------------------------------------------------
 # Step 7: Clone/Update Repository
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Setting up server repository"
 
 if [[ -d "${SERVER_DIR}/.git" ]]; then
@@ -210,7 +210,7 @@ fi
 # -----------------------------------------------------------------------------
 # Step 8: Create Configuration
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Setting up configuration"
 
 if [[ -d "${SERVER_DIR}/deploy" ]]; then
@@ -232,7 +232,7 @@ fi
 # -----------------------------------------------------------------------------
 # Step 9: Create Log Directories
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Creating log directories"
 
 mkdir -p "${SERVER_DIR}/logs/deploy" 2>/dev/null || true
@@ -249,7 +249,7 @@ fi
 # -----------------------------------------------------------------------------
 # Step 10: Install Systemd Services
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing systemd services"
 
 if [[ -f "${SERVER_DIR}/deploy/systemd/minecraft.service" ]]; then
@@ -269,7 +269,7 @@ fi
 # -----------------------------------------------------------------------------
 # Step 11: Configure Firewall
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Configuring firewall"
 
 # Enable UFW if not enabled
@@ -297,7 +297,7 @@ print_ok "Firewall configured (ports 25565, 9225)"
 # -----------------------------------------------------------------------------
 # Step 12: Final Validation
 # -----------------------------------------------------------------------------
-((CURRENT_STEP++))
+((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Validating setup"
 
 echo ""
