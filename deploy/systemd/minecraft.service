@@ -1,0 +1,116 @@
+# =============================================================================
+# Minecraft Mohist 1.20.1 Server - Systemd Service File
+# =============================================================================
+# Installation:
+#   sudo cp deploy/systemd/minecraft.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable minecraft.service
+#   sudo systemctl start minecraft.service
+#
+# Or use: ./deploy/install-service.sh
+# =============================================================================
+
+[Unit]
+Description=Mohist 1.20.1 Minecraft Server
+Documentation=file:///home/minecraft/mohist-1-20-1/CLAUDE.md
+After=network.target network-online.target
+Wants=network-online.target
+
+# Optional dependencies
+After=local-fs.target
+After=remote-fs.target
+
+[Service]
+# Service type - simple because Java process stays in foreground
+Type=simple
+
+# User and group - never run as root!
+User=minecraft
+Group=minecraft
+
+# Working directory
+WorkingDirectory=/home/minecraft/mohist-1-20-1
+
+# Environment file for configuration
+EnvironmentFile=-/home/minecraft/mohist-1-20-1/deploy/config.env
+
+# Pre-start checks
+# Verify JAR file exists and is not corrupted
+ExecStartPre=/bin/bash -c 'test -f mohist-1.20.1-*.jar || (echo "Server JAR not found!" && exit 1)'
+ExecStartPre=/bin/bash -c 'JAR=$(ls mohist-1.20.1-*.jar 2>/dev/null | head -1) && SIZE=$(stat -c%%s "$JAR" 2>/dev/null || stat -f%%z "$JAR" 2>/dev/null) && test "$SIZE" -gt 100000000 || (echo "JAR file too small, may be corrupted!" && exit 1)'
+
+# Main server process
+# Using launch.sh which handles Java arguments
+ExecStart=/bin/bash /home/minecraft/mohist-1-20-1/launch.sh
+
+# Graceful shutdown with world save
+# Sends save-all via RCON before stopping
+ExecStop=/bin/bash /home/minecraft/mohist-1-20-1/deploy/graceful-shutdown.sh
+
+# Reload configuration (optional - sends reload command via RCON)
+ExecReload=/bin/bash -c 'mcrcon -H localhost -P 25575 -p "$RCON_PASSWORD" "reload"'
+
+# Stop timeout - give server time to save worlds
+TimeoutStopSec=90
+
+# Restart configuration
+Restart=on-failure
+RestartSec=30
+
+# Limit restart attempts
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+# Resource limits
+# Memory limit - 10GB (8GB for Java + overhead)
+MemoryMax=10G
+MemoryHigh=9G
+
+# CPU quota - 200% means 2 full cores
+CPUQuota=200%
+
+# Allow more open files (needed for many players/chunks)
+LimitNOFILE=100000
+
+# Core dumps disabled for security
+LimitCORE=0
+
+# Process limits
+TasksMax=100
+
+# Security hardening
+# Protect system directories
+ProtectSystem=strict
+ProtectHome=read-only
+
+# Allow write access to server directory
+ReadWritePaths=/home/minecraft/mohist-1-20-1
+ReadWritePaths=/home/minecraft/mohist-1-20-1/world
+ReadWritePaths=/home/minecraft/mohist-1-20-1/world_nether
+ReadWritePaths=/home/minecraft/mohist-1-20-1/world_the_end
+ReadWritePaths=/home/minecraft/mohist-1-20-1/logs
+ReadWritePaths=/home/minecraft/mohist-1-20-1/backups
+ReadWritePaths=/home/minecraft/mohist-1-20-1/plugins
+ReadWritePaths=/home/minecraft/mohist-1-20-1/config
+ReadWritePaths=/home/minecraft/mohist-1-20-1/crash-reports
+
+# Prevent privilege escalation
+NoNewPrivileges=yes
+
+# Restrict capabilities
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# Private /tmp
+PrivateTmp=yes
+
+# Logging to systemd journal
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=minecraft
+
+# OOM handling - don't kill if possible
+OOMScoreAdjust=-500
+
+[Install]
+WantedBy=multi-user.target

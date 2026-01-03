@@ -1,112 +1,251 @@
 #!/bin/bash
-# Graceful Minecraft server shutdown with world save
-# Uses RCON to send save-all command before stopping
+# =============================================================================
+# graceful-shutdown.sh - Graceful Minecraft Server Shutdown with World Save
+# =============================================================================
+# Uses RCON to safely save the world before stopping the server.
+# Called by systemd as ExecStop command.
+#
+# Features:
+#   - Reads RCON password from config.env (no hardcoded secrets!)
+#   - Verifies save completion
+#   - Notifies players before shutdown
+#   - Timeout handling for RCON commands
+#
+# Usage: ./deploy/graceful-shutdown.sh [--timeout SECONDS]
+# =============================================================================
 
-set -e  # Exit on error
+set -e
 
+# -----------------------------------------------------------------------------
 # Configuration
-RCON_HOST="localhost"
-RCON_PORT="25575"
-RCON_PASSWORD="29123537"  # From server.properties
+# -----------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SERVER_DIR="$(dirname "$SCRIPT_DIR")"
+SERVER_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# Load shared logging library
+if [[ -f "${SCRIPT_DIR}/lib/logging.sh" ]]; then
+    source "${SCRIPT_DIR}/lib/logging.sh"
+else
+    # Fallback minimal logging
+    log_info() { echo "[INFO] $1"; }
+    log_warn() { echo "[WARN] $1"; }
+    log_error() { echo "[ERROR] $1" >&2; }
+    log_success() { echo "[OK] $1"; }
+fi
 
-log_info() {
-    echo -e "${GREEN}[INFO]${NC} $1"
-}
+# Load configuration from config.env
+if [[ -f "${SCRIPT_DIR}/config.env" ]]; then
+    source "${SCRIPT_DIR}/config.env"
+    log_debug "Loaded configuration from config.env"
+else
+    log_warn "config.env not found, using defaults"
+fi
 
-log_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
-}
+# Defaults (can be overridden by config.env)
+RCON_HOST="${RCON_HOST:-localhost}"
+RCON_PORT="${RCON_PORT:-25575}"
+RCON_PASSWORD="${RCON_PASSWORD:-}"
+RCON_TIMEOUT="${RCON_TIMEOUT:-5}"
+SHUTDOWN_TIMEOUT="${SHUTDOWN_TIMEOUT:-60}"
 
-log_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
-}
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --timeout)
+            SHUTDOWN_TIMEOUT="$2"
+            shift 2
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
 
-# Check if mcrcon is available
-check_rcon_tool() {
+# -----------------------------------------------------------------------------
+# RCON Functions
+# -----------------------------------------------------------------------------
+
+# Detect available RCON tool
+get_rcon_tool() {
     if command -v mcrcon &> /dev/null; then
         echo "mcrcon"
         return 0
     fi
 
-    # Check if rcon-cli is available
     if command -v rcon-cli &> /dev/null; then
         echo "rcon-cli"
         return 0
     fi
 
-    log_warn "No RCON tool found (mcrcon or rcon-cli)"
-    log_warn "Install with: brew install mcrcon (macOS) or apt install mcrcon (Linux)"
-    log_warn "Skipping graceful save, proceeding with shutdown..."
     echo "none"
     return 1
 }
 
-# Send RCON command
-send_rcon_command() {
+# Send RCON command with timeout
+send_rcon() {
     local command="$1"
-    local tool=$(check_rcon_tool)
+    local tool
 
-    if [ "$tool" = "none" ]; then
+    tool=$(get_rcon_tool) || {
+        log_warn "No RCON tool available"
+        return 1
+    }
+
+    if [[ -z "$RCON_PASSWORD" ]]; then
+        log_warn "RCON_PASSWORD not set in config.env"
         return 1
     fi
 
-    if [ "$tool" = "mcrcon" ]; then
-        mcrcon -H "$RCON_HOST" -P "$RCON_PORT" -p "$RCON_PASSWORD" "$command" 2>/dev/null || true
-    elif [ "$tool" = "rcon-cli" ]; then
-        rcon-cli --host "$RCON_HOST" --port "$RCON_PORT" --password "$RCON_PASSWORD" "$command" 2>/dev/null || true
+    local result=""
+    local exit_code=0
+
+    case "$tool" in
+        mcrcon)
+            result=$(timeout "${RCON_TIMEOUT}" mcrcon \
+                -H "$RCON_HOST" \
+                -P "$RCON_PORT" \
+                -p "$RCON_PASSWORD" \
+                "$command" 2>&1) || exit_code=$?
+            ;;
+        rcon-cli)
+            result=$(timeout "${RCON_TIMEOUT}" rcon-cli \
+                --host "$RCON_HOST" \
+                --port "$RCON_PORT" \
+                --password "$RCON_PASSWORD" \
+                "$command" 2>&1) || exit_code=$?
+            ;;
+    esac
+
+    if [[ $exit_code -ne 0 ]]; then
+        log_debug "RCON command '$command' failed with exit code $exit_code"
+        return 1
     fi
+
+    echo "$result"
+    return 0
 }
 
 # Check if server is running
 is_server_running() {
-    if pgrep -f "mohist-1.20.1.*\.jar" > /dev/null; then
+    if pgrep -f "mohist-1.20.1.*\.jar" > /dev/null 2>&1; then
         return 0
+    fi
+
+    if command -v systemctl &>/dev/null; then
+        if systemctl is-active --quiet minecraft.service 2>/dev/null; then
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
+# Get player count
+get_player_count() {
+    local result
+    result=$(send_rcon "list" 2>/dev/null) || {
+        echo "0"
+        return
+    }
+
+    # Parse "There are X of a max of Y players online"
+    if [[ "$result" =~ [Tt]here\ are\ ([0-9]+) ]]; then
+        echo "${BASH_REMATCH[1]}"
     else
-        return 1
+        echo "0"
     fi
 }
 
-# Main graceful shutdown procedure
+# -----------------------------------------------------------------------------
+# Main Shutdown Procedure
+# -----------------------------------------------------------------------------
+
 main() {
     log_info "Starting graceful shutdown procedure..."
+    log_debug "Timeout: ${SHUTDOWN_TIMEOUT}s, RCON: ${RCON_HOST}:${RCON_PORT}"
 
     # Check if server is running
     if ! is_server_running; then
-        log_warn "Server is not running"
+        log_warn "Server is not running, nothing to shutdown"
         return 0
     fi
 
-    # Send save-all command
-    log_info "Sending save-all command to server..."
-    send_rcon_command "save-all" || log_warn "Could not send save-all via RCON"
+    # Check RCON tool availability
+    local rcon_tool
+    rcon_tool=$(get_rcon_tool) || true
+
+    if [[ "$rcon_tool" == "none" ]]; then
+        log_warn "No RCON tool found (mcrcon or rcon-cli)"
+        log_warn "Install with: apt install mcrcon (Ubuntu) or brew install mcrcon (macOS)"
+        log_warn "Proceeding without graceful save - worlds may not be saved properly!"
+        return 0
+    fi
+
+    if [[ -z "$RCON_PASSWORD" ]]; then
+        log_error "RCON_PASSWORD not set!"
+        log_error "Configure it in: ${SCRIPT_DIR}/config.env"
+        log_warn "Proceeding without graceful save - worlds may not be saved properly!"
+        return 0
+    fi
+
+    # Get player count before shutdown
+    local player_count
+    player_count=$(get_player_count)
+    log_info "Players online: ${player_count}"
+
+    # Notify players if any are online
+    if [[ "$player_count" -gt 0 ]]; then
+        log_info "Notifying players of shutdown..."
+        send_rcon "say §c[Server] §fShutting down for maintenance in 10 seconds..." || true
+        sleep 3
+        send_rcon "say §c[Server] §fSaving world..." || true
+        sleep 2
+    fi
+
+    # Step 1: First save-all
+    log_info "Sending save-all command..."
+    if send_rcon "save-all" >/dev/null; then
+        log_success "save-all command sent"
+    else
+        log_warn "Could not send save-all command"
+    fi
 
     # Wait for save to complete
     log_info "Waiting for world save to complete..."
     sleep 3
 
-    # Send save-off to prevent further changes
+    # Step 2: Disable auto-save
     log_info "Disabling auto-save..."
-    send_rcon_command "save-off" || log_warn "Could not send save-off via RCON"
+    if send_rcon "save-off" >/dev/null; then
+        log_success "Auto-save disabled"
+    else
+        log_warn "Could not disable auto-save"
+    fi
 
-    # Notify players (if any)
-    log_info "Notifying players of shutdown..."
-    send_rcon_command "say Server is shutting down for maintenance..." || true
-    sleep 1
+    # Step 3: Final save with flush
+    log_info "Performing final save (with flush)..."
+    if send_rcon "save-all flush" >/dev/null; then
+        log_success "Final save completed"
+    else
+        log_warn "Could not complete final save"
+    fi
 
-    # Final save
-    log_info "Performing final save..."
-    send_rcon_command "save-all flush" || true
+    # Wait for flush to complete
     sleep 2
 
-    log_info "Graceful shutdown preparation complete"
+    # Notify players of imminent shutdown
+    if [[ "$player_count" -gt 0 ]]; then
+        send_rcon "say §c[Server] §fShutting down now. See you soon!" || true
+        sleep 1
+    fi
+
+    # Step 4: Kick all players (optional, uncomment if needed)
+    # log_info "Disconnecting players..."
+    # send_rcon "kick @a Server is shutting down" || true
+
+    log_success "Graceful shutdown preparation complete"
+    log_info "Server process will now be terminated by systemd"
 }
 
+# Run main function
 main "$@"

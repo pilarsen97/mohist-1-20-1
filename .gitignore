@@ -1,5 +1,11 @@
+# Server runtime
 /crash-reports
 /logs
+/backups
+
+# Deployment secrets (NEVER commit!)
+deploy/config.env
+deploy/.metrics
 /world
 /plugins/dynmap/web
 /plugins/BetterRTP/log.txt
