@@ -151,11 +151,25 @@ fi
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing mcrcon (RCON client)"
 
 if ! command -v mcrcon &> /dev/null; then
+    # Clean up any stale build directory from previous attempts
+    rm -rf /tmp/mcrcon 2>/dev/null || true
+
     cd /tmp
-    git clone -q https://github.com/Tiiffi/mcrcon.git
+    if ! git clone -q https://github.com/Tiiffi/mcrcon.git; then
+        print_error "Failed to clone mcrcon repository"
+        exit 1
+    fi
     cd mcrcon
-    make -s
-    cp mcrcon /usr/local/bin/
+    if ! make -s; then
+        print_error "Failed to build mcrcon (is build-essential installed?)"
+        rm -rf /tmp/mcrcon
+        exit 1
+    fi
+    if ! cp mcrcon /usr/local/bin/; then
+        print_error "Failed to install mcrcon binary"
+        rm -rf /tmp/mcrcon
+        exit 1
+    fi
     cd /
     rm -rf /tmp/mcrcon
     print_ok "mcrcon installed"
