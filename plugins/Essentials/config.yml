@@ -25,140 +25,139 @@
 # +------------------------------------------------------+ #
 ############################################################
 
-# A color code between 0-9 or a-f. Set to 'none' to disable.
-# In 1.16+, you can use hex color codes here as well (for example, #613e1d is brown).
+# Код цвета от 0-9 или a-f. Установите 'none', чтобы отключить.
+# В 1.16+ вы можете использовать hex коды цветов здесь также (например, #613e1d - коричневый).
 ops-name-color: '4'
 
-# The character(s) to prefix all nicknames, so that you know they are not true usernames.
-# Players with 'essentials.nick.hideprefix' will not be prefixed with the character(s).
+# Символ(ы) для префикса всех ников, чтобы вы знали, что это не настоящие имена пользователей.
+# Игроки с 'essentials.nick.hideprefix' не будут иметь префикс.
 nickname-prefix: '~'
 
-# The maximum length allowed in nicknames. The nickname prefix is not included in this.
+# Максимальная длина разрешена в никах. Префикс ника не включается в это.
 max-nick-length: 15
 
-# The regex pattern used to determine if a requested nickname should be allowed for use.
-# If the requested nickname does not match this pattern, the nickname will be rejected.
-# Players with 'essentials.nick.allowunsafe' will be able to bypass this check.
+# Регулярное выражение, используемое для определения, разрешено ли запрашиваемое имя использовать.
+# Если запрашиваемое имя не соответствует этому шаблону, оно будет отклонено.
+# Игроки с 'essentials.nick.allowunsafe' смогут обойти эту проверку.
 allowed-nicks-regex: '^[a-zA-Z_0-9§]+$'
 
-# A list of phrases that cannot be used in nicknames. You can include regular expressions here.
-# Players with 'essentials.nick.blacklist.bypass' will be able to bypass this filter.
+# Список фраз, которые нельзя использовать в никах. Вы можете включить регулярные выражения здесь.
+# Игроки с 'essentials.nick.blacklist.bypass' смогут обойти этот фильтр.
 nick-blacklist:
   #- Notch
   #- '^Dinnerbone'
 
-# When this option is enabled, nickname length checking will exclude color codes in player names.
-# For example, if "&6Notch" has 7 characters (2 are part of a color code), a length of 5 is used when this option is set to true.
+# Когда эта опция включена, проверка длины ника будет исключать коды цветов в именах игроков.
+# Например, если "&6Notch" имеет 7 символов (2 являются частью кода цвета), длина 5 используется, когда это установлено на true.
 ignore-colors-in-max-nick-length: false
 
-# When this option is enabled, display names for hidden players will not be shown. This prevents players from being
-# able to see that they are online while vanished.
+# Когда эта опция включена, отображаемые имена для скрытых игроков не будут показаны. Это предотвращает возможность игроков видеть, что они онлайн во время исчезновения.
 hide-displayname-in-vanish: true
 
-# Disable this if you have any other plugin that modifies the display name of a player.
+# Отключите это, если у вас есть другой плагин, который модифицирует отображаемое имя игрока.
 change-displayname: true
 
-# This option will cause Essentials to show players' display names instead of usernames when tab completing Essentials commands.
-# If your tab completions include prefixes and suffixes, set this option to false.
+# Эта опция заставит Essentials показывать отображаемые имена игроков вместо имен пользователей при автодополнении команд Essentials.
+# Если ваши автодополнения включают префиксы и суффиксы, установите это на false.
 change-tab-complete-name: false
 
-# When EssentialsChat.jar isn't used, force Essentials to add the prefix and suffix from permissions plugins to display names.
-# This setting is ignored if EssentialsChat.jar is used, and defaults to true.
-# The value of 'change-displayname' above must be true.
-# Do not edit this setting unless you know what you are doing!
+# Когда EssentialsChat.jar не используется, заставляет Essentials добавлять префикс и суффикс от плагинов разрешений к отображаемым именам.
+# Эта настройка игнорируется, если EssentialsChat.jar используется, и по умолчанию true.
+# Значение 'change-displayname' выше должно быть true.
+# Не редактируйте эту настройку, если вы не знаете, что делаете!
 #add-prefix-suffix: false
 
-# When this option is enabled, the (tab) player list will be updated with the display name.
-# The value of 'change-displayname' above must be true.
+# Когда эта опция включена, список игроков (tab) будет обновлен с отображаемым именем.
+# Значение 'change-displayname' выше должно быть true.
 #change-playerlist: true
 
-# When this option is enabled, player prefixes will be shown in the (tab) player list.
-# This feature only works for Minecraft version 1.8 and higher.
-# The value of 'change-playerlist' above must be true.
+# Когда эта опция включена, префиксы игроков будут показаны в списке игроков (tab).
+# Эта функция работает только для Minecraft версии 1.8 и выше.
+# Значение 'change-playerlist' выше должно быть true.
 #add-prefix-in-playerlist: true
 
-# When this option is enabled, player suffixes will be shown in the (tab) player list.
-# This feature only works for Minecraft version 1.8 and higher.
-# The value of 'change-playerlist' above must be true.
+# Когда эта опция включена, суффиксы игроков будут показаны в списке игроков (tab).
+# Эта функция работает только для Minecraft версии 1.8 и выше.
+# Значение 'change-playerlist' выше должно быть true.
 #add-suffix-in-playerlist: true
 
-# If the teleport destination is unsafe, should players be teleported to the nearest safe location?
-# If this is set to true, Essentials will attempt to teleport players close to the intended destination.
-# If this is set to false, attempted teleports to unsafe locations will be cancelled with a warning.
+# Если место назначения телепорта небезопасно, должны ли игроки быть телепортированы в ближайшее безопасное место?
+# Если это установлено на true, Essentials попытается телепортировать игроков близко к предполагаемому месту назначения.
+# Если на false, попытки телепорта в небезопасные места будут отменены с предупреждением.
 teleport-safety: true
 
-# This forcefully disables teleport safety checks without a warning if attempting to teleport to unsafe locations.
-# Both 'teleport-safety' above and this option must be set to true to force teleportation to dangerous locations.
+# Это принудительно отключает проверки безопасности телепорта без предупреждения при попытке телепорта в небезопасные места.
+# Оба 'teleport-safety' выше и эта опция должны быть установлены на true чтобы заставить телепортацию в опасные места.
 force-disable-teleport-safety: false
 
-# If a player is teleporting to an unsafe location in creative, adventure, or god mode, they will not be teleported to a
-# safe location. If you'd like players to be teleported to a safe location all of the time, set this option to true.
+# Если игрок телепортируется в небезопасное место в креативном, приключенческом или режиме бога, они не будут телепортированы в
+# безопасное место. Если вы хотите, чтобы игроки телепортировались в безопасное место всегда, установите эту опцию на true.
 force-safe-teleport-location: false
 
-# Consider water blocks as "safe", therefore allowing players to teleport
-# using commands such as /home or /spawn to a location that is occupied by water blocks.
+# Рассматривать блоки воды как "безопасные", поэтому позволяя игрокам телепортироваться
+# используя команды такие как /home или /spawn в место, занятое блоками воды.
 is-water-safe: false
 
-# If a player has any passengers, the teleport will fail. Should their passengers be dismounted before they are teleported?
-# If this is set to true, Essentials will dismount the player's passengers before teleporting.
-# If this is set to false, attempted teleports will be canceled with a warning.
+# Если у игрока есть пассажиры, телепорт провалится. Должны ли их пассажиры быть размонтированы перед телепортацией?
+# Если это установлено на true, Essentials размонтирует пассажиров игрока перед телепортацией.
+# Если на false, попытки телепорта будут отменены с предупреждением.
 teleport-passenger-dismount: true
 
-# The delay, in seconds, required between /home, /tp, etc.
+# Задержка в секундах, требуемая между /home, /tp и т.д.
 teleport-cooldown: 0
 
-# The delay, in seconds, before a player actually teleports.
-# If the player moves or gets attacked in this timeframe, the teleport is cancelled.
+# Задержка в секундах, перед тем как игрок фактически телепортируется.
+# Если игрок двигается или атакован в это время, телепорт отменяется.
 teleport-delay: 0
 
-# The delay, in seconds, during which a player can't be attacked by other players after being teleported by a command.
-# This also prevents the player from attacking others.
+# Задержка в секундах, в течение которой игрок не может быть атакован другими игроками после телепортации командой.
+# Это также предотвращает атаку другими.
 teleport-invulnerability: 4
 
-# Whether to make all teleportations go to the center of the block, where the x and z coordinates' decimals become .5.
+# Делать ли все телепортации в центр блока, где десятичные координаты x и z становятся .5.
 teleport-to-center: true
 
-# The delay, in seconds, required between /heal or /feed attempts.
+# Задержка в секундах, требуемая между попытками /heal или /feed.
 heal-cooldown: 60
 
-# Should potion effects be removed when healing a player?
+# Должны ли эффекты зелий быть удалены при лечении игрока?
 remove-effects-on-heal: true
 
-# The default radius when /near is used.
+# Радиус по умолчанию при использовании /near.
 near-radius: 200
 
-# What to prevent from /item and /give.
-# Example: item-spawn-blacklist: lava_bucket,tnt,end_crystal
+# Что предотвратить от /item и /give.
+# Пример: item-spawn-blacklist: lava_bucket,tnt,end_crystal
 item-spawn-blacklist:
 
-# Set this to true if you want permission-based item spawn rules.
-# Note: 'item-spawn-blacklist' above will be ignored if set to true.
-# Example permissions (these go in your permissions manager):
+# Установите на true, если хотите правила спавна предметов на основе разрешений.
+# Примечание: 'item-spawn-blacklist' выше будет игнорироваться, если установлено на true.
+# Примеры разрешений (эти идут в менеджер разрешений):
 #  - essentials.itemspawn.item-all
 #  - essentials.itemspawn.item-[itemname]
 #  - essentials.give.item-all
 #  - essentials.give.item-[itemname]
 #  - essentials.unlimited.item-all
 #  - essentials.unlimited.item-[itemname]
-#  - essentials.unlimited.item-waterbucket (Unlimited water placing)
+#  - essentials.unlimited.item-waterbucket (Неограниченное размещение воды)
 #
-# For more information, visit https://wiki.ess3.net/wiki/Command_Reference/ICheat#Item.2FGive
+# Для дополнительной информации посетите https://wiki.ess3.net/wiki/Command_Reference/ICheat#Item.2FGive
 permission-based-item-spawn: false
 
-# The maximum number of entities that can be spawned per use of the /spawnmob command.
+# Максимальное количество сущностей, которые могут быть заспавнены за использование команды /spawnmob.
 spawnmob-limit: 10
 
-# Should Essentials notify smitten players when /lightning is used?
+# Должен ли Essentials уведомлять пораженных игроков при использовании /lightning?
 warn-on-smite: true
 
-# Should items be dropped at a player's feet if their inventory is full instead of not giving the item(s)?
+# Должны ли предметы падать к ногам игрока, если его инвентарь полон, вместо того, чтобы не давать предмет(ы)?
 drop-items-if-full: false
 
-# Should Essentials notify players if they have no new mail?
+# Должен ли Essentials уведомлять игроков, если у них нет новой почты?
 notify-no-new-mail: true
 
-# Specifies the cooldown duration, in seconds, between mail notifications for a player.
-# Useful for servers with high mail traffic.
+# Указывает продолжительность кулдауна в секундах между уведомлениями о почте для игрока.
+# Полезно для серверов с высоким трафиком почты.
 notify-player-of-mail-cooldown: 60
 
 # When a command conflicts with another plugin, Essentials will, by default, try to force the OTHER plugin to take priority.
@@ -183,10 +182,10 @@ disabled-commands:
 # If set to false, Essentials will collapse all usages in to one single usage message.
 verbose-command-usages: true
 
-# These commands will be shown to players with SocialSpy enabled.
-# You can add commands from other plugins to track.
-# Remove any commands you don't want to spy on.
-# Remove the # from '*' to listen to all possible commands.
+# Эти команды будут показаны игрокам с включенным SocialSpy.
+# Вы можете добавить команды от других плагинов для отслеживания.
+# Удалите любые команды, которые не хотите отслеживать.
+# Удалите # от '*' чтобы слушать все возможные команды.
 socialspy-commands:
   #- '*'
   - action
@@ -211,64 +210,63 @@ socialspy-commands:
   - w
   - whisper
 
-# Whether private and public messages from muted players should appear in SocialSpy.
-# If true, they will be differentiated from messages sent by normal players.
+# Должны ли приватные и публичные сообщения от заглушенных игроков появляться в SocialSpy.
+# Если true, они будут дифференцированы от сообщений нормальных игроков.
 socialspy-listen-muted-players: true
 
-# Whether SocialSpy should spy on private messages in addition to the commands from the list above.
-# If false, it will only monitor the commands from the list above.
+# Должен ли SocialSpy шпионить за приватными сообщениями в дополнение к командам из списка выше.
+# Если false, он будет мониторить только команды из списка выше.
 socialspy-messages: true
 
-# Whether SocialSpy should use formatted display names, which may include color.
-# If false, it will use only actual player names.
+# Должен ли SocialSpy использовать форматированные отображаемые имена, которые могут включать цвет.
+# Если false, он будет использовать только настоящие имена игроков.
 socialspy-uses-displaynames: true
 
-# The following world settings listen for when a player changes worlds.
-# If you use another plugin to control speed and flight, you should change these to false.
+# Следующие настройки мира слушают, когда игрок меняет миры.
+# Если вы используете другой плагин для управления скоростью и полетом, вы должны изменить эти на false.
 
-# When a player changes worlds, should Essentials reset their flight?
-# This will disable flight if the player does not have 'essentials.fly'.
+# Когда игрок меняет миры, должен ли Essentials сбросить их полет?
+# Это отключит полет, если у игрока нет 'essentials.fly'.
 world-change-fly-reset: true
 
-# Starting in 1.17, Minecraft no longer preserves a player's abilities when they change worlds.
-# Setting this to true will make Essentials preserve a player's flight status when they change worlds.
-# This will only work if the player has the 'essentials.fly' permission.
+# Начиная с 1.17, Minecraft больше не сохраняет способности игрока при изменении миров.
+# Установка этого на true заставит Essentials сохранять статус полета игрока при изменении миров.
+# Это будет работать только если у игрока есть разрешение 'essentials.fly'.
 world-change-preserve-flying: true
 
-# Should Essentials preserve a player's flight status when they change game modes?
-# When enabled, if a player is flying when switching game modes, their flight will be maintained.
-# This will only work if the player has the 'essentials.fly' permission.
+# Должен ли Essentials сохранять статус полета игрока при изменении игровых режимов?
+# Когда включено, если игрок летит при переключении режимов, полет будет сохранен.
+# Это будет работать только если у игрока есть разрешение 'essentials.fly'.
 gamemode-change-preserve-flying: false
 
-# When a player changes worlds, should Essentials reset their speed according to their permissions?
-# This resets the player's speed to the default if they don't have 'essentials.speed'.
-# If the player doesn't have 'essentials.speed.bypass', their speed will be reset to the maximum values
-# specified in 'max-walk-speed' and 'max-fly-speed' below.
+# Когда игрок меняет миры, должен ли Essentials сбросить их скорость согласно разрешениям?
+# Это сбрасывает скорость игрока к умолчанию, если у него нет 'essentials.speed'.
+# Если у игрока нет 'essentials.speed.bypass', их скорость будет сброшена к максимальным значениям
+# указанным в 'max-walk-speed' и 'max-fly-speed' ниже.
 world-change-speed-reset: true
 
-# These commands will be disabled when a player is muted.
-# Essentials already disables Essentials messaging commands by default.
-# It only cares about the root command, not args after that (it sees '/f chat' the same as '/f').
-# Remove the # from '*' to disable every command while muted.
+# Эти команды будут отключены, когда игрок заглушен.
+# Essentials уже отключает команды сообщений Essentials по умолчанию.
+# Он заботится только о корневой команде, не аргументах после (он видит '/f chat' как '/f').
+# Удалите # от '*' чтобы отключить каждую команду пока заглушен.
 mute-commands:
   #- '*'
   - f
   - kittycannon
 
-# If you do not wish to use a permission system, you can define a list of "player permissions" below.
-# This list has no effect if you are using a supported permissions system.
-# If you are using an unsupported permissions system, simply delete this section.
-# Whitelist the commands and permissions you wish to give players by default (everything else is OP only).
-# These are the permissions without the 'essentials.' part.
+# Если вы не хотите использовать систему разрешений, вы можете определить список "разрешений игрока" ниже.
+# Этот список не имеет эффекта, если вы используете поддерживаемую систему разрешений.
+# Если вы используете неподдерживаемую систему разрешений, просто удалите эту секцию.
+# Вайтлистите команды и разрешения, которые вы хотите дать игрокам по умолчанию (все остальное только OP).
+# Это разрешения без части 'essentials.'.
 #
-# To enable this feature, ensure 'use-bukkit-permissions' below is set to false.
+# Чтобы включить эту функцию, убедитесь, что 'use-bukkit-permissions' ниже установлено на false.
 player-commands:
   - afk
   - afk.auto
   - back
   - back.ondeath
   - balance
-  - balance.others
   - balancetop
   - build
   - chat.color
@@ -344,29 +342,29 @@ player-commands:
   - worth
   - xmpp
 
-# Use this option to force superperms-based permissions handler regardless of detected installed perms plugin.
-# This is useful if you want superperms-based permissions (with wildcards) for custom permissions plugins.
-# If you wish to use Essentials' built-in permissions using the 'player-commands' section above, set this to false.
+# Используйте эту опцию чтобы заставить обработчик разрешений на основе superperms независимо от обнаруженного установленного плагина разрешений.
+# Это полезно, если вы хотите разрешения на основе superperms (с wildcards) для кастомных плагинов разрешений.
+# Если вы хотите использовать встроенные разрешения Essentials используя секцию 'player-commands' выше, установите на false.
 use-bukkit-permissions: true
 
-# When this option is enabled, one-time use kits (i.e., delay < 0) will be
-# removed from '/kit list' when a player can no longer use them.
+# Когда эта опция включена, одноразовые киты (т.е. delay < 0) будут
+# удалены из '/kit list' когда игрок больше не может их использовать.
 skip-used-one-time-kits-from-kit-list: false
 
-# When enabled, armor from kits will automatically be equipped as long as the player's armor slots are empty.
+# Когда включено, броня из китов будет автоматически экипирована, пока слоты брони игрока пусты.
 kit-auto-equip: false
 
-# Determines the functionality of the /createkit command.
-# If this is true, /createkit will give the user a link with the kit code.
-# If this is false, /createkit will add the kit to the 'kits.yml' config file directly.
+# Определяет функциональность команды /createkit.
+# Если это true, /createkit даст пользователю ссылку с кодом кита.
+# Если false, /createkit добавит кит в файл 'kits.yml' напрямую.
 pastebin-createkit: false
 
-# Determines if /createkit will generate kits using NBT item serialization.
-# If this is true, /createkit will store items as NBT. Otherwise, it will use Essentials' human-readable item format.
-# By using NBT serialization, /createkit can store items with complex metadata such as shulker boxes and weapons with custom attributes.
-# WARNING: This option only works on 1.15.2+ Paper servers, and it will bypass any custom serializers from other plugins such as Magic.
-# WARNING: When creating kits via /createkit with this option enabled, you will not be able to downgrade your server with these kit items.
-# This option only affects /createkit - you can still create kits by hand in 'kits.yml' using Essentials' human-readable item format.
+# Определяет, будет ли /createkit генерировать киты используя сериализацию предметов NBT.
+# Если это true, /createkit будет хранить предметы как NBT. Иначе, будет использовать читаемый формат Essentials.
+# Используя сериализацию NBT, /createkit может хранить предметы со сложными метаданными такими как шалкеры и оружие с кастомными атрибутами.
+# ПРЕДУПРЕЖДЕНИЕ: Эта опция работает только на серверах Paper 1.15.2+, и она обойдет любые кастомные сериализаторы от других плагинов таких как Magic.
+# ПРЕДУПРЕЖДЕНИЕ: При создании китов через /createkit с этой опцией включенной, вы не сможете даунгрейдить сервер с этими предметами китов.
+# Эта опция влияет только на /createkit - вы все еще можете создавать киты вручную в 'kits.yml' используя читаемый формат Essentials.
 use-nbt-serialization-in-createkit: false
 
 # To enable signs, remove the # symbol. To disable all signs, comment out or remove each sign.
@@ -787,143 +785,143 @@ update-check: true
 
 ############################################################
 # +------------------------------------------------------+ #
-# |                        Homes                         | #
+# |                       Дома                           | #
 # +------------------------------------------------------+ #
 ############################################################
 
-# Allows people to set their bed during the day.
-# This setting has no effect in Minecraft 1.15+, as Minecraft will always allow the player to set their bed location during the day.
+# Позволяет игрокам устанавливать свою кровать днем.
+# Эта настройка не имеет эффекта в Minecraft 1.15+, поскольку Minecraft всегда позволит игроку установить место кровати днем.
 update-bed-at-daytime: true
 
-# Set to true to enable per-world permissions for using homes to teleport between worlds.
-# This applies to the /home command only.
-# Give someone permission to teleport to a world with 'essentials.worlds.<worldname>'.
+# Установите на true чтобы включить разрешения по мирам для использования домов для телепортации между мирами.
+# Это применяется только к команде /home.
+# Дайте кому-то разрешение телепортироваться в мир с 'essentials.worlds.<worldname>'.
 world-home-permissions: false
 
-# Allow players to have multiple homes.
-# Players need 'essentials.sethome.multiple' before they can have more than 1 home.
-# You can set the default number of multiple homes using the 'default' rank below.
-# To remove the home limit entirely, give people 'essentials.sethome.multiple.unlimited'.
+# Позволить игрокам иметь несколько домов.
+# Игроки нуждаются в 'essentials.sethome.multiple' прежде чем они смогут иметь больше 1 дома.
+# Вы можете установить количество множественных домов по умолчанию используя ранг 'default' ниже.
+# Чтобы полностью убрать лимит домов, дайте людям 'essentials.sethome.multiple.unlimited'.
 #
-# To grant different home amounts to different people, you need to define a "home rank" below.
-# Once created, give the matching permission: 'essentials.sethome.multiple.<home_rank>'.
-# Note: The "home ranks" defined below do not need to match your permissions plugin's group names.
+# Чтобы предоставить разные количества домов разным людям, вам нужно определить "ранг дома" ниже.
+# После создания, дайте соответствующее разрешение: 'essentials.sethome.multiple.<home_rank>'.
+# Примечание: "Ранги домов" определенные ниже не должны совпадать с именами групп вашего плагина разрешений.
 #
-# In this example, someone with 'essentials.sethome.multiple' and 'essentials.sethome.multiple.vip' will have 5 homes.
-# Remember, they must have BOTH permission nodes in order to be able to set multiple homes.
-# For more information, visit https://wiki.ess3.net/wiki/Multihome
+# В этом примере, кто-то с 'essentials.sethome.multiple' и 'essentials.sethome.multiple.vip' будет иметь 5 домов.
+# Помните, они должны иметь ОБА узла разрешений чтобы иметь возможность устанавливать множественные дома.
+# Для дополнительной информации посетите https://wiki.ess3.net/wiki/Multihome
 sethome-multiple:
   default: 3
   vip: 5
   staff: 10
 
-# Controls whether players need the permission 'essentials.home.compass' in order to point
-# the player's compass toward their first home.
-# Leaving this as false will retain Essentials' original behavior, which is to always
-# change the compass' direction to point toward the player's first home.
+# Контролирует, нужно ли игрокам разрешение 'essentials.home.compass' чтобы направить
+# компас игрока на их первый дом.
+# Оставив это как false сохранит оригинальное поведение Essentials, которое всегда
+# меняет направление компаса чтобы указывать на первый дом игрока.
 compass-towards-home-perm: false
 
-# If no home is set, would you like to send the player to spawn?
-# If set to false, players will not be teleported when they run /home without first setting a home.
+# Если дом не установлен, хотели бы вы отправить игрока на спавн?
+# Если установлено на false, игроки не будут телепортироваться когда они запускают /home без предварительной установки дома.
 spawn-if-no-home: true
 
-# Should players be asked to provide confirmation for homes they attempt to overwrite?
+# Должны ли игроки быть запрошены предоставить подтверждение для домов, которые они пытаются перезаписать?
 confirm-home-overwrite: false
 
 ############################################################
 # +------------------------------------------------------+ #
-# |                       Economy                        | #
+# |                      Экономика                       | #
 # +------------------------------------------------------+ #
 ############################################################
 
-# For more information, visit https://wiki.ess3.net/wiki/Essentials_Economy
+# Для дополнительной информации посетите https://wiki.ess3.net/wiki/Essentials_Economy
 
-# You can control the values of items that are sold to the server by using the /setworth command and 'worth.yml'.
+# Вы можете контролировать значения предметов, которые продаются серверу используя команду /setworth и 'worth.yml'.
 
-# Defines the balance new players start with.
+# Определяет баланс с которым начинаются новые игроки.
 starting-balance: 0
 
-# Defines the cost to use the given commands PER USE.
-# Some commands like /repair have sub-costs. Check the wiki for more information.
+# Определяет стоимость использования данных команд ЗА ИСПОЛЬЗОВАНИЕ.
+# Некоторые команды как /repair имеют суб-стоимости. Проверьте вики для дополнительной информации.
 command-costs:
-  # To make /example cost $1000 PER USE:
+  # Чтобы сделать /example стоить $1000 ЗА ИСПОЛЬЗОВАНИЕ:
   #example: 1000
-  # To make '/kit tools' cost $1500 PER USE:
+  # Чтобы сделать '/kit tools' стоить $1500 ЗА ИСПОЛЬЗОВАНИЕ:
   #kit-tools: 1500
 
-# Set this to a currency symbol you want to use.
-# Remember, if you want to use special characters in this document, such as accented letters,
-# you MUST save the file as UTF-8, not ANSI.
+# Установите это на символ валюты который вы хотите использовать.
+# Помните, если вы хотите использовать специальные символы в этом документе, такие как акцентированные буквы,
+# вы ДОЛЖНЫ сохранить файл как UTF-8, не ANSI.
 currency-symbol: '$'
 
-# Enable this to make the currency symbol appear at the end of the amount rather than at the start.
-# For example, the euro symbol typically appears after the current amount.
+# Включите это чтобы символ валюты появлялся в конце суммы а не в начале.
+# Например, символ евро обычно появляется после текущей суммы.
 currency-symbol-suffix: false
 
-# Set the maximum amount of money a player can have.
-# Note: Extremely large numbers may have unintended consequences.
+# Установите максимальную сумму денег которую игрок может иметь.
+# Примечание: Чрезвычайно большие числа могут иметь непреднамеренные последствия.
 max-money: 10000000000000
 
-# Set the minimum amount of money a player can have (must be greater than the negative value of max-money).
-# Setting this to 0 will disable overdrafts/loans completely.
-# Players need 'essentials.eco.loan' permission to have a negative balance.
+# Установите минимальную сумму денег которую игрок может иметь (должна быть больше отрицательного значения max-money).
+# Установка этого на 0 полностью отключит овердрафты/займы.
+# Игроки нуждаются в разрешении 'essentials.eco.loan' чтобы иметь отрицательный баланс.
 min-money: -10000
 
-# Enable this to log all interactions with buy/sell/trade signs and the sell command.
+# Включите это чтобы логировать все взаимодействия с знаками покупки/продажи/торговли и командой sell.
 economy-log-enabled: false
 
-# Enable this to replace usernames with UUIDs in the trade.log file.
-# If this is false, usernames will be used instead of UUIDs.
+# Включите это чтобы заменять имена пользователей на UUID в файле trade.log.
+# Если это false, имена пользователей будут использоваться вместо UUID.
 economy-log-uuids: false
 
-# Enable this to also log all transactions from other plugins through Vault.
-# This can cause the economy log to fill up quickly so it should only be enabled for testing purposes!
+# Включите это чтобы также логировать все транзакции от других плагинов через Vault.
+# Это может вызвать быстрое заполнение лога экономики так что должно включаться только для тестирования!
 economy-log-update-enabled: false
 
-# The minimum acceptable amount to be used in /pay.
+# Минимальная приемлемая сумма для использования в /pay.
 minimum-pay-amount: 0.001
 
-# Enable this to block players who try to /pay someone who is ignoring them.
+# Включите это чтобы блокировать игроков которые пытаются /pay кому-то кто игнорит их.
 pay-excludes-ignore-list: false
 
-# Whether players with a balance of $0 or less should be shown in the balance top list.
-# Setting this to false will hide balances with $0 or less.
-# Note: After reloading the config, run '/baltop force' for changes to take effect.
+# Должны ли игроки с балансом $0 или меньше показываться в списке топ балансов.
+# Установка этого на false скроет балансы с $0 или меньше.
+# Примечание: После перезагрузки конфига, запустите '/baltop force' чтобы изменения вступили в силу.
 show-zero-baltop: true
 
-# Requirements that players must meet to have their name shown in the balance top list.
-# Playtime is measured in seconds.
+# Требования которые игроки должны выполнить чтобы их имя показывалось в списке топ балансов.
+# Время игры измеряется в секундах.
 baltop-requirements:
   minimum-balance: 0
   minimum-playtime: 0
 
-# Limit the number of cached balance top entries. 
-# Recommended for servers with a large number of players, as it reduces memory usage. 
-# Set to -1 to disable the limit.
+# Ограничьте количество кешированных записей топ балансов.
+# Рекомендуется для серверов с большим количеством игроков, поскольку это уменьшает использование памяти.
+# Установите на -1 чтобы отключить лимит.
 baltop-entry-limit: -1
 
-# The format of currency, excluding symbols. For symbol configuration, see 'currency-symbol-format-locale' below.
+# Формат валюты, исключая символы. Для конфигурации символов смотрите 'currency-symbol-format-locale' ниже.
 #
-# "#,##0.00" is how the majority of countries display currency.
+# "#,##0.00" это как большинство стран отображают валюту.
 #currency-format: "#,##0.00"
 
-# Format currency symbols. Some locales use , and . interchangeably.
-# Certain formats may not display correctly in-game due to Minecraft font rendering issues.
+# Форматируйте символы валюты. Некоторые локали используют , и . взаимозаменяемо.
+# Некоторые форматы могут не отображаться правильно в игре из-за рендеринга шрифтов Minecraft.
 #
-# Example locales:
-#  - de-DE for 1.234,50
-#  - en-US for 1,234.50
-#  - fr-CH for 1'234,50
+# Примеры локалей:
+#  - de-DE для 1.234,50
+#  - en-US для 1,234.50
+#  - fr-CH для 1'234,50
 #
-# Or see https://www.iban.com/country-codes for all Alpha-2 country codes.
+# Или смотрите https://www.iban.com/country-codes для всех Alpha-2 кодов стран.
 #currency-symbol-format-locale: en-US
 
-# Allow players to receive multipliers for items sold with /sell or the sell sign.
-# You can set the default multiplier using the 'default' rank below.
+# Позвольте игрокам получать множители за предметы проданные с /sell или знаком продажи.
+# Вы можете установить множитель по умолчанию используя ранг 'default' ниже.
 #
-# To grant different multipliers to different people, you need to define a "multiplier rank" below.
-# Once created, give the matching permission: 'essentials.sell.multiplier.<multiplier_rank>'.
-# Note: The "multiplier ranks" defined below do not need to match your permissions plugin's group names.
+# Чтобы предоставить разные множители разным людям, вам нужно определить "ранг множителя" ниже.
+# После создания, дайте соответствующее разрешение: 'essentials.sell.multiplier.<multiplier_rank>'.
+# Примечание: "Ранги множителей" определенные ниже не должны совпадать с именами групп вашего плагина разрешений.
 sell-multipliers:
   default: 1.0
   double: 2.0
@@ -950,88 +948,88 @@ hide-permissionless-help: true
 # +------------------------------------------------------+ #
 ############################################################
 
-# You need to install the EssentialsX Chat module for this section to work.
-# See https://essentialsx.net/wiki/Module-Breakdown.html for more information.
+# Вам нужно установить модуль EssentialsX Chat чтобы эта секция работала.
+# Смотрите https://essentialsx.net/wiki/Module-Breakdown.html для дополнительной информации.
 
 chat:
 
-  # If Essentials Chat is installed, this sets how many blocks a player's chat will travel. Set to 0 for global chat.
-  # Players with 'essentials.chat.spy' will see everything, regardless of this setting.
-  # Players with 'essentials.chat.shout' can override this by prefixing their message with an exclamation mark (!).
-  # Players with 'essentials.chat.question' can override this by prefixing their message with a question mark (?).
-  # You can add command costs for shout/question by adding 'chat-shout' and 'chat-question' to the 'command-costs' section above.
+  # Если Essentials Chat установлен, это устанавливает сколько блоков будет путешествовать чат игрока. Установите на 0 для глобального чата.
+  # Игроки с 'essentials.chat.spy' увидят все, независимо от этой настройки.
+  # Игроки с 'essentials.chat.shout' могут переопределить это префиксируя сообщение восклицательным знаком (!).
+  # Игроки с 'essentials.chat.question' могут переопределить это префиксируя сообщение вопросительным знаком (?).
+  # Вы можете добавить стоимости команд для shout/question добавив 'chat-shout' и 'chat-question' в секцию 'command-costs' выше.
   radius: 0
 
-  # Chat formatting can be configured in two ways:
-  #  - A standard format for all chat ('format' section)
-  #  - Group-specific chat formats for extra variation ('group-formats' section)
+  # Форматирование чата может быть настроено двумя способами:
+  #  - Стандартный формат для всего чата (секция 'format')
+  #  - Форматы чата специфичные для групп для дополнительной вариации (секция 'group-formats')
   #
-  # You can use permissions to control whether players can use formatting codes in their chat messages.
-  # See https://essentialsx.net/wiki/Color-Permissions.html for more information.
+  # Вы можете использовать разрешения чтобы контролировать могут ли игроки использовать коды форматирования в сообщениях чата.
+  # Смотрите https://essentialsx.net/wiki/Color-Permissions.html для дополнительной информации.
   #
-  # You can also specify a sub-format for each chat type.
-  # For more information on chat formatting, visit the wiki: https://wiki.ess3.net/wiki/Chat_Formatting#Chat_Formatting
+  # Вы также можете указать суб-формат для каждого типа чата.
+  # Для дополнительной информации о форматировании чата, посетите вики: https://wiki.ess3.net/wiki/Chat_Formatting#Chat_Formatting
   #
-  # Available placeholders:
-  # {MESSAGE} - The content of the chat message.
-  # {USERNAME} - The sender's username.
-  # {DISPLAYNAME} - The sender's display name.
-  # {NICKNAME} - The sender's Essentials nickname. If the sender has no nickname, the username is shown.
-  # {PREFIX} - The sender's prefix, supplied by a permissions plugin.
-  # {SUFFIX} - The sender's suffix, supplied by a permissions plugin.
-  # {GROUP} - The sender's primary group name, supplied by a permissions plugin.
-  # {WORLD} - The world alias of the sender's current world. See the world-aliases section below for details.
-  # {WORLDNAME} - The full name of the sender's current world.
-  # {SHORTWORLDNAME} - The first character of the sender's current world.
-  # {TEAMNAME} - The sender's scoreboard team name.
-  # {TEAMPREFIX} - The sender's scoreboard team prefix.
-  # {TEAMSUFFIX} - The sender's scoreboard team suffix.
+  # Доступные плейсхолдеры:
+  # {MESSAGE} - Содержимое сообщения чата.
+  # {USERNAME} - Имя пользователя отправителя.
+  # {DISPLAYNAME} - Отображаемое имя отправителя.
+  # {NICKNAME} - Ник Essentials отправителя. Если у отправителя нет ника, показывается имя пользователя.
+  # {PREFIX} - Префикс отправителя, предоставленный плагином разрешений.
+  # {SUFFIX} - Суффикс отправителя, предоставленный плагином разрешений.
+  # {GROUP} - Основное имя группы отправителя, предоставленное плагином разрешений.
+  # {WORLD} - Алиас мира текущего мира отправителя. Смотрите секцию world-aliases ниже для деталей.
+  # {WORLDNAME} - Полное имя текущего мира отправителя.
+  # {SHORTWORLDNAME} - Первый символ текущего мира отправителя.
+  # {TEAMNAME} - Имя команды scoreboard отправителя.
+  # {TEAMPREFIX} - Префикс команды scoreboard отправителя.
+  # {TEAMSUFFIX} - Суффикс команды scoreboard отправителя.
   #
-  # Note: The {DISPLAYNAME} placeholder includes {PREFIX} and {SUFFIX} by default.
-  # Using these together may result in double prefixes/suffixes in chat.
+  # Примечание: Плейсхолдер {DISPLAYNAME} включает {PREFIX} и {SUFFIX} по умолчанию.
+  # Использование их вместе может привести к двойным префиксам/суффиксам в чате.
 
   format: '<{DISPLAYNAME}> {MESSAGE}'
   #format: '&7[{GROUP}]&r {DISPLAYNAME}&7:&r {MESSAGE}'
   #format: '&7{PREFIX}&r {NICKNAME}&r &7{SUFFIX}&r: {MESSAGE}'
 
-  # You can also specify a format for each type of chat.
+  # Вы также можете указать формат для каждого типа чата.
   #format:
   #  normal: '{WORLDNAME} {DISPLAYNAME}&7:&r {MESSAGE}'
   #  question: '{WORLDNAME} &4{DISPLAYNAME}&7:&r {MESSAGE}'
   #  shout: '{WORLDNAME} &c[{GROUP}]&r &4{DISPLAYNAME}&7:&c {MESSAGE}'
 
-  # You can also specify a format for each group.
-  # If using group formats, remove the # to activate the setting.
-  # Note: Group names are case-sensitive, so you must match them up with your permissions plugin.
-  # Note: If a LuckPerms group display name (alias) is set, you must use it instead of the original group name.
+  # Вы также можете указать формат для каждой группы.
+  # Если используете форматы групп, удалите # чтобы активировать настройку.
+  # Примечание: Имена групп чувствительны к регистру, так что вы должны сопоставлять их с вашим плагином разрешений.
+  # Примечание: Если отображаемое имя группы LuckPerms (алиас) установлено, вы должны использовать его вместо оригинального имени группы.
   group-formats:
     #default: '{WORLDNAME} {DISPLAYNAME}&7:&r {MESSAGE}'
     #admins: '{WORLDNAME} &c[{GROUP}]&r {DISPLAYNAME}&7:&c {MESSAGE}'
 
-    # You can also specify a format for each type of chat for each group.
+    # Вы также можете указать формат для каждого типа чата для каждой группы.
     #admins:
     #  question: '{WORLDNAME} &4{DISPLAYNAME}&7:&r {MESSAGE}'
     #  shout: '{WORLDNAME} &c[{GROUP}]&r &4{DISPLAYNAME}&7:&c {MESSAGE}'
 
-  # World aliases allow you to replace the world name with something different in the chat format.
-  # If using world aliases, remove the # to activate the setting.
+  # Алиасы миров позволяют заменить имя мира на что-то другое в формате чата.
+  # Если используете алиасы миров, удалите # чтобы активировать настройку.
   world-aliases:
     #plots: "&dP&r"
     #creative: "&eC&r"
 
-  # Whether players should be placed into shout mode by default.
+  # Должны ли игроки быть помещены в режим крика по умолчанию.
   shout-default: false
 
-  # Whether a player's shout mode should persist across restarts.
+  # Должен ли режим крика игрока сохраняться через перезапуски.
   persist-shout: false
 
-  # Whether chat questions should be enabled.
+  # Должен ли чат вопросов быть включен.
   question-enabled: true
 
-  # Whether Essentials should use Paper's modern chat event system in 1.16.5+.
-  # This is required for modern chat features such as hover events and click events.
-  # If you're experiencing issues with other plugins that use the chat event system, you can disable this.
-  # You must restart your server after changing this setting.
+  # Должен ли Essentials использовать современную систему событий чата Paper в 1.16.5+.
+  # Это требуется для современных функций чата таких как hover events и click events.
+  # Если у вас проблемы с другими плагинами использующими систему событий чата, отключите это.
+  # Вы должны перезапустить сервер после изменения этой настройки.
   paper-chat-events: true
 
 ############################################################
@@ -1188,26 +1186,26 @@ protect:
 
 ############################################################
 # +------------------------------------------------------+ #
-# |                 EssentialsX AntiBuild                | #
+# |            EssentialsX AntiBuild                | #
 # +------------------------------------------------------+ #
 ############################################################
 
-  # You need to install the EssentialsX AntiBuild module for this section to work.
-  # See https://essentialsx.net/wiki/Module-Breakdown.html and https://wiki.ess3.net/wiki/AntiBuild for more information.
+  # Вам нужно установить модуль EssentialsX AntiBuild чтобы эта секция работала.
+  # Смотрите https://essentialsx.net/wiki/Module-Breakdown.html и https://wiki.ess3.net/wiki/AntiBuild для дополнительной информации.
 
-    # Should building be disabled for those without the 'essentials.build' permission?
-    # Setting this to false means Essentials AntiBuild will never prevent players from building.
+    # Должно ли строительство быть отключено для тех без разрешения 'essentials.build'?
+    # Установка этого на false значит Essentials AntiBuild никогда не предотвратит игроков от строительства.
     build: true
 
-    # Should people without the 'essentials.build' permission be prevented from using items?
-    # Setting this to false means Essentials AntiBuild will never prevent players from using items.
+    # Должны ли люди без разрешения 'essentials.build' быть предотвращены от использования предметов?
+    # Установка этого на false значит Essentials AntiBuild никогда не предотвратит игроков от использования предметов.
     use: true
 
-    # Should Essentials message people when they are not allowed to build?
+    # Должен ли Essentials сообщать людям когда им не разрешено строить?
     warn-on-build-disallow: true
 
-  # For which block types would you like to be alerted?
-  # You can find a list of items at https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  # Для каких типов блоков вы хотели бы быть оповещены?
+  # Вы можете найти список предметов на https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
   alert:
     on-placement: LAVA,TNT,LAVA_BUCKET
     on-use: LAVA_BUCKET
@@ -1215,19 +1213,19 @@ protect:
 
   blacklist:
 
-    # Which blocks should people be prevented from placing?
+    # Какие блоки должны быть предотвращены от размещения?
     placement: LAVA,TNT,LAVA_BUCKET
 
-    # Which items should people be prevented from using?
+    # Какие предметы должны быть предотвращены от использования?
     usage: LAVA_BUCKET
 
-    # Which blocks should people be prevented from breaking?
+    # Какие блоки должны быть предотвращены от ломания?
     break:
 
-    # Which blocks should not be moved by pistons?
+    # Какие блоки не должны двигаться поршнями?
     piston:
 
-    # Which blocks should not be dispensed by dispensers?
+    # Какие блоки не должны выстреливаться диспенсерами?
     dispenser:
 
 ############################################################
@@ -1236,67 +1234,67 @@ protect:
 # +------------------------------------------------------+ #
 ############################################################
 
-# You need to install the EssentialsX Spawn module for this section to work.
-# See https://essentialsx.net/wiki/Module-Breakdown.html for more information.
+# Вам нужно установить модуль EssentialsX Spawn чтобы эта секция работала.
+# Смотрите https://essentialsx.net/wiki/Module-Breakdown.html для дополнительной информации.
 
 newbies:
-  # Should Essentials announce to the server when someone logs in for the first time?
-  # {DISPLAYNAME} will be replaced with the player name.
-  # Set to '' to disable.
+  # Должен ли Essentials объявлять серверу когда кто-то входит в первый раз?
+  # {DISPLAYNAME} будет заменено на имя игрока.
+  # Установите на '' чтобы отключить.
   #announce-format: ''
-  announce-format: '&dWelcome {DISPLAYNAME}&d to the server!'
+  announce-format: '&dДобро пожаловать {DISPLAYNAME}&d на сервер!'
 
-  # When players spawn for the first time, which spawnpoint should be used?
-  # Set to 'none' to use the spawnpoint of the world.
-  # Different spawn names can be set using '/setspawn <group>'.
+  # Когда игроки спавнятся в первый раз, какая точка спавна должна использоваться?
+  # Установите на 'none' чтобы использовать точку спавна мира.
+  # Разные имена спавнов могут быть установлены используя '/setspawn <group>'.
   spawnpoint: newbies
 
-  # Should players receive items on their first join?
-  # This kit will be given regardless of cost and permissions and won't trigger any kit delay (cooldown).
-  # Set to '' to disable.
+  # Должны ли игроки получать предметы при первом присоединении?
+  # Этот кит будет дан независимо от стоимости и разрешений и не вызовет задержку кита (кулдаун).
+  # Установите на '' чтобы отключить.
   #kit: ''
   kit: tools
 
-# What priority should Essentials use for handling respawns?
-# Set this to 'none' if you want vanilla respawning behavior.
-# Set this to 'lowest' if you want world plugins to handle the respawning.
-# Set this to 'high' if you want Essentials Spawn to handle the respawning.
-# Set this to 'highest' if you want to force Essentials Spawn to handle the respawning.
-# Note: Changes will not apply until after the server is restarted.
+# Какой приоритет должен использовать Essentials для обработки респавнов?
+# Установите на 'none' если хотите ванильное поведение респавна.
+# Установите на 'lowest' если хотите чтобы плагины мира обрабатывали респавн.
+# Установите на 'high' если хотите чтобы Essentials Spawn обрабатывал респавн.
+# Установите на 'highest' если хотите заставить Essentials Spawn обрабатывать респавн.
+# Примечание: Изменения не применятся пока сервер не будет перезапущен.
 respawn-listener-priority: high
 
-# What priority should Essentials use for handling spawning on joining the server?
-# See 'respawn-listener-priority' above for possible values.
-# Note: Changing this may impact or break 'spawn-on-join' functionality below.
-# Note: Changes will not apply until after the server is restarted.
+# Какой приоритет должен использовать Essentials для обработки спавна при присоединении к серверу?
+# Смотрите 'respawn-listener-priority' выше для возможных значений.
+# Примечание: Изменение этого может повлиять или сломать функциональность 'spawn-on-join' ниже.
+# Примечание: Изменения не применятся пока сервер не будет перезапущен.
 spawn-join-listener-priority: high
 
-# When players die, should they respawn at their first home or bed instead of the spawnpoint?
+# Когда игроки умирают, должны ли они респавниться в своем первом доме или кровати вместо точки спавна?
 respawn-at-home: false
 
-# When players die, should they respawn at their bed instead of their first home or the spawnpoint?
-# The 'respawn-at-home' setting above must also be true for this to take effect.
+# Когда игроки умирают, должны ли они респавниться в своей кровати вместо первого дома или точки спавна?
+# Настройка 'respawn-at-home' выше также должна быть true чтобы это вступило в силу.
 respawn-at-home-bed: true
 
-# When players die, should Essentials respect their respawn anchors?
+# Когда игроки умирают, должен ли Essentials уважать их якоря респавна?
 respawn-at-anchor: false
 
-# If configured, players will spawn at a random location instead of their spawnpoint.
-# This will override the newbies spawnpoint set above.
+# Если настроено, игроки будут спавниться в случайном месте вместо точки спавна.
+# Это переопределит точку спавна новичков установленную выше.
 #
-# The location must first be set using the /settpr command or in 'tpr.yml'.
-# After a tpr location is created, set the world name (or the name defined in 'tpr.yml') below.
+# Место должно сначала быть установлено используя команду /settpr или в 'tpr.yml'.
+# После создания места tpr, установите имя мира (или имя определенное в 'tpr.yml') ниже.
 random-spawn-location: "none"
 
-# If configured, players will respawn at the random respawn location when they die.
-# See 'random-spawn-location' above for additional location information.
+# Если настроено, игроки будут респавниться в случайном месте респавна когда умирают.
+# Смотрите 'random-spawn-location' выше для дополнительной информации о месте.
 random-respawn-location: "none"
 
-# Teleport all joining players to their spawnpoint.
+# Телепортировать всех присоединяющихся игроков к их точке спавна.
 spawn-on-join: false
-# The following value of 'guests' states that all players in the 'guests' group will be teleported to spawn when joining.
+# Следующее значение 'guests' говорит что все игроки в группе 'guests' будут телепортированы к спавну при присоединении.
 #spawn-on-join: guests
-# The following list value states that all players in the 'guests' or 'admin' groups will be teleported to spawn when joining.
+# Следующее значение списка говорит что все игроки в группах 'guests' или 'admin' будут телепортированы к спавну при присоединении.
 #spawn-on-join:
 #  - guests
 #  - admin
