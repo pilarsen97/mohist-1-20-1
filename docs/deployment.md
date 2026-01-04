@@ -89,7 +89,6 @@ sudo -u minecraft git lfs pull
 
 ## 2. Конфигурация
 
-<<<<<<< HEAD
 ### Вариант A: Интерактивный скрипт (рекомендуется)
 
 Запустите мастер конфигурации:
@@ -146,25 +145,14 @@ nano server.properties
 #### Шаг 3: Редактирование config.env
 
 ```bash
-=======
-### Создание config.env
-
-```bash
-cp deploy/config.env.example deploy/config.env
->>>>>>> origin/main
 nano deploy/config.env
 ```
 
 **Обязательные настройки:**
 
 ```bash
-<<<<<<< HEAD
 # RCON пароль (должен совпадать с server.properties!)
 RCON_PASSWORD="ваш_пароль"
-=======
-# RCON пароль (взять из server.properties строка 43)
-RCON_PASSWORD="ваш_пароль_из_server.properties"
->>>>>>> origin/main
 
 # Путь к серверу
 SERVER_DIR="/home/minecraft/mohist-1-20-1"
@@ -174,7 +162,6 @@ MIN_RAM="2G"
 MAX_RAM="8G"
 ```
 
-<<<<<<< HEAD
 #### Шаг 4: Защита файла конфигурации
 
 ```bash
@@ -189,15 +176,6 @@ RCON пароль должен совпадать в обоих файлах:
 grep "rcon.password" server.properties
 grep "RCON_PASSWORD" deploy/config.env
 # Пароли должны быть одинаковые!
-=======
-### Проверка RCON пароля
-
-RCON пароль должен совпадать с `server.properties`:
-
-```bash
-grep "rcon.password" server.properties
-# Результат: rcon.password=cXUMt86t4  ← этот пароль в config.env
->>>>>>> origin/main
 ```
 
 ---
