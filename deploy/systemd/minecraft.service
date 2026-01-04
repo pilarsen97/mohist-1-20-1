@@ -75,8 +75,8 @@ LimitNOFILE=100000
 # Core dumps disabled for security
 LimitCORE=0
 
-# Process limits
-TasksMax=100
+# Process limits (512 threads for modded server with 45+ mods, 12+ plugins)
+TasksMax=512
 
 # Security hardening
 # Protect system directories
