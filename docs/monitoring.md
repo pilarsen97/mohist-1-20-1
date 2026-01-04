@@ -782,7 +782,7 @@ curl -G -s "http://localhost:3100/loki/api/v1/query" \
 /var/lib/promtail/
 └── positions.yaml          # Позиции чтения файлов
 
-/home/minecraft/mohist-1-20-1/
+/opt/minecraft/
 ├── logs/                   # Логи сервера
 ├── crash-reports/          # Crash reports
 └── deploy/prometheus/

@@ -56,28 +56,45 @@ if [[ ! -f "${SCRIPT_DIR}/systemd/minecraft.service" ]]; then
     exit 1
 fi
 
+# Determine user/group for service (the user who ran sudo)
+DEPLOY_USER="${SUDO_USER:-$(whoami)}"
+DEPLOY_GROUP="$(id -gn "$DEPLOY_USER")"
+
+# Validate user is not root
+if [[ "$DEPLOY_USER" == "root" ]]; then
+    print_error "Cannot install services for root user!"
+    echo -e "       Run as: sudo -u <username> sudo $0"
+    echo -e "       Or ensure SUDO_USER is set to a non-root user"
+    exit 1
+fi
+
+echo -e "${CYAN}Service user: ${BOLD}${DEPLOY_USER}:${DEPLOY_GROUP}${RESET}"
+
 # Stop services if running
 echo -e "${CYAN}Stopping existing services...${RESET}"
 systemctl stop minecraft-exporter.service 2>/dev/null || true
 systemctl stop minecraft.service 2>/dev/null || true
 print_ok "Services stopped"
 
-# Update service file paths
-echo -e "${CYAN}Updating service file paths...${RESET}"
+# Update service file paths and user/group
+echo -e "${CYAN}Configuring service files...${RESET}"
 
 # Create temporary modified service files
 TEMP_DIR=$(mktemp -d)
 trap "rm -rf $TEMP_DIR" EXIT
 
 # Copy and modify minecraft.service
-sed "s|/home/minecraft/mohist-1-20-1|${SERVER_DIR}|g" \
+# Substitute DEPLOY_USER, DEPLOY_GROUP placeholders
+sed -e "s|DEPLOY_USER|${DEPLOY_USER}|g" \
+    -e "s|DEPLOY_GROUP|${DEPLOY_GROUP}|g" \
     "${SCRIPT_DIR}/systemd/minecraft.service" > "${TEMP_DIR}/minecraft.service"
 
 # Copy and modify minecraft-exporter.service
-sed "s|/home/minecraft/mohist-1-20-1|${SERVER_DIR}|g" \
+sed -e "s|DEPLOY_USER|${DEPLOY_USER}|g" \
+    -e "s|DEPLOY_GROUP|${DEPLOY_GROUP}|g" \
     "${SCRIPT_DIR}/systemd/minecraft-exporter.service" > "${TEMP_DIR}/minecraft-exporter.service"
 
-print_ok "Paths updated to ${SERVER_DIR}"
+print_ok "User/Group set to ${DEPLOY_USER}:${DEPLOY_GROUP}"
 
 # Install service files
 echo -e "${CYAN}Installing service files...${RESET}"

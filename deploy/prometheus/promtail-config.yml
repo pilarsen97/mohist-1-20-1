@@ -81,7 +81,7 @@ scrape_configs:
           host: minecraft-server
           source: file
           instance: "192.168.1.201:9225"
-          __path__: /home/minecraft/mohist-1-20-1/logs/latest.log
+          __path__: /opt/minecraft/logs/latest.log
 
     pipeline_stages:
       # Handle multiline stack traces
@@ -134,7 +134,7 @@ scrape_configs:
           host: minecraft-server
           source: file
           level: error
-          __path__: /home/minecraft/mohist-1-20-1/crash-reports/*.txt
+          __path__: /opt/minecraft/crash-reports/*.txt
 
     pipeline_stages:
       # Treat entire crash report as single entry
@@ -154,7 +154,7 @@ scrape_configs:
           job: deploy
           host: minecraft-server
           source: file
-          __path__: /home/minecraft/mohist-1-20-1/logs/deploy/*.log
+          __path__: /opt/minecraft/logs/deploy/*.log
 
     pipeline_stages:
       # Parse deploy log format: [YYYY-MM-DD HH:MM:SS] [LEVEL] message

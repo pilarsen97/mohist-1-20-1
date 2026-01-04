@@ -56,8 +56,8 @@ ProtectControlGroups=true
 
 # Allow reading logs and writing positions
 ReadOnlyPaths=/var/log/journal
-ReadOnlyPaths=/home/minecraft/mohist-1-20-1/logs
-ReadOnlyPaths=/home/minecraft/mohist-1-20-1/crash-reports
+ReadOnlyPaths=/opt/minecraft/logs
+ReadOnlyPaths=/opt/minecraft/crash-reports
 ReadWritePaths=/var/lib/promtail
 
 # Resource limits

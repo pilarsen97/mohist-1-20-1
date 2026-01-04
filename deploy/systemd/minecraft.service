@@ -2,17 +2,16 @@
 # Minecraft Mohist 1.20.1 Server - Systemd Service File
 # =============================================================================
 # Installation:
-#   sudo cp deploy/systemd/minecraft.service /etc/systemd/system/
-#   sudo systemctl daemon-reload
-#   sudo systemctl enable minecraft.service
-#   sudo systemctl start minecraft.service
+#   Use: sudo ./deploy/install-service.sh
 #
-# Or use: ./deploy/install-service.sh
+# This is a TEMPLATE file. Placeholders are replaced during installation:
+#   - DEPLOY_USER / DEPLOY_GROUP -> actual user running the service
+#   - /opt/minecraft -> can be customized in install-service.sh
 # =============================================================================
 
 [Unit]
 Description=Mohist 1.20.1 Minecraft Server
-Documentation=file:///home/minecraft/mohist-1-20-1/CLAUDE.md
+Documentation=file:///opt/minecraft/CLAUDE.md
 After=network.target network-online.target
 Wants=network-online.target
 Wants=minecraft-exporter.service
@@ -25,15 +24,15 @@ After=remote-fs.target
 # Service type - simple because Java process stays in foreground
 Type=simple
 
-# User and group - never run as root!
-User=minecraft
-Group=minecraft
+# User and group - replaced during installation by install-service.sh
+User=DEPLOY_USER
+Group=DEPLOY_GROUP
 
 # Working directory
-WorkingDirectory=/home/minecraft/mohist-1-20-1
+WorkingDirectory=/opt/minecraft
 
 # Environment file for configuration
-EnvironmentFile=-/home/minecraft/mohist-1-20-1/deploy/config.env
+EnvironmentFile=-/opt/minecraft/deploy/config.env
 
 # Pre-start checks
 # Verify JAR file exists and is not corrupted
@@ -42,11 +41,11 @@ ExecStartPre=/bin/bash -c 'JAR=$(ls mohist-1.20.1-*.jar 2>/dev/null | head -1) &
 
 # Main server process
 # Using launch.sh which handles Java arguments
-ExecStart=/bin/bash /home/minecraft/mohist-1-20-1/launch.sh
+ExecStart=/bin/bash /opt/minecraft/launch.sh
 
 # Graceful shutdown with world save
 # Sends save-all via RCON before stopping
-ExecStop=/bin/bash /home/minecraft/mohist-1-20-1/deploy/graceful-shutdown.sh
+ExecStop=/bin/bash /opt/minecraft/deploy/graceful-shutdown.sh
 
 # Reload configuration (optional - sends reload command via RCON)
 ExecReload=/bin/bash -c 'mcrcon -H localhost -P 25575 -p "$RCON_PASSWORD" "reload"'
@@ -85,15 +84,15 @@ ProtectSystem=strict
 ProtectHome=read-only
 
 # Allow write access to server directory
-ReadWritePaths=/home/minecraft/mohist-1-20-1
-ReadWritePaths=/home/minecraft/mohist-1-20-1/world
-ReadWritePaths=/home/minecraft/mohist-1-20-1/world_nether
-ReadWritePaths=/home/minecraft/mohist-1-20-1/world_the_end
-ReadWritePaths=/home/minecraft/mohist-1-20-1/logs
-ReadWritePaths=/home/minecraft/mohist-1-20-1/backups
-ReadWritePaths=/home/minecraft/mohist-1-20-1/plugins
-ReadWritePaths=/home/minecraft/mohist-1-20-1/config
-ReadWritePaths=/home/minecraft/mohist-1-20-1/crash-reports
+ReadWritePaths=/opt/minecraft
+ReadWritePaths=/opt/minecraft/world
+ReadWritePaths=/opt/minecraft/world_nether
+ReadWritePaths=/opt/minecraft/world_the_end
+ReadWritePaths=/opt/minecraft/logs
+ReadWritePaths=/opt/minecraft/backups
+ReadWritePaths=/opt/minecraft/plugins
+ReadWritePaths=/opt/minecraft/config
+ReadWritePaths=/opt/minecraft/crash-reports
 
 # Prevent privilege escalation
 NoNewPrivileges=yes

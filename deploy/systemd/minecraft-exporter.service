@@ -4,15 +4,15 @@
 # Exposes Minecraft server metrics on port 9225 for Prometheus scraping
 #
 # Installation:
-#   sudo cp deploy/systemd/minecraft-exporter.service /etc/systemd/system/
-#   sudo systemctl daemon-reload
-#   sudo systemctl enable minecraft-exporter.service
-#   sudo systemctl start minecraft-exporter.service
+#   Use: sudo ./deploy/install-service.sh
+#
+# This is a TEMPLATE file. Placeholders are replaced during installation:
+#   - DEPLOY_USER / DEPLOY_GROUP -> actual user running the service
 # =============================================================================
 
 [Unit]
 Description=Minecraft Prometheus Metrics Exporter
-Documentation=file:///home/minecraft/mohist-1-20-1/CLAUDE.md
+Documentation=file:///opt/minecraft/CLAUDE.md
 After=network.target
 After=minecraft.service
 BindsTo=minecraft.service
@@ -23,18 +23,18 @@ PartOf=minecraft.service
 [Service]
 Type=simple
 
-# Run as minecraft user
-User=minecraft
-Group=minecraft
+# User and group - replaced during installation by install-service.sh
+User=DEPLOY_USER
+Group=DEPLOY_GROUP
 
 # Working directory
-WorkingDirectory=/home/minecraft/mohist-1-20-1
+WorkingDirectory=/opt/minecraft
 
 # Environment file
-EnvironmentFile=-/home/minecraft/mohist-1-20-1/deploy/config.env
+EnvironmentFile=-/opt/minecraft/deploy/config.env
 
 # Main exporter process
-ExecStart=/bin/bash /home/minecraft/mohist-1-20-1/deploy/prometheus/minecraft-exporter.sh
+ExecStart=/bin/bash /opt/minecraft/deploy/prometheus/minecraft-exporter.sh
 
 # Restart configuration
 Restart=always
@@ -47,7 +47,7 @@ CPUQuota=10%
 # Security hardening
 ProtectSystem=strict
 ProtectHome=read-only
-ReadOnlyPaths=/home/minecraft/mohist-1-20-1
+ReadOnlyPaths=/opt/minecraft
 NoNewPrivileges=yes
 PrivateTmp=yes
 

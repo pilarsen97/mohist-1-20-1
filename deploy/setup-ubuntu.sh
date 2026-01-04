@@ -3,9 +3,12 @@
 # setup-ubuntu.sh - Ubuntu VM Initial Setup for Minecraft Server
 # =============================================================================
 # Automated first-time setup script for Ubuntu VM on Proxmox
-# Run as root or with sudo
+# Run as root or with sudo from a non-root user account
 #
 # Usage: sudo ./deploy/setup-ubuntu.sh
+#
+# The server will run under the user who invoked sudo ($SUDO_USER)
+# Server files are installed to /opt/minecraft
 # =============================================================================
 
 set -e
@@ -13,10 +16,10 @@ set -e
 # -----------------------------------------------------------------------------
 # Configuration
 # -----------------------------------------------------------------------------
-MINECRAFT_USER="minecraft"
-MINECRAFT_GROUP="minecraft"
-MINECRAFT_HOME="/home/minecraft"
-SERVER_DIR="${MINECRAFT_HOME}/mohist-1-20-1"
+# User is determined from who ran sudo (not root!)
+DEPLOY_USER="${SUDO_USER:-}"
+DEPLOY_GROUP=""
+SERVER_DIR="/opt/minecraft"
 JAVA_VERSION="21"
 
 # Colors for output
@@ -64,15 +67,30 @@ check_root() {
     fi
 }
 
+check_sudo_user() {
+    if [[ -z "$DEPLOY_USER" || "$DEPLOY_USER" == "root" ]]; then
+        echo -e "${RED}Error: This script must be run via sudo from a non-root user${RESET}"
+        echo "Usage: sudo $0"
+        echo ""
+        echo "Do not run as: sudo su - root && ./setup-ubuntu.sh"
+        echo "Instead run:   sudo ./setup-ubuntu.sh"
+        exit 1
+    fi
+    DEPLOY_GROUP="$(id -gn "$DEPLOY_USER")"
+}
+
 # -----------------------------------------------------------------------------
 # Main Setup
 # -----------------------------------------------------------------------------
 
+# Check root first
+check_root
+check_sudo_user
+
 print_header "Minecraft Server Ubuntu VM Setup"
 
 echo -e "${CYAN}Configuration:${RESET}"
-echo "  User:       ${MINECRAFT_USER}"
-echo "  Home:       ${MINECRAFT_HOME}"
+echo "  User:       ${DEPLOY_USER}:${DEPLOY_GROUP}"
 echo "  Server:     ${SERVER_DIR}"
 echo "  Java:       OpenJDK ${JAVA_VERSION}"
 echo ""
@@ -83,9 +101,6 @@ if [[ $REPLY =~ ^[Nn]$ ]]; then
     echo "Setup cancelled."
     exit 0
 fi
-
-# Check root
-check_root
 
 TOTAL_STEPS=12
 CURRENT_STEP=0
@@ -178,21 +193,22 @@ else
 fi
 
 # -----------------------------------------------------------------------------
-# Step 5: Create Minecraft User
+# Step 5: Create Server Directory
 # -----------------------------------------------------------------------------
 ((++CURRENT_STEP))
-print_step $CURRENT_STEP $TOTAL_STEPS "Creating minecraft user"
+print_step $CURRENT_STEP $TOTAL_STEPS "Creating server directory"
 
-if id "${MINECRAFT_USER}" &>/dev/null; then
-    print_ok "User '${MINECRAFT_USER}' already exists"
+if [[ -d "${SERVER_DIR}" ]]; then
+    print_ok "Directory ${SERVER_DIR} already exists"
 else
-    useradd -r -m -d "${MINECRAFT_HOME}" -s /bin/bash "${MINECRAFT_USER}"
-    print_ok "User '${MINECRAFT_USER}' created"
+    mkdir -p "${SERVER_DIR}"
+    print_ok "Created ${SERVER_DIR}"
 fi
 
-# Ensure home directory permissions
-chown -R ${MINECRAFT_USER}:${MINECRAFT_GROUP} "${MINECRAFT_HOME}"
-chmod 750 "${MINECRAFT_HOME}"
+# Set ownership to the user who will run the server
+chown -R ${DEPLOY_USER}:${DEPLOY_GROUP} "${SERVER_DIR}"
+chmod 755 "${SERVER_DIR}"
+print_ok "Ownership set to ${DEPLOY_USER}:${DEPLOY_GROUP}"
 
 # -----------------------------------------------------------------------------
 # Step 6: Configure Git LFS
@@ -200,8 +216,9 @@ chmod 750 "${MINECRAFT_HOME}"
 ((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Configuring Git LFS"
 
-su - ${MINECRAFT_USER} -c "git lfs install" 2>/dev/null || git lfs install
-print_ok "Git LFS configured"
+# Configure Git LFS for the deploy user
+sudo -u "${DEPLOY_USER}" git lfs install 2>/dev/null || git lfs install
+print_ok "Git LFS configured for ${DEPLOY_USER}"
 
 # -----------------------------------------------------------------------------
 # Step 7: Clone/Update Repository
@@ -213,11 +230,9 @@ if [[ -d "${SERVER_DIR}/.git" ]]; then
     print_ok "Repository already exists at ${SERVER_DIR}"
     echo "  Run './deploy/update.sh' to update"
 else
-    echo -e "  ${YELLOW}Note:${RESET} You'll need to clone the repository manually:"
-    echo "  su - ${MINECRAFT_USER}"
-    echo "  cd ${MINECRAFT_HOME}"
-    echo "  git clone <your-repo-url> mohist-1-20-1"
-    echo "  cd mohist-1-20-1"
+    echo -e "  ${YELLOW}Note:${RESET} Clone the repository to ${SERVER_DIR}:"
+    echo "  cd ${SERVER_DIR}"
+    echo "  git clone <your-repo-url> ."
     echo "  git lfs pull"
     print_warn "Repository not cloned yet"
 fi
@@ -232,7 +247,7 @@ if [[ -d "${SERVER_DIR}/deploy" ]]; then
     if [[ ! -f "${SERVER_DIR}/deploy/config.env" ]]; then
         if [[ -f "${SERVER_DIR}/deploy/config.env.example" ]]; then
             cp "${SERVER_DIR}/deploy/config.env.example" "${SERVER_DIR}/deploy/config.env"
-            chown ${MINECRAFT_USER}:${MINECRAFT_GROUP} "${SERVER_DIR}/deploy/config.env"
+            chown ${DEPLOY_USER}:${DEPLOY_GROUP} "${SERVER_DIR}/deploy/config.env"
             chmod 600 "${SERVER_DIR}/deploy/config.env"
             print_warn "config.env created - EDIT IT to set RCON_PASSWORD!"
             echo -e "  ${YELLOW}→${RESET} nano ${SERVER_DIR}/deploy/config.env"
@@ -255,7 +270,7 @@ mkdir -p "${SERVER_DIR}/backups" 2>/dev/null || true
 mkdir -p "${SERVER_DIR}/crash-reports" 2>/dev/null || true
 
 if [[ -d "${SERVER_DIR}" ]]; then
-    chown -R ${MINECRAFT_USER}:${MINECRAFT_GROUP} "${SERVER_DIR}"
+    chown -R ${DEPLOY_USER}:${DEPLOY_GROUP} "${SERVER_DIR}"
     print_ok "Directories created and permissions set"
 else
     print_warn "Will create directories after repository clone"
@@ -267,18 +282,13 @@ fi
 ((++CURRENT_STEP))
 print_step $CURRENT_STEP $TOTAL_STEPS "Installing systemd services"
 
-if [[ -f "${SERVER_DIR}/deploy/systemd/minecraft.service" ]]; then
-    cp "${SERVER_DIR}/deploy/systemd/minecraft.service" /etc/systemd/system/
-    cp "${SERVER_DIR}/deploy/systemd/minecraft-exporter.service" /etc/systemd/system/
-    systemctl daemon-reload
-    systemctl enable minecraft.service
-    systemctl enable minecraft-exporter.service
-    print_ok "Services installed and enabled"
+if [[ -f "${SERVER_DIR}/deploy/install-service.sh" ]]; then
+    # Use install-service.sh which handles user/group substitution
+    "${SERVER_DIR}/deploy/install-service.sh"
+    print_ok "Services installed via install-service.sh"
 else
-    print_warn "Service files not found - will install after repository clone"
-    echo "  Run: sudo cp ${SERVER_DIR}/deploy/systemd/*.service /etc/systemd/system/"
-    echo "       sudo systemctl daemon-reload"
-    echo "       sudo systemctl enable minecraft.service"
+    print_warn "Service installer not found - will install after repository clone"
+    echo "  Run: sudo ${SERVER_DIR}/deploy/install-service.sh"
 fi
 
 # -----------------------------------------------------------------------------
@@ -340,10 +350,17 @@ else
 fi
 
 # Check user
-if id "${MINECRAFT_USER}" &>/dev/null; then
-    print_ok "User: ${MINECRAFT_USER} exists"
+if id "${DEPLOY_USER}" &>/dev/null; then
+    print_ok "User: ${DEPLOY_USER} (service owner)"
 else
-    print_error "User: ${MINECRAFT_USER} not found"
+    print_error "User: ${DEPLOY_USER} not found"
+fi
+
+# Check server directory
+if [[ -d "${SERVER_DIR}" ]]; then
+    print_ok "Server directory: ${SERVER_DIR}"
+else
+    print_error "Server directory: ${SERVER_DIR} not found"
 fi
 
 # Check services
@@ -373,10 +390,9 @@ echo ""
 
 if [[ ! -d "${SERVER_DIR}/.git" ]]; then
     echo "1. Clone the repository:"
-    echo "   su - ${MINECRAFT_USER}"
-    echo "   cd ${MINECRAFT_HOME}"
-    echo "   git clone <your-repo-url> mohist-1-20-1"
-    echo "   cd mohist-1-20-1 && git lfs pull"
+    echo "   cd ${SERVER_DIR}"
+    echo "   git clone <your-repo-url> ."
+    echo "   git lfs pull"
     echo ""
     echo "2. Configure RCON password:"
     echo "   cp deploy/config.env.example deploy/config.env"
@@ -386,16 +402,16 @@ if [[ ! -d "${SERVER_DIR}/.git" ]]; then
     echo "   sudo ./deploy/install-service.sh"
     echo ""
     echo "4. Start the server:"
-    echo "   sudo systemctl start minecraft.service"
+    echo "   sudo systemctl start minecraft"
 else
     echo "1. Configure RCON password (if not done):"
     echo "   nano ${SERVER_DIR}/deploy/config.env"
     echo ""
     echo "2. Start the server:"
-    echo "   sudo systemctl start minecraft.service"
+    echo "   sudo systemctl start minecraft"
     echo ""
     echo "3. Check status:"
-    echo "   sudo systemctl status minecraft.service"
+    echo "   sudo systemctl status minecraft"
     echo "   sudo journalctl -u minecraft -f"
 fi
 

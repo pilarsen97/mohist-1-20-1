@@ -7,23 +7,28 @@
 ## Быстрый старт
 
 ```bash
-# На Ubuntu VM:
-git clone <repo-url> /home/minecraft/mohist-1-20-1
-cd /home/minecraft/mohist-1-20-1
+# На Ubuntu VM (от вашего пользователя, не root):
 
-# Автоматическая установка (Java 21, mcrcon, пользователь minecraft)
+# Автоматическая установка (Java 21, mcrcon, /opt/minecraft)
 sudo ./deploy/setup-ubuntu.sh
+
+# Клонировать репозиторий в /opt/minecraft
+cd /opt/minecraft
+git clone <repo-url> .
+git lfs pull
 
 # Настроить RCON пароль
 cp deploy/config.env.example deploy/config.env
 nano deploy/config.env  # Установить RCON_PASSWORD
 
-# Установить systemd сервисы
+# Установить systemd сервисы (использует $SUDO_USER)
 sudo ./deploy/install-service.sh
 
 # Запустить сервер
 sudo systemctl start minecraft
 ```
+
+**Важно:** Сервер работает от пользователя, который выполнил `sudo`. Путь установки: `/opt/minecraft`.
 
 ---
 
@@ -54,7 +59,7 @@ sudo ./deploy/setup-ubuntu.sh
 2. Устанавливает зависимости (git, git-lfs, screen, htop, netcat, jq, bc)
 3. Устанавливает OpenJDK 21
 4. Компилирует и устанавливает mcrcon
-5. Создаёт пользователя `minecraft`
+5. Создаёт директорию `/opt/minecraft` с правами для `$SUDO_USER`
 6. Настраивает Git LFS
 7. Настраивает firewall (порты 25565, 9225)
 8. Устанавливает systemd сервисы
@@ -76,13 +81,14 @@ git clone https://github.com/Tiiffi/mcrcon.git
 cd mcrcon && make
 sudo cp mcrcon /usr/local/bin/
 
-# 4. Пользователь minecraft
-sudo useradd -r -m -d /home/minecraft -s /bin/bash minecraft
+# 4. Директория для сервера
+sudo mkdir -p /opt/minecraft
+sudo chown $USER:$USER /opt/minecraft
 
 # 5. Клонирование репозитория
-sudo -u minecraft git clone <repo-url> /home/minecraft/mohist-1-20-1
-cd /home/minecraft/mohist-1-20-1
-sudo -u minecraft git lfs pull
+cd /opt/minecraft
+git clone <repo-url> .
+git lfs pull
 ```
 
 ---
@@ -154,8 +160,8 @@ nano deploy/config.env
 # RCON пароль (должен совпадать с server.properties!)
 RCON_PASSWORD="ваш_пароль"
 
-# Путь к серверу
-SERVER_DIR="/home/minecraft/mohist-1-20-1"
+# Путь к серверу (по умолчанию /opt/minecraft)
+SERVER_DIR="/opt/minecraft"
 
 # Память (по вашим ресурсам)
 MIN_RAM="2G"
@@ -187,9 +193,12 @@ sudo ./deploy/install-service.sh
 ```
 
 Скрипт:
-- Копирует systemd unit-файлы в `/etc/systemd/system/`
-- Обновляет пути под вашу директорию
+- Определяет пользователя из `$SUDO_USER` (кто запустил sudo)
+- Подставляет User/Group в systemd unit-файлы
+- Копирует unit-файлы в `/etc/systemd/system/`
 - Включает автозапуск при загрузке системы
+
+**Важно:** Сервер будет работать от вашего пользователя, не от root и не от специального пользователя minecraft.
 
 ### Проверка установки
 
