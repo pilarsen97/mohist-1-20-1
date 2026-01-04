@@ -1,0 +1,169 @@
+# Promtail Configuration for Minecraft Server
+# Deploy to: /etc/promtail/promtail-config.yml on Minecraft container (100)
+# Documentation: https://grafana.com/docs/loki/latest/send-data/promtail/
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+  log_level: info
+
+positions:
+  filename: /var/lib/promtail/positions.yaml
+
+clients:
+  - url: http://192.168.1.202:3100/loki/api/v1/push
+    # Prometheus container (101) where Loki is running
+    batchwait: 1s
+    batchsize: 1048576  # 1MB
+    timeout: 10s
+
+scrape_configs:
+  # ==========================================================================
+  # Systemd Journal - minecraft.service and minecraft-exporter.service
+  # ==========================================================================
+  - job_name: journal
+    journal:
+      json: false
+      max_age: 12h
+      path: /var/log/journal
+      labels:
+        job: systemd-journal
+        host: minecraft-server
+        instance: "192.168.1.201:9225"
+
+    relabel_configs:
+      # Extract systemd unit name
+      - source_labels: ['__journal__systemd_unit']
+        target_label: 'unit'
+      # Extract hostname
+      - source_labels: ['__journal__hostname']
+        target_label: 'hostname'
+      # Extract priority as level
+      - source_labels: ['__journal_priority_keyword']
+        target_label: 'priority'
+      # Extract syslog identifier (process name)
+      - source_labels: ['__journal_syslog_identifier']
+        target_label: 'process'
+      # Only keep minecraft-related units
+      - source_labels: ['__journal__systemd_unit']
+        regex: 'minecraft.*\.service'
+        action: keep
+
+    pipeline_stages:
+      # Parse Minecraft log format: [HH:MM:SS] [Thread/LEVEL]: message
+      - regex:
+          expression: '^\[(?P<time>\d{2}:\d{2}:\d{2})\] \[(?P<thread>[^/]+)/(?P<level>\w+)\]:?\s*(?P<message>.*)'
+
+      # Extract labels from regex groups
+      - labels:
+          level:
+          thread:
+
+      # Normalize log levels
+      - template:
+          source: level
+          template: '{{ ToLower .Value }}'
+
+      # Map Minecraft levels to standard levels
+      - replace:
+          expression: 'warn'
+          replace: 'warning'
+
+  # ==========================================================================
+  # Minecraft Server Logs - latest.log and crash reports
+  # ==========================================================================
+  - job_name: minecraft-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: minecraft
+          host: minecraft-server
+          source: file
+          instance: "192.168.1.201:9225"
+          __path__: /home/minecraft/mohist-1-20-1/logs/latest.log
+
+    pipeline_stages:
+      # Handle multiline stack traces
+      - multiline:
+          firstline: '^\[\d{2}:\d{2}:\d{2}\]'
+          max_wait_time: 3s
+          max_lines: 128
+
+      # Parse Minecraft log format
+      - regex:
+          expression: '^\[(?P<time>\d{2}:\d{2}:\d{2})\] \[(?P<thread>[^/]+)/(?P<level>\w+)\]:?\s*(?P<message>.*)'
+
+      # Extract labels
+      - labels:
+          level:
+          thread:
+
+      # Normalize levels to lowercase
+      - template:
+          source: level
+          template: '{{ ToLower .Value }}'
+
+      # Detect and label important events
+      - match:
+          selector: '{job="minecraft"}'
+          stages:
+            # Player join/leave events
+            - regex:
+                expression: '(?P<player>\w+) (joined|left) the game'
+            - labels:
+                event_type:
+                  player_activity
+
+            # Server start/stop
+            - regex:
+                expression: '(Starting minecraft server|Stopping server|Done \(\d+\.\d+s\)!)'
+            - labels:
+                event_type:
+                  server_lifecycle
+
+  # ==========================================================================
+  # Crash Reports (if any)
+  # ==========================================================================
+  - job_name: minecraft-crashes
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: minecraft-crash
+          host: minecraft-server
+          source: file
+          level: error
+          __path__: /home/minecraft/mohist-1-20-1/crash-reports/*.txt
+
+    pipeline_stages:
+      # Treat entire crash report as single entry
+      - multiline:
+          firstline: '^---- Minecraft Crash Report ----'
+          max_wait_time: 10s
+          max_lines: 500
+
+  # ==========================================================================
+  # Deploy Script Logs
+  # ==========================================================================
+  - job_name: deploy-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: deploy
+          host: minecraft-server
+          source: file
+          __path__: /home/minecraft/mohist-1-20-1/logs/deploy/*.log
+
+    pipeline_stages:
+      # Parse deploy log format: [YYYY-MM-DD HH:MM:SS] [LEVEL] message
+      - regex:
+          expression: '^\[(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] \[(?P<level>\w+)\]\s*(?P<message>.*)'
+
+      - labels:
+          level:
+
+      - template:
+          source: level
+          template: '{{ ToLower .Value }}'

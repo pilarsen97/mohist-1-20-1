@@ -1,0 +1,74 @@
+# Promtail Systemd Service
+# Deploy to: /etc/systemd/system/promtail.service on Minecraft container (100)
+#
+# Installation:
+#   1. Download Promtail binary:
+#      wget https://github.com/grafana/loki/releases/download/v3.3.2/promtail-linux-amd64.zip
+#      unzip promtail-linux-amd64.zip && chmod +x promtail-linux-amd64
+#      mv promtail-linux-amd64 /usr/local/bin/promtail
+#
+#   2. Create directories:
+#      mkdir -p /var/lib/promtail /etc/promtail
+#
+#   3. Copy config:
+#      cp promtail-config.yml /etc/promtail/promtail-config.yml
+#
+#   4. Enable and start:
+#      systemctl daemon-reload
+#      systemctl enable --now promtail
+
+[Unit]
+Description=Promtail Log Collector for Loki
+Documentation=https://grafana.com/docs/loki/latest/send-data/promtail/
+After=network-online.target
+Wants=network-online.target
+
+# Start after minecraft service is available (optional)
+After=minecraft.service
+
+[Service]
+Type=simple
+User=root
+# Note: Running as root to access /var/log/journal and minecraft logs
+# Alternatively, add promtail user to systemd-journal and minecraft groups
+
+ExecStart=/usr/local/bin/promtail \
+    -config.file=/etc/promtail/promtail-config.yml \
+    -config.expand-env=true
+
+# Graceful shutdown
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=30
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+
+# Security hardening (limited due to log access needs)
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# Allow reading logs and writing positions
+ReadOnlyPaths=/var/log/journal
+ReadOnlyPaths=/home/minecraft/mohist-1-20-1/logs
+ReadOnlyPaths=/home/minecraft/mohist-1-20-1/crash-reports
+ReadWritePaths=/var/lib/promtail
+
+# Resource limits
+MemoryMax=100M
+MemoryHigh=80M
+CPUQuota=10%
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=promtail
+
+[Install]
+WantedBy=multi-user.target
