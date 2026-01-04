@@ -17,7 +17,7 @@ MINECRAFT_USER="minecraft"
 MINECRAFT_GROUP="minecraft"
 MINECRAFT_HOME="/home/minecraft"
 SERVER_DIR="${MINECRAFT_HOME}/mohist-1-20-1"
-JAVA_VERSION="17"
+JAVA_VERSION="21"
 
 # Colors for output
 RED='\033[0;31m'

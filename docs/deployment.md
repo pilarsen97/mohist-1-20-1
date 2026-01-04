@@ -11,7 +11,7 @@
 git clone <repo-url> /home/minecraft/mohist-1-20-1
 cd /home/minecraft/mohist-1-20-1
 
-# Автоматическая установка (Java 17, mcrcon, пользователь minecraft)
+# Автоматическая установка (Java 21, mcrcon, пользователь minecraft)
 sudo ./deploy/setup-ubuntu.sh
 
 # Настроить RCON пароль
@@ -35,7 +35,7 @@ sudo systemctl start minecraft
 | **RAM** | 4 GB | 8+ GB |
 | **CPU** | 2 ядра | 4+ ядра |
 | **Диск** | 20 GB SSD | 50+ GB SSD |
-| **Java** | OpenJDK 17 | OpenJDK 17 |
+| **Java** | OpenJDK 21 | OpenJDK 21 |
 
 ---
 
@@ -52,7 +52,7 @@ sudo ./deploy/setup-ubuntu.sh
 **Что делает скрипт:**
 1. Обновляет систему
 2. Устанавливает зависимости (git, git-lfs, screen, htop, netcat, jq, bc)
-3. Устанавливает OpenJDK 17
+3. Устанавливает OpenJDK 21
 4. Компилирует и устанавливает mcrcon
 5. Создаёт пользователя `minecraft`
 6. Настраивает Git LFS
@@ -68,7 +68,7 @@ sudo ./deploy/setup-ubuntu.sh
 sudo apt update && sudo apt upgrade -y
 
 # 2. Зависимости
-sudo apt install -y openjdk-17-jdk-headless git git-lfs screen htop netcat-openbsd jq bc
+sudo apt install -y openjdk-21-jdk-headless git git-lfs screen htop netcat-openbsd jq bc
 
 # 3. mcrcon (RCON клиент)
 cd /tmp

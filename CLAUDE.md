@@ -171,7 +171,7 @@ Complete Ubuntu server setup automation:
 ```bash
 sudo ./deploy/setup-ubuntu.sh
 ```
-- Installs Java 17, mcrcon, and dependencies
+- Installs Java 21, mcrcon, and dependencies
 - Creates minecraft user and directories
 - Configures firewall (UFW) rules
 - Sets up systemd services
