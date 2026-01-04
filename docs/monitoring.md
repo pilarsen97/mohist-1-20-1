@@ -27,12 +27,14 @@
 
 **Компоненты:**
 
-| Компонент | Роль | Порт |
-|-----------|------|------|
-| **minecraft-exporter** | Сбор метрик с сервера | 9225 |
-| **Prometheus** | Хранение и агрегация метрик | 9090 |
-| **Grafana** | Визуализация и дашборды | 3000 |
-| **Alertmanager** | Уведомления (опционально) | 9093 |
+| Компонент | Роль | Порт | Контейнер |
+|-----------|------|------|-----------|
+| **minecraft-exporter** | Сбор метрик с сервера | 9225 | 100 |
+| **Promtail** | Сбор логов с сервера | 9080 | 100 |
+| **Prometheus** | Хранение и агрегация метрик | 9090 | 101 |
+| **Loki** | Хранение и агрегация логов | 3100 | 101 |
+| **Grafana** | Визуализация и дашборды | 3000 | 101 |
+| **Alertmanager** | Уведомления (опционально) | 9093 | 101 |
 
 ---
 
@@ -474,7 +476,184 @@ sudo systemctl restart prometheus
 
 ---
 
-## 7. Проверка и устранение неполадок
+## 7. Loki + Promtail (логирование)
+
+Grafana Loki — лёгкий агрегатор логов, интегрированный с Grafana. Promtail собирает логи и отправляет в Loki.
+
+### Архитектура с Loki
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         Proxmox VE (pve)                            │
+│                                                                     │
+│  ┌─────────────────────┐         ┌─────────────────────────────┐   │
+│  │ 100 (MCserver-201)  │         │ 101 (prometheus)            │   │
+│  │                     │         │                             │   │
+│  │ minecraft-exporter  │◀────────│ Prometheus    :9090         │   │
+│  │ :9225               │ scrape  │ Grafana       :3000         │   │
+│  │                     │         │ Loki          :3100         │   │
+│  │ promtail.service ──────────▶ │ Alertmanager  :9093 (опц.)  │   │
+│  │ :9080               │  push   │                             │   │
+│  │                     │         │                             │   │
+│  │ minecraft.service   │         │                             │   │
+│  └─────────────────────┘         └─────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Установка Loki (на prometheus LXC 101)
+
+```bash
+# Скачать Loki
+cd /opt
+wget https://github.com/grafana/loki/releases/download/v3.3.2/loki-linux-amd64.zip
+unzip loki-linux-amd64.zip
+chmod +x loki-linux-amd64
+mv loki-linux-amd64 /usr/local/bin/loki
+
+# Создать пользователя и директории
+useradd --system --no-create-home --shell /bin/false loki
+mkdir -p /var/lib/loki /etc/loki
+chown -R loki:loki /var/lib/loki
+
+# Скопировать конфигурацию (из репозитория)
+# Файл: deploy/prometheus/loki-config.yml → /etc/loki/loki-config.yml
+
+# Скопировать systemd unit (из репозитория)
+# Файл: deploy/systemd/loki.service → /etc/systemd/system/loki.service
+
+# Запустить
+systemctl daemon-reload
+systemctl enable --now loki
+
+# Проверить
+systemctl status loki
+curl http://localhost:3100/ready
+```
+
+### Установка Promtail (на MCserver-201 LXC 100)
+
+```bash
+# Скачать Promtail
+cd /opt
+wget https://github.com/grafana/loki/releases/download/v3.3.2/promtail-linux-amd64.zip
+unzip promtail-linux-amd64.zip
+chmod +x promtail-linux-amd64
+mv promtail-linux-amd64 /usr/local/bin/promtail
+
+# Создать директории
+mkdir -p /var/lib/promtail /etc/promtail
+
+# Скопировать конфигурацию (из репозитория)
+# Файл: deploy/prometheus/promtail-config.yml → /etc/promtail/promtail-config.yml
+# ВАЖНО: Проверьте IP адрес Loki в конфиге!
+
+# Скопировать systemd unit (из репозитория)
+# Файл: deploy/systemd/promtail.service → /etc/systemd/system/promtail.service
+
+# Запустить
+systemctl daemon-reload
+systemctl enable --now promtail
+
+# Проверить
+systemctl status promtail
+curl http://localhost:9080/ready
+```
+
+### Открыть порты
+
+```bash
+# На prometheus LXC (101) — разрешить входящие от MCserver
+sudo ufw allow from <IP-MCserver-201> to any port 3100
+
+# На MCserver LXC (100) — promtail слушает только локально, ничего не нужно
+```
+
+### Подключение Loki к Grafana
+
+1. В Grafana: **Connections → Data sources → Add data source**
+2. Выберите **Loki**
+3. Настройки:
+
+| Параметр | Значение |
+|----------|----------|
+| Name | Loki |
+| URL | `http://localhost:3100` |
+
+4. Нажмите **Save & test**
+
+### Обновление дашборда
+
+Импортируйте обновлённый `grafana-dashboard.json` — он содержит секцию **Server Logs** с панелями:
+
+| Панель | Описание |
+|--------|----------|
+| **Minecraft Server Logs** | Все логи сервера с поиском |
+| **Log Levels Over Time** | График ошибок/предупреждений/info |
+| **Errors & Warnings** | Только ошибки и предупреждения |
+
+### Примеры LogQL запросов
+
+```logql
+# Все логи minecraft.service
+{unit="minecraft.service"}
+
+# Поиск по тексту
+{unit="minecraft.service"} |= "player joined"
+
+# Только ошибки
+{unit="minecraft.service"} |~ "(?i)(error|exception|failed)"
+
+# По уровню (если Promtail извлёк label)
+{unit="minecraft.service", level="error"}
+
+# Количество ошибок за интервал
+sum(count_over_time({unit="minecraft.service"} |~ "error" [5m]))
+
+# Crash reports
+{job="minecraft-crash"}
+```
+
+### Проверка работы Loki
+
+```bash
+# На prometheus LXC
+# Проверить что Loki работает
+curl http://localhost:3100/ready
+
+# Проверить что логи поступают
+curl -G -s "http://localhost:3100/loki/api/v1/query" \
+  --data-urlencode 'query={unit="minecraft.service"}' | jq
+
+# Посмотреть labels
+curl http://localhost:3100/loki/api/v1/labels
+
+# На MCserver LXC
+# Проверить что Promtail работает
+curl http://localhost:9080/ready
+
+# Проверить targets
+curl http://localhost:9080/targets
+```
+
+### Retention (хранение логов)
+
+По умолчанию логи хранятся **30 дней**. Изменить в `/etc/loki/loki-config.yml`:
+
+```yaml
+limits_config:
+  retention_period: 720h  # 30 дней (720 часов)
+```
+
+### Ресурсы
+
+| Компонент | RAM | CPU | Диск |
+|-----------|-----|-----|------|
+| Loki | 50-100 MB | <5% | ~1 GB/месяц |
+| Promtail | 20-30 MB | <1% | — |
+
+---
+
+## 8. Проверка и устранение неполадок
 
 ### Тестирование связи
 
@@ -536,19 +715,31 @@ curl http://localhost:9093/api/v2/alerts
 
 ---
 
-## 8. Полезные команды
+## 9. Полезные команды
 
 ```bash
-# Prometheus
+# Prometheus (на LXC 101)
 sudo systemctl status prometheus
 sudo journalctl -u prometheus -f
 promtool check config /etc/prometheus/prometheus.yml
 
-# Grafana
+# Grafana (на LXC 101)
 sudo systemctl status grafana-server
 sudo journalctl -u grafana-server -f
 
-# Alertmanager
+# Loki (на LXC 101)
+sudo systemctl status loki
+sudo journalctl -u loki -f
+curl http://localhost:3100/ready
+curl http://localhost:3100/loki/api/v1/labels
+
+# Promtail (на LXC 100)
+sudo systemctl status promtail
+sudo journalctl -u promtail -f
+curl http://localhost:9080/ready
+curl http://localhost:9080/targets
+
+# Alertmanager (на LXC 101)
 sudo systemctl status prometheus-alertmanager
 sudo journalctl -u prometheus-alertmanager -f
 amtool alert
@@ -556,11 +747,17 @@ amtool alert
 # Проверка метрик
 curl -s http://localhost:9090/api/v1/query?query=up | jq
 curl -s http://localhost:9090/api/v1/targets | jq '.data.activeTargets[] | {job: .labels.job, health: .health}'
+
+# Проверка логов в Loki
+curl -G -s "http://localhost:3100/loki/api/v1/query" \
+  --data-urlencode 'query={unit="minecraft.service"}' | jq '.data.result[0].values[:5]'
 ```
 
 ---
 
 ## Структура файлов
+
+### Контейнер 101 (prometheus)
 
 ```
 /etc/prometheus/
@@ -568,17 +765,39 @@ curl -s http://localhost:9090/api/v1/targets | jq '.data.activeTargets[] | {job:
 ├── alerts.yml              # Правила алертов
 └── alertmanager.yml        # Конфигурация Alertmanager
 
+/etc/loki/
+└── loki-config.yml         # Конфигурация Loki
+
 /var/lib/prometheus/        # Данные Prometheus (TSDB)
+/var/lib/loki/              # Данные Loki (логи)
 /var/lib/grafana/           # Данные Grafana (дашборды, users)
+```
+
+### Контейнер 100 (MCserver)
+
+```
+/etc/promtail/
+└── promtail-config.yml     # Конфигурация Promtail
+
+/var/lib/promtail/
+└── positions.yaml          # Позиции чтения файлов
+
+/home/minecraft/mohist-1-20-1/
+├── logs/                   # Логи сервера
+├── crash-reports/          # Crash reports
+└── deploy/prometheus/
+    └── minecraft-exporter.sh
 ```
 
 ---
 
 ## Порты и сервисы
 
-| Сервис | Порт | Systemd unit |
-|--------|------|--------------|
-| Prometheus | 9090 | prometheus.service |
-| Grafana | 3000 | grafana-server.service |
-| Alertmanager | 9093 | prometheus-alertmanager.service |
-| Minecraft exporter | 9225 | minecraft-exporter.service |
+| Сервис | Порт | Systemd unit | Контейнер |
+|--------|------|--------------|-----------|
+| Prometheus | 9090 | prometheus.service | 101 |
+| Loki | 3100 | loki.service | 101 |
+| Grafana | 3000 | grafana-server.service | 101 |
+| Alertmanager | 9093 | prometheus-alertmanager.service | 101 |
+| Minecraft exporter | 9225 | minecraft-exporter.service | 100 |
+| Promtail | 9080 | promtail.service | 100 |
