@@ -15,6 +15,7 @@ Description=Mohist 1.20.1 Minecraft Server
 Documentation=file:///home/minecraft/mohist-1-20-1/CLAUDE.md
 After=network.target network-online.target
 Wants=network-online.target
+Wants=minecraft-exporter.service
 
 # Optional dependencies
 After=local-fs.target

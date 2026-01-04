@@ -303,10 +303,19 @@ start_server() {
         exit 1
     fi
 
-    # Simple HTTP server using netcat
+    # Create FIFO for bidirectional communication with netcat
+    local fifo="/tmp/minecraft-exporter-$$"
+    mkfifo "$fifo" 2>/dev/null || true
+
+    # Cleanup FIFO on exit
+    trap "rm -f $fifo" EXIT
+
+    # HTTP server using netcat with FIFO for bidirectional I/O
     while true; do
-        # Use netcat to listen for connections
-        {
+        # cat sends response back through netcat to client
+        # nc receives request and pipes to processing block
+        # processing block writes response to FIFO
+        cat "$fifo" | nc -l -p "${PROMETHEUS_PORT}" -q 1 2>/dev/null | {
             # Read request
             local request=""
             while IFS= read -r line; do
@@ -315,11 +324,11 @@ start_server() {
                 [[ -z "$request" ]] && request="$line"
             done
 
-            # Handle request
+            # Handle request and send response to FIFO
             if [[ -n "$request" ]]; then
                 handle_request "$request"
             fi
-        } < <(nc -l -p "${PROMETHEUS_PORT}" -q 1 2>/dev/null || nc -l "${PROMETHEUS_PORT}" 2>/dev/null)
+        } > "$fifo"
     done
 }
 
