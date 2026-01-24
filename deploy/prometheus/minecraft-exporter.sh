@@ -9,12 +9,16 @@
 #   - minecraft_healthy
 #   - minecraft_players_online
 #   - minecraft_players_max
+#   - minecraft_players_by_dimension{dimension="world|nether|end"}
 #   - minecraft_tps
 #   - minecraft_uptime_seconds
 #   - minecraft_memory_used_bytes
 #   - minecraft_memory_max_bytes
 #   - minecraft_disk_usage_percent
 #   - minecraft_world_size_bytes
+#   - minecraft_world_size_by_dimension_bytes{dimension="world|nether|end"}
+#   - minecraft_loaded_chunks{dimension="world|nether|end"}
+#   - minecraft_entities_total
 #   - minecraft_backup_last_timestamp
 #   - minecraft_backup_size_bytes
 #
@@ -83,8 +87,10 @@ collect_metrics() {
             list_result=$(timeout 5 mcrcon -H "$RCON_HOST" -P "$RCON_PORT" -p "$RCON_PASSWORD" "list" 2>/dev/null || echo "")
         fi
 
-        # Parse "There are X of a max of Y players online"
-        if [[ "$list_result" =~ [Tt]here\ are\ ([0-9]+)\ of\ a\ max\ of\ ([0-9]+) ]]; then
+        # Parse player count - language-agnostic (works with EN/RU/any language)
+        # Matches patterns like: "There are X of a max of Y", "X/Y", "X из Y" etc.
+        # Extract first two numbers from the response
+        if [[ "$list_result" =~ ([0-9]+)[^0-9]+([0-9]+) ]]; then
             players_online="${BASH_REMATCH[1]}"
             players_max="${BASH_REMATCH[2]}"
         fi
@@ -192,6 +198,70 @@ collect_metrics() {
     metrics+="# HELP minecraft_world_size_bytes Total size of all worlds in bytes\n"
     metrics+="# TYPE minecraft_world_size_bytes gauge\n"
     metrics+="minecraft_world_size_bytes ${world_size}\n\n"
+
+    # World sizes by dimension
+    metrics+="# HELP minecraft_world_size_by_dimension_bytes Size of each dimension in bytes\n"
+    metrics+="# TYPE minecraft_world_size_by_dimension_bytes gauge\n"
+
+    for world in world world_nether world_the_end; do
+        local dim_name
+        case "$world" in
+            world) dim_name="overworld" ;;
+            world_nether) dim_name="nether" ;;
+            world_the_end) dim_name="end" ;;
+        esac
+
+        if [[ -d "${SERVER_DIR}/${world}" ]]; then
+            local dim_size
+            dim_size=$(du -sb "${SERVER_DIR}/${world}" 2>/dev/null | cut -f1 || echo "0")
+            metrics+="minecraft_world_size_by_dimension_bytes{dimension=\"${dim_name}\"} ${dim_size}\n"
+        else
+            metrics+="minecraft_world_size_by_dimension_bytes{dimension=\"${dim_name}\"} 0\n"
+        fi
+    done
+    metrics+="\n"
+
+    # Loaded chunks by dimension (count .mca files in region folders)
+    metrics+="# HELP minecraft_loaded_chunks Number of region files (chunks) per dimension\n"
+    metrics+="# TYPE minecraft_loaded_chunks gauge\n"
+
+    for world in world world_nether world_the_end; do
+        local dim_name
+        case "$world" in
+            world) dim_name="overworld" ;;
+            world_nether) dim_name="nether" ;;
+            world_the_end) dim_name="end" ;;
+        esac
+
+        local region_dir="${SERVER_DIR}/${world}/region"
+        local chunk_count=0
+
+        if [[ -d "$region_dir" ]]; then
+            chunk_count=$(find "$region_dir" -name "*.mca" 2>/dev/null | wc -l | tr -d ' ')
+        fi
+
+        metrics+="minecraft_loaded_chunks{dimension=\"${dim_name}\"} ${chunk_count}\n"
+    done
+    metrics+="\n"
+
+    # Total entities (from RCON if available)
+    local entities_total=0
+    if [[ -n "$RCON_PASSWORD" ]] && [[ $healthy -eq 1 ]]; then
+        local entities_result
+        if command -v mcrcon &>/dev/null; then
+            # Try to get entity count via RCON
+            entities_result=$(timeout 5 mcrcon -H "$RCON_HOST" -P "$RCON_PORT" -p "$RCON_PASSWORD" "forge entity list" 2>/dev/null || echo "")
+
+            # Parse total entities - varies by server version
+            if [[ "$entities_result" =~ Total:\ ([0-9]+) ]]; then
+                entities_total="${BASH_REMATCH[1]}"
+            fi
+        fi
+    fi
+
+    metrics+="# HELP minecraft_entities_total Total number of entities in all dimensions\n"
+    metrics+="# TYPE minecraft_entities_total gauge\n"
+    metrics+="minecraft_entities_total ${entities_total}\n\n"
 
     # Backup info
     local backup_dir="${SERVER_DIR}/backups"

@@ -1,0 +1,230 @@
+---
+# =============================================================================
+# Prometheus Alert Rules for Minecraft Server
+# =============================================================================
+# This file defines alerting rules for monitoring Minecraft server health,
+# performance, and resource usage.
+#
+# Installation:
+#   1. Copy to Prometheus server: /etc/prometheus/alerts.yml
+#   2. Add to prometheus.yml:
+#      rule_files:
+#        - "alerts.yml"
+#   3. Restart Prometheus: sudo systemctl restart prometheus
+# =============================================================================
+
+groups:
+  # Critical Server Health Alerts
+  - name: minecraft_critical
+    interval: 30s
+    rules:
+      # Server is down
+      - alert: MinecraftServerDown
+        expr: minecraft_healthy == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: minecraft
+        annotations:
+          summary: "Сервер Minecraft недоступен"
+          description: "Сервер не отвечает более 1 минуты. Требуется немедленная проверка."
+          impact: "Игроки не могут подключиться к серверу"
+          action: "Проверить: sudo systemctl status minecraft && sudo journalctl -u minecraft -n 50"
+
+      # Disk space critical
+      - alert: MinecraftDiskSpaceCritical
+        expr: minecraft_disk_usage_percent > 95
+        for: 5m
+        labels:
+          severity: critical
+          component: storage
+        annotations:
+          summary: "Критически мало места на диске"
+          description: "Использование диска: {{ $value }}%. Осталось менее 5%."
+          impact: "Риск потери данных, невозможность создания бэкапов"
+          action: "Очистить старые бэкапы, запустить ./deploy/optimize-world.sh"
+
+      # Memory usage critical
+      - alert: MinecraftMemoryCritical
+        expr: (minecraft_memory_used_bytes / minecraft_memory_max_bytes) * 100 > 95
+        for: 5m
+        labels:
+          severity: critical
+          component: memory
+        annotations:
+          summary: "Критический уровень использования памяти"
+          description: "Использование памяти: {{ $value | humanizePercentage }}. Возможен краш."
+          impact: "Риск аварийного завершения сервера"
+          action: "Рестарт сервера: ./deploy/scheduled-restart.sh"
+
+  # Warning Alerts
+  - name: minecraft_warnings
+    interval: 1m
+    rules:
+      # Low TPS
+      - alert: MinecraftLowTPS
+        expr: minecraft_tps < 15
+        for: 5m
+        labels:
+          severity: warning
+          component: performance
+        annotations:
+          summary: "Низкий TPS сервера"
+          description: "TPS: {{ $value }}. Норма: 20. Сервер перегружен."
+          impact: "Лаги для игроков, медленная работа игры"
+          action: "Проверить нагрузку: top, проверить количество энтити через /forge entity list"
+
+      # Disk space warning
+      - alert: MinecraftDiskSpaceWarning
+        expr: minecraft_disk_usage_percent > 85
+        for: 10m
+        labels:
+          severity: warning
+          component: storage
+        annotations:
+          summary: "Мало места на диске"
+          description: "Использование диска: {{ $value }}%"
+          impact: "Скоро закончится место для бэкапов и логов"
+          action: "Запланировать очистку: ./deploy/optimize-world.sh"
+
+      # High memory usage
+      - alert: MinecraftMemoryHigh
+        expr: (minecraft_memory_used_bytes / minecraft_memory_max_bytes) * 100 > 85
+        for: 10m
+        labels:
+          severity: warning
+          component: memory
+        annotations:
+          summary: "Высокое использование памяти"
+          description: "Использование памяти: {{ $value | humanizePercentage }}"
+          impact: "Риск падения производительности"
+          action: "Мониторить ситуацию, при необходимости рестарт"
+
+      # Old backup
+      - alert: MinecraftBackupOld
+        expr: (time() - minecraft_backup_last_timestamp) > 86400
+        for: 1h
+        labels:
+          severity: warning
+          component: backup
+        annotations:
+          summary: "Давно не было бэкапа"
+          description: "Последний бэкап был {{ $value | humanizeDuration }} назад"
+          impact: "Риск потери данных при сбое"
+          action: "Создать бэкап: ./deploy/backup.sh"
+
+      # High player count
+      - alert: MinecraftHighPlayerCount
+        expr: minecraft_players_online > 50
+        for: 5m
+        labels:
+          severity: info
+          component: players
+        annotations:
+          summary: "Большое количество игроков онлайн"
+          description: "Онлайн: {{ $value }} игроков (макс: {{ minecraft_players_max }})"
+          impact: "Возможна повышенная нагрузка на сервер"
+          action: "Мониторить TPS и производительность"
+
+  # Performance Monitoring
+  - name: minecraft_performance
+    interval: 2m
+    rules:
+      # Degraded TPS
+      - alert: MinecraftDegradedTPS
+        expr: minecraft_tps < 18
+        for: 10m
+        labels:
+          severity: info
+          component: performance
+        annotations:
+          summary: "Пониженный TPS"
+          description: "TPS: {{ $value }}. Норма: 20."
+          impact: "Небольшие лаги для игроков"
+          action: "Проверить количество энтити и загруженных чанков"
+
+      # Large world size
+      - alert: MinecraftLargeWorldSize
+        expr: minecraft_world_size_bytes > 10737418240  # 10 GB
+        for: 1h
+        labels:
+          severity: info
+          component: storage
+        annotations:
+          summary: "Большой размер мира"
+          description: "Размер всех миров: {{ $value | humanize1024 }}B"
+          impact: "Долгие бэкапы и рестарты"
+          action: "Рассмотреть оптимизацию: ./deploy/optimize-world.sh"
+
+      # Too many entities
+      - alert: MinecraftHighEntityCount
+        expr: minecraft_entities_total > 5000
+        for: 15m
+        labels:
+          severity: warning
+          component: performance
+        annotations:
+          summary: "Много энтити на сервере"
+          description: "Количество энтити: {{ $value }}"
+          impact: "Снижение производительности и TPS"
+          action: "Проверить: /forge entity list, удалить лишних мобов"
+
+  # Backup Monitoring
+  - name: minecraft_backup
+    interval: 5m
+    rules:
+      # No recent backup
+      - alert: MinecraftNoRecentBackup
+        expr: (time() - minecraft_backup_last_timestamp) > 172800  # 48 hours
+        for: 1h
+        labels:
+          severity: critical
+          component: backup
+        annotations:
+          summary: "КРИТИЧНО: Нет бэкапов более 2 дней!"
+          description: "Последний бэкап был {{ $value | humanizeDuration }} назад"
+          impact: "Высокий риск потери данных"
+          action: "СРОЧНО создать бэкап: ./deploy/backup.sh"
+
+      # Small backup size (possible corruption)
+      - alert: MinecraftSmallBackup
+        expr: minecraft_backup_size_bytes < 104857600  # 100 MB
+        for: 30m
+        labels:
+          severity: warning
+          component: backup
+        annotations:
+          summary: "Подозрительно маленький бэкап"
+          description: "Размер последнего бэкапа: {{ $value | humanize1024 }}B"
+          impact: "Возможно повреждение бэкапа"
+          action: "Проверить целостность бэкапа и пересоздать"
+
+  # Uptime Alerts
+  - name: minecraft_uptime
+    interval: 5m
+    rules:
+      # Recent restart
+      - alert: MinecraftRecentRestart
+        expr: minecraft_uptime_seconds < 300  # 5 minutes
+        for: 1m
+        labels:
+          severity: info
+          component: server
+        annotations:
+          summary: "Сервер недавно перезапущен"
+          description: "Uptime: {{ $value | humanizeDuration }}"
+          impact: "Игроки могут испытывать проблемы при подключении"
+          action: "Мониторить стабильность после рестарта"
+
+      # Long uptime (consider restart)
+      - alert: MinecraftLongUptime
+        expr: minecraft_uptime_seconds > 604800  # 7 days
+        for: 1h
+        labels:
+          severity: info
+          component: maintenance
+        annotations:
+          summary: "Сервер работает долго без рестарта"
+          description: "Uptime: {{ $value | humanizeDuration }}"
+          impact: "Возможная деградация производительности"
+          action: "Запланировать рестарт: ./deploy/scheduled-restart.sh"
