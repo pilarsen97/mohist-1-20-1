@@ -1,53 +1,51 @@
 flowchart LR
 %% ====== Internet side ======
-U[User / Internet] -->|HTTPS 80/443| VPS[VPS: Public IP\nUbuntu 24.04]
-U -->|TCP 25565 (Minecraft Java)| VPS
-U -->|TCP 22 (SSH keys)| VPS
+    U[User / Internet]
 
 %% ====== VPS services ======
-subgraph VPSBOX[VPS]
-NPM[Nginx Proxy Manager\n:80/:443]
-SSHD[OpenSSH\n:22]
-WGvps[WireGuard (server)\nwg0: 10.10.0.1/24]
-end
+    subgraph VPS[VPS: Public IP - Ubuntu 24.04]
+        NPM[Nginx Proxy Manager<br/>:80/:443]
+        SSHD[OpenSSH<br/>:22]
+        FW[Firewall / DNAT<br/>port forwards]
+        WGvps[WireGuard server<br/>wg0: 10.10.0.1/24]
+    end
 
-VPS --> NPM
-VPS --> SSHD
-VPS --> WGvps
+    U -->|HTTPS 80/443| NPM
+    U -->|TCP 22 SSH keys| SSHD
+    U -->|TCP 25565 Minecraft| FW
 
 %% ====== Secure tunnel ======
-WGvps ---|Encrypted tunnel| WGpve[WireGuard (client)\nwg0: 10.10.0.2/24]
+    WGvps ---|Encrypted tunnel| WGpve[WireGuard client<br/>wg0: 10.10.0.2/24]
 
 %% ====== Home / Proxmox LAN ======
-subgraph HOME[Home LAN 192.168.1.0/24]
-PVE[Proxmox host\n192.168.1.200\n(WG client here)]
-VM100[VM 100 MCserver\n192.168.1.201]
-VM101[VM 101 prom-graf\n192.168.1.202]
-VM104[VM 104 Portainer\n192.168.1.204]
-end
+    subgraph HOME[Home LAN 192.168.1.0/24]
+        PVE[Proxmox host<br/>192.168.1.200<br/>WG client here]
+        VM100[VM 100 MCserver<br/>192.168.1.201]
+        VM101[VM 101 prom-graf<br/>192.168.1.202]
+        VM104[VM 104 Portainer<br/>192.168.1.204]
+    end
 
-WGpve --> PVE
+    WGpve --> PVE
 
 %% ====== HTTP(S) via NPM ======
-NPM -->|grafana.pilarsen.ru → 192.168.1.202:3000| VM101
-NPM -->|server.kibermine.ru → 192.168.1.201:8123 (Dynmap)| VM100
-%% Optional future: portainer via VPN only (no public host)
-%% NPM -->|portainer.pilarsen.ru → 192.168.1.204:9000 (VPN-only)| VM104
+    NPM -->|grafana.pilarsen.ru → :3000| VM101
+    NPM -->|server.kibermine.ru → :8123 Dynmap| VM100
+%% (Portainer planned as VPN-only; no public host via NPM for now)
 
-%% ====== Non-HTTP ports (direct on VPS, forwarded via WG) ======
-VPS -->|TCP 25565 → 192.168.1.201:25565| VM100
-VPS -->|TCP 24454 → 192.168.1.201:24454| VM100
-VPS -->|TCP 25575 (RCON?) → 192.168.1.201:25575| VM100
-VPS -->|TCP 36123 → 192.168.1.201:36123| VM100
+%% ====== Non-HTTP ports (DNAT on VPS, routed via WG) ======
+    FW -->|TCP 25565 → :25565| VM100
+    FW -->|TCP 24454 → :24454| VM100
+    FW -->|TCP 25575 → :25575 RCON| VM100
+FW -->|TCP 36123 → :36123| VM100
 
-%% ====== SSH access pattern ======
-SSHD -->|SSH keys (devops)\nvia WG to LAN| VM100
+%% ====== SSH access pattern (recommended) ======
+SSHD -->|SSH ProxyJump over WG<br/>devops@192.168.1.201| VM100
 
-%% ====== Access policy notes ======
-classDef public fill:#fff,stroke:#333,stroke-width:1px;
-classDef vpn fill:#f7fff7,stroke:#2b7,stroke-width:2px;
-classDef internal fill:#f7f7ff,stroke:#66f,stroke-width:1px;
+%% ====== Styles ======
+classDef public fill:#fff,stroke:#333,stroke-width:1px
+classDef vpn fill:#f7fff7,stroke:#2b7,stroke-width:2px
+classDef internal fill:#f7f7ff,stroke:#66f,stroke-width:1px
 
-class VPS,NPM,SSHD public;
-class WGvps,WGpve vpn;
-class PVE,VM100,VM101,VM104 internal;
+class NPM,SSHD,FW public
+class WGvps,WGpve vpn
+class PVE,VM100,VM101,VM104 internal
