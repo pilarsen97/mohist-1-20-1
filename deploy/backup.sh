@@ -30,7 +30,7 @@ SERVER_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 if [[ -f "${SCRIPT_DIR}/lib/logging.sh" ]]; then
     source "${SCRIPT_DIR}/lib/logging.sh"
 else
-    # Fallback minimal logging
+    # Fallback minimal logging (format_bytes/get_file_size in logging.sh)
     log_info() { echo "[INFO] $1"; }
     log_warn() { echo "[WARN] $1"; }
     log_error() { echo "[ERROR] $1" >&2; }
@@ -43,16 +43,8 @@ else
     start_timer() { START_TIME=$(date +%s); }
     get_elapsed() { echo "$(($(date +%s) - START_TIME))s"; }
     init_steps() { :; }
-    format_bytes() {
-        local bytes="$1"
-        if [[ $bytes -ge 1073741824 ]]; then
-            echo "$(echo "scale=1; $bytes/1073741824" | bc) GB"
-        elif [[ $bytes -ge 1048576 ]]; then
-            echo "$(echo "scale=1; $bytes/1048576" | bc) MB"
-        else
-            echo "$bytes bytes"
-        fi
-    }
+    format_bytes() { echo "$1 bytes"; }
+    get_file_size() { stat -f%z "$1" 2>/dev/null || stat -c%s "$1" 2>/dev/null || echo "0"; }
 fi
 
 # Load configuration
@@ -109,16 +101,7 @@ done
 # -----------------------------------------------------------------------------
 # Helper Functions
 # -----------------------------------------------------------------------------
-
-# Get file size (cross-platform)
-get_file_size() {
-    local file="$1"
-    if [[ "$(uname)" == "Darwin" ]]; then
-        stat -f%z "$file" 2>/dev/null || echo "0"
-    else
-        stat -c%s "$file" 2>/dev/null || echo "0"
-    fi
-}
+# Note: format_bytes() and get_file_size() are in lib/logging.sh
 
 # Get directory size
 get_dir_size() {
@@ -134,6 +117,36 @@ verify_archive() {
         return 1
     fi
 
+    return 0
+}
+
+# Check available disk space before backup
+# Usage: check_disk_space [required_mb] [target_dir]
+check_disk_space() {
+    local required_mb="${1:-500}"
+    local target_dir="${2:-$BACKUP_DIR}"
+
+    # Ensure target directory exists for df check
+    mkdir -p "$target_dir" 2>/dev/null || true
+
+    local available_mb
+    if [[ "$(uname)" == "Darwin" ]]; then
+        available_mb=$(df -Pm "$target_dir" 2>/dev/null | awk 'NR==2 {print $4}')
+    else
+        available_mb=$(df -BM "$target_dir" 2>/dev/null | awk 'NR==2 {gsub(/M/,""); print $4}')
+    fi
+
+    if [[ -z "$available_mb" ]] || [[ ! "$available_mb" =~ ^[0-9]+$ ]]; then
+        log_warn "Could not determine available disk space"
+        return 0  # Continue anyway
+    fi
+
+    if [[ $available_mb -lt $required_mb ]]; then
+        log_error "Insufficient disk space: ${available_mb}MB available, ${required_mb}MB required"
+        return 1
+    fi
+
+    log_substep "Disk space: ${available_mb}MB available (min: ${required_mb}MB)"
     return 0
 }
 
@@ -388,6 +401,12 @@ main() {
 
     # Create backup directory
     create_backup_dir
+
+    # Pre-flight: Check disk space (require at least 500MB)
+    if ! check_disk_space 500; then
+        print_footer "error" "0s" "Insufficient disk space"
+        exit 1
+    fi
 
     # Step 1: Create backup
     log_step "Creating backup"

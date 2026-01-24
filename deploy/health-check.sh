@@ -166,9 +166,11 @@ get_player_count() {
 
     local result
     if command -v mcrcon &>/dev/null; then
-        result=$(timeout "${HEALTH_CHECK_TIMEOUT}" mcrcon -H "$RCON_HOST" -P "$RCON_PORT" -p "$RCON_PASSWORD" "list" 2>/dev/null || echo "")
+        # Use MCRCON_PASS env to avoid password in process list
+        result=$(MCRCON_PASS="$RCON_PASSWORD" timeout "${HEALTH_CHECK_TIMEOUT}" mcrcon -H "$RCON_HOST" -P "$RCON_PORT" "list" 2>/dev/null || echo "")
     elif command -v rcon-cli &>/dev/null; then
-        result=$(timeout "${HEALTH_CHECK_TIMEOUT}" rcon-cli --host "$RCON_HOST" --port "$RCON_PORT" --password "$RCON_PASSWORD" "list" 2>/dev/null || echo "")
+        # Use RCON_CLI_PASSWORD env to avoid password in process list
+        result=$(RCON_CLI_PASSWORD="$RCON_PASSWORD" timeout "${HEALTH_CHECK_TIMEOUT}" rcon-cli --host "$RCON_HOST" --port "$RCON_PORT" "list" 2>/dev/null || echo "")
     fi
 
     # Parse "There are X of a max of Y players online"
@@ -359,16 +361,17 @@ EOF
 # Utility Functions
 # -----------------------------------------------------------------------------
 
+# Format bytes to human readable (standalone - no logging.sh dependency)
 format_bytes() {
     local bytes="$1"
     if [[ $bytes -ge 1073741824 ]]; then
-        echo "$(echo "scale=1; $bytes/1073741824" | bc) GB"
+        printf "%.1f GB" "$(echo "scale=1; $bytes/1073741824" | bc)"
     elif [[ $bytes -ge 1048576 ]]; then
-        echo "$(echo "scale=1; $bytes/1048576" | bc) MB"
+        printf "%.1f MB" "$(echo "scale=1; $bytes/1048576" | bc)"
     elif [[ $bytes -ge 1024 ]]; then
-        echo "$(echo "scale=1; $bytes/1024" | bc) KB"
+        printf "%.1f KB" "$(echo "scale=1; $bytes/1024" | bc)"
     else
-        echo "$bytes B"
+        printf "%d B" "$bytes"
     fi
 }
 

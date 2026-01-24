@@ -101,17 +101,17 @@ send_rcon() {
 
     case "$tool" in
         mcrcon)
-            result=$(timeout "${RCON_TIMEOUT}" mcrcon \
+            # Use MCRCON_PASS env to avoid password in process list
+            result=$(MCRCON_PASS="$RCON_PASSWORD" timeout "${RCON_TIMEOUT}" mcrcon \
                 -H "$RCON_HOST" \
                 -P "$RCON_PORT" \
-                -p "$RCON_PASSWORD" \
                 "$command" 2>&1) || exit_code=$?
             ;;
         rcon-cli)
-            result=$(timeout "${RCON_TIMEOUT}" rcon-cli \
+            # Use RCON_CLI_PASSWORD env to avoid password in process list
+            result=$(RCON_CLI_PASSWORD="$RCON_PASSWORD" timeout "${RCON_TIMEOUT}" rcon-cli \
                 --host "$RCON_HOST" \
                 --port "$RCON_PORT" \
-                --password "$RCON_PASSWORD" \
                 "$command" 2>&1) || exit_code=$?
             ;;
     esac
@@ -125,20 +125,7 @@ send_rcon() {
     return 0
 }
 
-# Check if server is running
-is_server_running() {
-    if pgrep -f "mohist-1.20.1.*\.jar" > /dev/null 2>&1; then
-        return 0
-    fi
-
-    if command -v systemctl &>/dev/null; then
-        if systemctl is-active --quiet minecraft.service 2>/dev/null; then
-            return 0
-        fi
-    fi
-
-    return 1
-}
+# is_server_running() - now in lib/logging.sh
 
 # Get player count
 get_player_count() {

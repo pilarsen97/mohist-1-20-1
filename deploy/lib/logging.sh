@@ -13,9 +13,23 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG_DIR="${LOG_DIR:-${SCRIPT_DIR}/../logs/deploy}"
 LOG_FILE="${LOG_FILE:-${LOG_DIR}/deploy_$(date +%Y%m%d).log}"
 LOG_LEVEL="${LOG_LEVEL:-INFO}"  # DEBUG, INFO, WARN, ERROR
+LOG_RETENTION_DAYS="${LOG_RETENTION_DAYS:-7}"  # Keep logs for N days
 
 # Create log directory if it doesn't exist
 mkdir -p "$LOG_DIR" 2>/dev/null || true
+
+# Rotate old logs (remove logs older than LOG_RETENTION_DAYS)
+rotate_logs() {
+    local log_dir="${1:-$LOG_DIR}"
+    local keep_days="${2:-$LOG_RETENTION_DAYS}"
+
+    if [[ -d "$log_dir" ]]; then
+        find "$log_dir" -name "deploy_*.log" -type f -mtime +$keep_days -delete 2>/dev/null || true
+    fi
+}
+
+# Auto-rotate on library load
+rotate_logs
 
 # -----------------------------------------------------------------------------
 # Colors and Formatting
@@ -332,6 +346,20 @@ format_bytes() {
     fi
 }
 
+# Get file size in bytes (cross-platform)
+get_file_size() {
+    local file="$1"
+    if [[ ! -f "$file" ]]; then
+        echo "0"
+        return
+    fi
+    if [[ "$(uname)" == "Darwin" ]]; then
+        stat -f%z "$file" 2>/dev/null || echo "0"
+    else
+        stat -c%s "$file" 2>/dev/null || echo "0"
+    fi
+}
+
 # Format seconds to human readable duration
 format_duration() {
     local seconds="$1"
@@ -396,6 +424,33 @@ run_silent() {
         return 1
     fi
     return 0
+}
+
+# -----------------------------------------------------------------------------
+# Server State Detection
+# -----------------------------------------------------------------------------
+
+# Check if Minecraft server is running
+# Usage: is_server_running [force_direct]
+# Arguments:
+#   force_direct - if "true", skip systemd check (for direct/screen mode)
+# Returns: 0 if running, 1 if not
+is_server_running() {
+    local force_direct="${1:-false}"
+
+    # Check by process name
+    if pgrep -f "mohist-1.20.1.*\.jar" > /dev/null 2>&1; then
+        return 0
+    fi
+
+    # Check via systemd (if not forcing direct mode)
+    if [[ "$force_direct" != "true" ]] && command -v systemctl &>/dev/null; then
+        if systemctl is-active --quiet "${SERVICE_NAME:-minecraft}.service" 2>/dev/null; then
+            return 0
+        fi
+    fi
+
+    return 1
 }
 
 # -----------------------------------------------------------------------------

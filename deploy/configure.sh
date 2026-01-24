@@ -72,15 +72,23 @@ prompt_with_default() {
     echo "${result:-$default}"
 }
 
+# Escape string for use in sed replacement pattern
+# Handles: & \ / $ (all sed special chars in replacement)
+escape_sed_replacement() {
+    printf '%s' "$1" | sed -e 's/[&/\$]/\\&/g' -e 's/\\/\\\\/g'
+}
+
 # Apply configuration to server.properties using sed
 apply_to_server_properties() {
     local password="$1"
     local ip="$2"
     local motd="$3"
 
-    # Escape special characters for sed
-    local escaped_password="${password//\//\\/}"
-    local escaped_motd="${motd//\//\\/}"
+    # Escape special characters for sed replacement
+    local escaped_password
+    local escaped_motd
+    escaped_password=$(escape_sed_replacement "$password")
+    escaped_motd=$(escape_sed_replacement "$motd")
 
     # Platform-specific sed (macOS vs Linux)
     if [[ "$(get_platform)" == "macos" ]]; then
@@ -114,8 +122,9 @@ sync_config_env() {
         fi
     fi
 
-    # Escape password for sed
-    local escaped_password="${password//\//\\/}"
+    # Escape password for sed using shared function
+    local escaped_password
+    escaped_password=$(escape_sed_replacement "$password")
 
     # Update RCON_PASSWORD in config.env
     if [[ "$(get_platform)" == "macos" ]]; then
