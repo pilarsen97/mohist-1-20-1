@@ -83,20 +83,7 @@ done
 # Helper Functions
 # -----------------------------------------------------------------------------
 
-# Check if server is running
-is_server_running() {
-    if pgrep -f "mohist-1.20.1.*\.jar" > /dev/null 2>&1; then
-        return 0
-    fi
-
-    if command -v systemctl &>/dev/null; then
-        if systemctl is-active --quiet "${SERVICE_NAME}.service" 2>/dev/null; then
-            return 0
-        fi
-    fi
-
-    return 1
-}
+# is_server_running() - now in lib/logging.sh
 
 # Check if using systemd
 use_systemd() {

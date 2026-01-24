@@ -44,6 +44,7 @@ else
     get_elapsed() { echo "$(($(date +%s) - START_TIME))s"; }
     init_steps() { :; }
     format_bytes() { echo "$1 bytes"; }
+    get_file_size() { stat -f%z "$1" 2>/dev/null || stat -c%s "$1" 2>/dev/null || echo "0"; }
 fi
 
 # Load configuration
@@ -92,16 +93,7 @@ done
 # -----------------------------------------------------------------------------
 # Helper Functions
 # -----------------------------------------------------------------------------
-
-# Get file size (cross-platform)
-get_file_size() {
-    local file="$1"
-    if [[ "$(uname)" == "Darwin" ]]; then
-        stat -f%z "$file" 2>/dev/null || echo "0"
-    else
-        stat -c%s "$file" 2>/dev/null || echo "0"
-    fi
-}
+# Note: format_bytes() and get_file_size() are in lib/logging.sh
 
 # Get available disk space in bytes
 get_disk_free() {
@@ -113,18 +105,7 @@ get_disk_usage() {
     df "${SERVER_DIR}" 2>/dev/null | tail -1 | awk '{print $5}' | tr -d '%'
 }
 
-# Check if server is running
-is_server_running() {
-    if pgrep -f "mohist-1.20.1.*\.jar" > /dev/null 2>&1; then
-        return 0
-    fi
-    if command -v systemctl &>/dev/null; then
-        if systemctl is-active --quiet "${SERVICE_NAME}.service" 2>/dev/null; then
-            return 0
-        fi
-    fi
-    return 1
-}
+# is_server_running() - now in lib/logging.sh
 
 # Send RCON command
 send_rcon() {
@@ -343,6 +324,19 @@ main() {
             if ! bash "${SCRIPT_DIR}/start.sh"; then
                 log_substep_last "Failed to start server!" "error"
                 rollback
+            fi
+
+            # Health verification after start
+            log_substep "Waiting for server initialization (30s)..."
+            sleep 30
+
+            if [[ -x "${SCRIPT_DIR}/health-check.sh" ]]; then
+                log_substep "Verifying server health..."
+                if bash "${SCRIPT_DIR}/health-check.sh" --quiet 2>/dev/null; then
+                    log_substep "Server health verified" "ok"
+                else
+                    log_warn "Server started but health check failed - verify manually"
+                fi
             fi
         fi
 

@@ -84,20 +84,8 @@ done
 # Helper Functions
 # -----------------------------------------------------------------------------
 
-# Check if server is already running
-is_server_running() {
-    if pgrep -f "mohist-1.20.1.*\.jar" > /dev/null 2>&1; then
-        return 0
-    fi
-
-    if command -v systemctl &>/dev/null && ! $FORCE_DIRECT; then
-        if systemctl is-active --quiet "${SERVICE_NAME}.service" 2>/dev/null; then
-            return 0
-        fi
-    fi
-
-    return 1
-}
+# is_server_running() - now in lib/logging.sh
+# Note: Use is_server_running "$FORCE_DIRECT" for direct mode check
 
 # Check if systemd is available and service is installed
 use_systemd() {
@@ -116,15 +104,7 @@ use_systemd() {
     return 1
 }
 
-# Get file size (cross-platform)
-get_file_size() {
-    local file="$1"
-    if [[ "$(uname)" == "Darwin" ]]; then
-        stat -f%z "$file" 2>/dev/null || echo "0"
-    else
-        stat -c%s "$file" 2>/dev/null || echo "0"
-    fi
-}
+# Note: get_file_size() is in lib/logging.sh
 
 # Wait for port to be available
 wait_for_port() {
@@ -184,7 +164,7 @@ main() {
     log_step "Pre-flight validation"
 
     # Check if already running
-    if is_server_running; then
+    if is_server_running "$FORCE_DIRECT"; then
         log_substep "Server is already running" "warn"
         log_info "Use 'sudo systemctl restart ${SERVICE_NAME}' to restart"
         exit 0
@@ -300,7 +280,7 @@ main() {
     # Step 4: Final status
     log_step "Verification"
 
-    if is_server_running; then
+    if is_server_running "$FORCE_DIRECT"; then
         log_substep_last "Server is running" "ok"
         print_footer "success" "$(get_elapsed)" "Status: RUNNING"
     else
