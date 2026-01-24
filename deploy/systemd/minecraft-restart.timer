@@ -1,0 +1,18 @@
+[Unit]
+Description=Daily Minecraft Server Restart Timer
+Documentation=https://github.com/your-repo/kibermine-server
+Requires=minecraft-restart.service
+
+[Timer]
+# Run daily at 4:00 AM (low-traffic time)
+OnCalendar=daily
+OnCalendar=*-*-* 04:00:00
+
+# If system was down at scheduled time, run on next boot
+Persistent=true
+
+# Random delay to avoid exact timing (0-5 minutes)
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

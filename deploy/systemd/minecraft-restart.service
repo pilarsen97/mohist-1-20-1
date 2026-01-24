@@ -1,0 +1,22 @@
+[Unit]
+Description=Scheduled Minecraft Server Restart
+Documentation=https://github.com/your-repo/kibermine-server
+After=minecraft.service
+
+[Service]
+Type=oneshot
+User=minecraft
+WorkingDirectory=/opt/minecraft
+ExecStart=/opt/minecraft/deploy/scheduled-restart.sh
+
+# Security
+PrivateTmp=yes
+NoNewPrivileges=yes
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=minecraft-restart
+
+[Install]
+WantedBy=multi-user.target
