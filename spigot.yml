@@ -72,12 +72,12 @@ world-settings:
     zombie-aggressive-towards-villager: true
     enable-zombie-pigmen-portal-spawns: true
     entity-activation-range:
-      animals: 32
+      animals: 20
       monsters: 32
       raiders: 48
       misc: 16
-      tick-inactive-villagers: true
-      ignore-spectators: false
+      tick-inactive-villagers: false
+      ignore-spectators: true
     max-tnt-per-tick: 10
     growth:
       cactus-modifier: 100

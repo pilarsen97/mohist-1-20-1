@@ -2,7 +2,7 @@
 #Mon Jan 04 00:51:00 MSK 2026
 
 motd=KIBERmax server
-rcon.password=qwerty123
+rcon.password=CHANGE_ME_GENERATE_WITH_openssl_rand_base64_16
 server-ip=localhost
 
 # ----------------------------

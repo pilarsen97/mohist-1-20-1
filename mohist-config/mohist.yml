@@ -91,7 +91,7 @@ permissions:
     console: false
     player: false
 world:
-  async_save: false
+  async_save: true
 message:
   require_forge: This server has mods that require Forge to be installed on the client.
     Contact your server admin for more details.
