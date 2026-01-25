@@ -19,6 +19,7 @@ MAX_RAM="6G"
 exec java \
     -Xms${MIN_RAM} \
     -Xmx${MAX_RAM} \
+    -Dlog4j.configurationFile=log4j2.xml \
     -XX:+UseG1GC \
     -XX:MaxGCPauseMillis=200 \
     -XX:+ParallelRefProcEnabled \
